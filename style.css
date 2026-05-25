@@ -1,0 +1,409 @@
+/* ================================= */
+/* BODY */
+/* ================================= */
+
+body{
+
+    margin:0;
+
+    background:#111;
+
+    color:white;
+
+    font-family:Arial, sans-serif;
+
+}
+
+/* ================================= */
+/* NAVBAR */
+/* ================================= */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    width:100%;
+
+    height:70px;
+
+    background:rgba(0,0,0,0.9);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 40px;
+
+    box-sizing:border-box;
+
+    z-index:9999;
+
+}
+
+/* LOGO */
+
+.logo-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.logo-area img{
+
+    height:35px;
+
+}
+
+.logo-area h1{
+
+    color:gold;
+
+    font-size:24px;
+
+}
+
+/* MENU */
+
+.menu{
+
+    display:flex;
+
+    gap:30px;
+
+    list-style:none;
+
+}
+
+.menu a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+.menu a:hover{
+
+    color:gold;
+
+}
+
+/* ================================= */
+/* DROPDOWN */
+/* ================================= */
+
+.dropdown{
+
+    position:relative;
+
+}
+
+.dropdown-menu{
+
+    display:none;
+
+    position:absolute;
+
+    top:35px;
+
+    left:0;
+
+    background:#222;
+
+    min-width:180px;
+
+    list-style:none;
+
+    padding:10px 0;
+
+    border-radius:10px;
+
+}
+
+.dropdown-menu li{
+
+    padding:10px 20px;
+
+}
+
+.dropdown:hover .dropdown-menu{
+
+    display:block;
+
+}
+
+/* ================================= */
+/* HERO SECTION */
+/* ================================= */
+
+.hero{
+
+    height:90vh;
+
+    background:url('images/banner.webp');
+
+    background-size:cover;
+
+    background-position:center;
+
+    position:relative;
+
+}
+
+/* DARK OVERLAY */
+
+.overlay{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding-left:80px;
+
+    box-sizing:border-box;
+
+}
+
+.overlay h2{
+
+    font-size:70px;
+
+    color:gold;
+
+    margin:0;
+
+}
+
+.overlay p{
+
+    font-size:24px;
+
+    margin-top:15px;
+
+}
+
+.overlay button{
+
+    width:180px;
+
+    padding:15px;
+
+    border:none;
+
+    background:gold;
+
+    color:black;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    border-radius:5px;
+
+    margin-top:25px;
+
+    cursor:pointer;
+
+}
+
+/* ================================= */
+/* CONTENT ROWS */
+/* ================================= */
+
+.content-row{
+
+    padding:40px;
+
+}
+
+.content-row h2{
+
+    margin-bottom:20px;
+
+    color:gold;
+
+}
+
+/* CARD ROW */
+
+.card-row{
+
+    display:flex;
+
+    gap:20px;
+
+    overflow-x:auto;
+
+    padding-bottom:10px;
+
+}
+
+/* VIDEO CARD */
+
+.video-card{
+
+    min-width:260px;
+
+    background:#1c1c1c;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    transition:0.3s;
+
+}
+
+.video-card:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* VIDEO IMAGE */
+
+.video-card img{
+
+    width:100%;
+
+    height:160px;
+
+    object-fit:cover;
+
+}
+
+.video-card h3{
+
+    padding:15px;
+
+}
+
+/* AUDIO CARD */
+
+.audio-card{
+
+    min-width:220px;
+
+    background:#222;
+
+    padding:40px;
+
+    border-radius:10px;
+
+    font-size:22px;
+
+    text-align:center;
+
+}
+
+/* BOOK CARD */
+
+.book-card{
+
+    min-width:220px;
+
+    background:#1d1d1d;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.book-card img{
+
+    width:100%;
+
+    height:300px;
+
+    object-fit:cover;
+
+}
+
+.book-card p{
+
+    padding:15px;
+
+}
+
+/* FOOTER */
+
+footer{
+
+    background:black;
+
+    text-align:center;
+
+    padding:30px;
+
+    margin-top:40px;
+
+}
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        height:auto;
+
+        padding:20px;
+
+    }
+
+    .menu{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        margin-top:15px;
+
+    }
+
+    .overlay{
+
+        padding-left:20px;
+
+    }
+
+    .overlay h2{
+
+        font-size:40px;
+
+    }
+
+    .overlay p{
+
+        font-size:18px;
+
+    }
+
+}
