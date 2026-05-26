@@ -46,10 +46,45 @@ a{
 
 #viewer{
     position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:black;
-    display:none;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOP BAR */
+#topbar{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 15px;
+    background:#111;
+    color:white;
+    font-size:14px;
+}
+
+#topbar span{
+    cursor:pointer;
+}
+
+/* PDF */
+#pdfFrame{
+    flex:1;
+    width:100%;
+    border:none;
+}
+
+/* FULLSCREEN MODE */
+.fullscreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:99999;
 }
 
 #pdfFrame{
@@ -76,9 +111,17 @@ a{
 <div class="grid" id="grid"></div>
 
 <!-- VIEWER -->
-<div id="viewer">
-    <div id="close" onclick="closeViewer()">✖ Close</div>
+<div id="viewer" style="display:none;">
+
+    <!-- TOP BAR -->
+    <div id="topbar">
+        <span onclick="closeViewer()">✖ Close</span>
+        <span onclick="toggleFullscreen()">⛶ Fullscreen</span>
+    </div>
+
+    <!-- PDF -->
     <iframe id="pdfFrame"></iframe>
+
 </div>
 
 <script>
@@ -126,15 +169,34 @@ fetch(API)
 });
 
 function openBook(url){
-    console.log("📖 Opening:", url);
-    document.getElementById("viewer").style.display = "block";
-    document.getElementById("pdfFrame").src = url;
+    const viewer = document.getElementById("viewer");
+    const frame = document.getElementById("pdfFrame");
+
+    viewer.style.display = "flex";
+    frame.src = url;
 }
 
 function closeViewer(){
-    document.getElementById("viewer").style.display = "none";
-    document.getElementById("pdfFrame").src = "";
+    const viewer = document.getElementById("viewer");
+    const frame = document.getElementById("pdfFrame");
+
+    viewer.style.display = "none";
+    frame.src = "";
 }
+
+// FULLSCREEN TOGGLE
+function toggleFullscreen(){
+    const viewer = document.getElementById("viewer");
+
+    viewer.classList.toggle("fullscreen");
+}
+
+// ESC key support
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        closeViewer();
+    }
+});
 
 </script>
 
