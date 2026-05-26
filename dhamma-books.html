@@ -90,6 +90,10 @@ body{
 
 <!-- BOOK GRID -->
 <div class="grid" id="grid"></div>
+    <div id="viewer" style="display:none;">
+    <div id="close" onclick="closeViewer()">✖ Close</div>
+    <iframe id="pdfFrame"></iframe>
+</div>
 
 <script>
 
@@ -129,6 +133,7 @@ fetch(API)
     "<div id='error'>Error loading books</div>";
 
 });
+    
 
 </script>
 
