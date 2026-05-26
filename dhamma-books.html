@@ -63,6 +63,14 @@ body{
     background:gold;
     color:black;
 }
+    #authorFilter{
+    margin-top:10px;
+    padding:8px 12px;
+    border-radius:15px;
+    border:none;
+    background:#222;
+    color:white;
+}
 
 /* GRID */
 .grid{
@@ -181,6 +189,10 @@ body{
     <button onclick="filterCategory('Meditation')">Meditation</button>
 </div>
 
+    <select id="authorFilter" onchange="filterAuthor()">
+    <option value="All">All Authors</option>
+</select>
+
 <!-- GRID -->
 <div class="grid" id="grid"></div>
 
@@ -209,7 +221,7 @@ fetch(API)
 
     allBooks = data;
     renderBooks(allBooks);
-
+    loadAuthors();
 })
 .catch(err => {
     document.getElementById("grid").innerHTML =
@@ -294,6 +306,24 @@ document.addEventListener("keydown", function(e){
     if(e.key === "Escape"){
         closeViewer();
     }
+    function loadAuthors(){
+
+    let select = document.getElementById("authorFilter");
+
+    // unique authors only
+    let authors = [...new Set(allBooks.map(book => book.author))];
+
+    authors.sort();
+
+    authors.forEach(author => {
+
+        select.innerHTML += `
+        <option value="${author}">
+            ${author}
+        </option>
+        `;
+    });
+}
 });
 
 </script>
