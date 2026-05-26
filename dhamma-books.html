@@ -4,12 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>නිපුණධම්ම දහම් පොත්</title>
-
-<link rel="stylesheet" href="style.css">
-
-<base href="/nipunadhamma-tv/">
+<title>Books Debug</title>
 
 <style>
 
@@ -20,74 +15,41 @@ body{
     font-family:sans-serif;
 }
 
-/* GRID */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:15px;
     padding:20px;
-    margin-top:80px;
 }
 
-/* CARD */
 .card{
     background:#1e1e1e;
     padding:15px;
     border-radius:12px;
 }
 
-/* COVER */
 .cover{
     width:100%;
-    height:180px;
+    height:160px;
     object-fit:cover;
-    border-radius:10px;
-    margin-bottom:10px;
 }
 
-/* TITLE */
-.title{
-    color:gold;
-    font-size:16px;
-    margin-bottom:5px;
+.title{ color:gold; }
 
-    word-wrap:break-word;
-    overflow-wrap:break-word;
+.small{ color:#bbb; font-size:12px; }
 
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-}
-
-/* SMALL */
-.small{
-    color:#bbb;
-    font-size:12px;
-}
-
-/* LINKS */
-.card a{
-    display:inline-block;
-    margin-top:10px;
-    margin-right:10px;
+a{
+    display:block;
+    margin-top:8px;
     color:#00ffcc;
-    text-decoration:none;
 }
 
-.card a:hover{
-    color:#00ffaa;
-}
-
-/* VIEWER */
 #viewer{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    top:0; left:0;
+    width:100%; height:100%;
     background:black;
-    z-index:9999;
+    display:none;
 }
 
 #pdfFrame{
@@ -100,15 +62,7 @@ body{
     position:absolute;
     top:10px;
     right:20px;
-    color:white;
-    font-size:20px;
     cursor:pointer;
-    z-index:10000;
-}
-
-#error{
-    padding:20px;
-    color:red;
 }
 
 </style>
@@ -117,31 +71,34 @@ body{
 
 <body>
 
-<!-- NAVBAR -->
-<div id="navbar"></div>
+<h2 style="padding:10px;">📚 Debug Book System</h2>
 
-<!-- BOOK GRID -->
 <div class="grid" id="grid"></div>
 
-<!-- PDF VIEWER -->
-<div id="viewer" style="display:none;">
+<!-- VIEWER -->
+<div id="viewer">
     <div id="close" onclick="closeViewer()">✖ Close</div>
     <iframe id="pdfFrame"></iframe>
 </div>
 
 <script>
 
-// 🚀 YOUR NEW API
 const API = "https://script.google.com/macros/s/AKfycbzClYZ5JVzY0nKKYrPKBWCCIZMsksAKnJA7pRp7sK7qoW93D7vDqs-pIPfs8g-hBAUIJw/exec";
+
+console.log("📡 API Loading...");
 
 fetch(API)
 .then(res => res.json())
 .then(data => {
 
+    console.log("📚 DATA RECEIVED:", data);
+
     let grid = document.getElementById("grid");
     grid.innerHTML = "";
 
     data.forEach(book => {
+
+        console.log("📖 BOOK:", book);
 
         grid.innerHTML += `
         <div class="card">
@@ -150,17 +107,13 @@ fetch(API)
 
             <div class="title">${book.title}</div>
 
-            <div class="small">✍ ${book.author}</div>
+            <div class="small">${book.author}</div>
 
-            <div class="small">📂 ${book.category}</div>
+            <div class="small">${book.category}</div>
 
-             <a href="javascript:void(0)" onclick="openBook('${book.view}')">📖 View</a>
-             
             <a href="${book.link}" target="_blank">📥 Download</a>
-            
-        
-           
-             
+
+            <a href="javascript:void(0)" onclick="openBook('${book.view}')">📖 View</a>
 
         </div>
         `;
@@ -169,13 +122,11 @@ fetch(API)
 
 })
 .catch(err => {
-    document.getElementById("grid").innerHTML =
-    "<div id='error'>Error loading books</div>";
+    console.error("❌ API ERROR:", err);
 });
 
-
-// 📖 VIEWER FUNCTIONS
 function openBook(url){
+    console.log("📖 Opening:", url);
     document.getElementById("viewer").style.display = "block";
     document.getElementById("pdfFrame").src = url;
 }
@@ -186,9 +137,6 @@ function closeViewer(){
 }
 
 </script>
-
-<!-- NAVBAR SCRIPT -->
-<script src="/nipunadhamma-tv/script.js"></script>
 
 </body>
 </html>
