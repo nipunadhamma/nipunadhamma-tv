@@ -155,6 +155,15 @@ fetch(API)
     document.getElementById("grid").innerHTML =
     "<div id='error'>Error loading books</div>";
 
+    function openBook(url){
+    document.getElementById("viewer").style.display = "block";
+    document.getElementById("pdfFrame").src = url;
+}
+
+function closeViewer(){
+    document.getElementById("viewer").style.display = "none";
+    document.getElementById("pdfFrame").src = "";
+}
 });
     
 
