@@ -131,24 +131,23 @@ fetch(API)
     let grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-   data.forEach(book => {
+  data.forEach(book => {
 
     grid.innerHTML += `
     <div class="card">
 
-        <img src="${book.cover}" class="cover">
-
         <div class="title">${book.title}</div>
 
-        <div class="small">✍ ${book.author}</div>
+        <div class="small">${book.author}</div>
 
-        <div class="small">📂 ${book.category}</div>
+        <div class="small">${book.category}</div>
 
         <a href="${book.link}" target="_blank">📥 Download</a>
 
+        <a href="#" onclick="openBook('${book.link}')">📖 View</a>
+
     </div>
     `;
-
 });
 })
 .catch(err => {
