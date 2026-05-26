@@ -5,7 +5,173 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>නිපුණධම්ම දහම් පොත්</title>
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>නිපුණධම්ම දහම් පොත්</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* fallback styles (if style.css missing anything) */
+
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:sans-serif;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 25px;
+    background:#000;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+/* LEFT SIDE (LOGO + TITLE) */
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-area img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+}
+
+.logo-area h1{
+    font-size:18px;   /* 👈 size control */
+    margin:0;
+    color:gold;
+}
+
+/* MENU */
+.menu{
+    list-style:none;
+    display:flex;
+    gap:15px;
+    margin:0;
+    padding:0;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.menu a:hover{
+    color:gold;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+/* CARD */
+.card{
+    background:#1e1e1e;
+    padding:15px;
+    border-radius:12px;
+}
+
+.title{
+    color:gold;
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.small{
+    color:#bbb;
+    font-size:12px;
+}
+
+a{
+    display:inline-block;
+    margin-top:10px;
+    color:#00ffcc;
+    text-decoration:none;
+}
+
+a:hover{
+    color:#00ffaa;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+    <div class="logo-area">
+        <img src="images/logo.webp" alt="Logo">
+        <h1>Nipunadhamma TV</h1>
+    </div>
+
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="#">Videos</a></li>
+        <li><a href="#">Audio</a></li>
+    </ul>
+
+</header>
+
+<!-- BOOK GRID -->
+<div class="grid" id="grid"></div>
+
+<script>
+
+// ✅ YOUR WORKING API
+const API = "https://script.google.com/macros/s/AKfycbxQEPo4ORZdSVxHFFSsO926gpbOEvMpnWUW_FjQiPKLc9Nf-BrCyQzdOyLuRubF43nG1w/exec";
+
+fetch(API)
+.then(res => res.json())
+.then(data => {
+
+    let grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    data.forEach(book => {
+
+        grid.innerHTML += `
+        <div class="card">
+            <div class="title">${book.title}</div>
+            <div class="small">✍ ${book.author}</div>
+            <div class="small">📂 ${book.category}</div>
+            <a href="${book.link}" target="_blank">📥 Download</a>
+        </div>
+        `;
+
+    });
+
+})
+.catch(err => {
+    document.getElementById("grid").innerHTML =
+    "<p style='padding:20px;color:red'>Error loading books</p>";
+});
+
+</script>
+
+</body>
+</html>
 <link rel="stylesheet" href="style.css">
 
 
