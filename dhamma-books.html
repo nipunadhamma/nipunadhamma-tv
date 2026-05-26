@@ -21,16 +21,15 @@ body{
     font-family:sans-serif;
 }
 
-/* PAGE HEADER (TITLE + SEARCH) */
+/* HEADER */
 .page-header{
-    padding:130px;
+    padding:30px 20px;
     text-align:center;
 }
 
 .page-header h2{
-    margin:0;
-    margin-bottom:10px;
     color:gold;
+    margin:0 0 10px 0;
 }
 
 /* SEARCH */
@@ -40,7 +39,6 @@ body{
     border-radius:20px;
     border:none;
     outline:none;
-    font-size:14px;
 }
 
 /* FILTERS */
@@ -63,13 +61,25 @@ body{
     background:gold;
     color:black;
 }
-    #authorFilter{
-    margin-top:10px;
-    padding:8px 12px;
-    border-radius:15px;
+
+/* AUTHOR BUTTONS */
+#authorButtons{
+    margin-top:15px;
+}
+
+#authorButtons button{
+    margin:5px;
+    padding:6px 12px;
     border:none;
-    background:#222;
+    border-radius:15px;
+    cursor:pointer;
+    background:#444;
     color:white;
+}
+
+#authorButtons button:hover{
+    background:gold;
+    color:black;
 }
 
 /* GRID */
@@ -170,7 +180,7 @@ body{
 <!-- NAVBAR -->
 <div id="navbar"></div>
 
-<!-- PAGE HEADER (TITLE + SEARCH) -->
+<!-- HEADER -->
 <div class="page-header">
 
     <h2>📚 Dhamma Books Library</h2>
@@ -183,15 +193,16 @@ body{
 
 <!-- FILTERS -->
 <div id="filters">
+
     <button onclick="filterCategory('All')">All</button>
     <button onclick="filterCategory('Dhamma')">Dhamma</button>
     <button onclick="filterCategory('Pirith')">Pirith</button>
     <button onclick="filterCategory('Meditation')">Meditation</button>
-</div>
 
-    <select id="authorFilter" onchange="filterAuthor()">
-    <option value="All">All Authors</option>
-</select>
+    <!-- AUTHOR BUTTONS -->
+    <div id="authorButtons"></div>
+
+</div>
 
 <!-- GRID -->
 <div class="grid" id="grid"></div>
@@ -220,13 +231,16 @@ fetch(API)
 .then(data => {
 
     allBooks = data;
+
     renderBooks(allBooks);
     loadAuthors();
+
 })
 .catch(err => {
     document.getElementById("grid").innerHTML =
     "<div id='error'>Error loading books</div>";
 });
+
 
 // RENDER BOOKS
 function renderBooks(data){
@@ -249,12 +263,13 @@ function renderBooks(data){
 
             <a href="${book.link}" target="_blank">📥 Download</a>
 
-            <a href="javascript:void(0)" onclick="openBook('${book.view}')">📖 View</a>
+            <a href="javascript:void(0)" onclick="openBook('${book.link}')">📖 View</a>
 
         </div>
         `;
     });
 }
+
 
 // SEARCH
 function filterBooks(){
@@ -268,6 +283,7 @@ function filterBooks(){
 
     renderBooks(filtered);
 }
+
 
 // CATEGORY FILTER
 function filterCategory(cat){
@@ -284,46 +300,69 @@ function filterCategory(cat){
     renderBooks(filtered);
 }
 
-// OPEN VIEWER
-function openBook(url){
-    document.getElementById("viewer").style.display = "flex";
-    document.getElementById("pdfFrame").src = url;
-}
 
-// CLOSE VIEWER
-function closeViewer(){
-    document.getElementById("viewer").style.display = "none";
-    document.getElementById("pdfFrame").src = "";
-}
+// AUTHOR BUTTONS
+function loadAuthors(){
 
-// FULLSCREEN
-function toggleFullscreen(){
-    document.getElementById("viewer").classList.toggle("fullscreen");
-}
+    let container = document.getElementById("authorButtons");
+    container.innerHTML = "";
 
-// ESC CLOSE
-document.addEventListener("keydown", function(e){
-    if(e.key === "Escape"){
-        closeViewer();
-    }
-    function loadAuthors(){
+    container.innerHTML += `
+        <button onclick="filterAuthor('All')">All Authors</button>
+    `;
 
-    let select = document.getElementById("authorFilter");
-
-    // unique authors only
     let authors = [...new Set(allBooks.map(book => book.author))];
 
     authors.sort();
 
     authors.forEach(author => {
 
-        select.innerHTML += `
-        <option value="${author}">
-            ${author}
-        </option>
+        container.innerHTML += `
+            <button onclick="filterAuthor('${author}')">
+                ${author}
+            </button>
         `;
     });
 }
+
+
+// AUTHOR FILTER
+function filterAuthor(author){
+
+    if(author === "All"){
+        renderBooks(allBooks);
+        return;
+    }
+
+    let filtered = allBooks.filter(book =>
+        book.author === author
+    );
+
+    renderBooks(filtered);
+}
+
+
+// VIEWER
+function openBook(url){
+    document.getElementById("viewer").style.display = "flex";
+    document.getElementById("pdfFrame").src = url;
+}
+
+function closeViewer(){
+    document.getElementById("viewer").style.display = "none";
+    document.getElementById("pdfFrame").src = "";
+}
+
+function toggleFullscreen(){
+    document.getElementById("viewer").classList.toggle("fullscreen");
+}
+
+
+// ESC CLOSE
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        closeViewer();
+    }
 });
 
 </script>
