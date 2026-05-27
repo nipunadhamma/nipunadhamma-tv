@@ -1,17 +1,18 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nipunadhamma TV</title>
+
 <style>
-
-/* =========================
-RESET
-========================= */
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
 width:100%;
 overflow-x:hidden;
 background:#070b14;
@@ -19,55 +20,10 @@ font-family:Arial,sans-serif;
 color:white;
 }
 
-/* =========================
-REMOVE BLOGGER SPACE
-========================= */
-
-.header-outer,
-.header-inner,
-.header-wrapper,
-.Header,
-#header,
-#Header1,
-.widget.Header,
-.blog-feeds,
-.feed-links{
-display:none !important;
-}
-
-.content-outer,
-.content-fauxcolumn-outer,
-.region-inner,
-.main-outer,
-.main-inner,
-.columns,
-.content-wrapper,
-.post-outer-container,
-.post-outer,
-.post,
-.post-body,
-.section,
-.widget,
-.widget-content{
-margin:0 !important;
-padding:0 !important;
-width:100% !important;
-max-width:100% !important;
-background:#070b14 !important;
-}
-
-/* =========================
-MAIN CONTAINER
-========================= */
-
 .container{
 width:100%;
 padding:10px;
 }
-
-/* =========================
-TOP TITLE
-========================= */
 
 .top-title{
 font-size:34px;
@@ -76,20 +32,11 @@ text-align:center;
 margin-bottom:20px;
 }
 
-/* =========================
-PLAYER LAYOUT
-========================= */
-
 .player-layout{
 display:grid;
 grid-template-columns:2.2fr 1fr;
 gap:15px;
-align-items:start;
 }
-
-/* =========================
-PLAYER
-========================= */
 
 .player-box{
 width:100%;
@@ -105,57 +52,41 @@ height:100%;
 border:none;
 }
 
-/* =========================
-VIDEO DETAILS
-========================= */
-
 .main-title{
 font-size:28px;
 font-weight:bold;
 margin-top:15px;
-line-height:1.5;
 }
 
 .main-speaker{
 font-size:15px;
-margin-top:10px;
 color:#cbd5e1;
+margin-top:8px;
 }
 
 .main-desc{
 font-size:14px;
-margin-top:10px;
-line-height:1.7;
 color:#94a3b8;
+margin-top:8px;
 }
-
-/* =========================
-SIDE PANEL
-========================= */
 
 .side-panel{
 background:#111827;
-border-radius:12px;
 padding:12px;
+border-radius:12px;
 }
 
 .side-title-head{
-font-size:22px;
+font-size:20px;
+margin-bottom:10px;
 font-weight:bold;
-margin-bottom:15px;
 }
 
 .side-videos{
 display:flex;
 flex-direction:column;
-gap:12px;
-max-height:720px;
-overflow-y:auto;
+gap:10px;
 }
-
-/* =========================
-SIDE VIDEO
-========================= */
 
 .side-video{
 display:flex;
@@ -164,526 +95,195 @@ background:#1e293b;
 padding:8px;
 border-radius:10px;
 cursor:pointer;
-transition:.3s;
-}
-
-.side-video:hover{
-background:#334155;
 }
 
 .side-thumb{
-width:140px;
-height:80px;
+width:120px;
+height:70px;
 object-fit:cover;
 border-radius:8px;
 }
 
-.side-content{
-flex:1;
-}
-
-.side-video-title{
-font-size:13px;
-font-weight:bold;
-line-height:1.4;
-margin-bottom:5px;
-}
-
-.side-video-speaker{
-font-size:11px;
-color:#94a3b8;
-}
-
-/* =========================
-SECTION TITLE
-========================= */
-
-.section-title{
-font-size:28px;
-font-weight:bold;
-margin:35px 0 20px;
-}
-
-/* =========================
-VIDEO GRID
-========================= */
-
 .video-grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-gap:18px;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:15px;
+margin-top:20px;
 }
-
-/* =========================
-VIDEO CARD
-========================= */
 
 .video-card{
 background:#111827;
 border-radius:12px;
 overflow:hidden;
 cursor:pointer;
-transition:.3s;
-}
-
-.video-card:hover{
-transform:scale(1.03);
 }
 
 .video-thumb{
 width:100%;
 aspect-ratio:16/9;
 object-fit:cover;
-display:block;
 }
 
 .video-content{
-padding:12px;
+padding:10px;
 }
 
 .video-title{
-font-size:15px;
+font-size:14px;
 font-weight:bold;
-line-height:1.4;
-margin-bottom:8px;
 }
 
 .video-desc{
 font-size:12px;
-line-height:1.5;
 color:#94a3b8;
-height:40px;
-overflow:hidden;
 }
-
-/* =========================
-PLAYLIST AREA
-========================= */
-
-.playlist-sections{
-display:flex;
-flex-direction:column;
-gap:40px;
-}
-
-/* =========================
-MOBILE
-========================= */
 
 @media(max-width:900px){
-
 .player-layout{
 grid-template-columns:1fr;
 }
-
-.top-title{
-font-size:26px;
 }
-
-.main-title{
-font-size:22px;
-}
-
-.video-grid{
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.side-thumb{
-width:110px;
-height:65px;
-}
-
-.container{
-padding:5px;
-}
-
-}
-
 </style>
+
+</head>
+
+<body>
 
 <div class="container">
 
-<div class="top-title">
-🎬 Nipunadhamma TV
-</div>
+<div class="top-title">🎬 Nipunadhamma TV</div>
 
 <div class="player-layout">
 
-<!-- PLAYER SIDE -->
-
 <div>
-
 <div class="player-box">
-
-<iframe
-id="mainPlayer"
-allowfullscreen>
-</iframe>
-
+<iframe id="mainPlayer"></iframe>
 </div>
 
-<div class="main-title" id="mainTitle">
-Loading...
+<div class="main-title" id="mainTitle">Loading...</div>
+<div class="main-speaker" id="mainSpeaker"></div>
+<div class="main-desc" id="mainDesc"></div>
 </div>
-
-<div class="main-speaker" id="mainSpeaker">
-Loading...
-</div>
-
-<div class="main-desc" id="mainDesc">
-Loading...
-</div>
-
-</div>
-
-<!-- SIDE VIDEOS -->
 
 <div class="side-panel">
-
-<div class="side-title-head" id="sideHead">
-📂 Related Videos
-</div>
-
-<div class="side-videos" id="sideVideos">
+<div class="side-title-head" id="sideHead">📂 Videos</div>
+<div class="side-videos" id="sideVideos"></div>
 </div>
 
 </div>
 
-</div>
-
-<!-- LATEST -->
-
-<div class="section-title">
-🔥 නවතම දේශනා
-</div>
-
-<div class="video-grid" id="latestVideos">
-</div>
-
-<!-- PLAYLISTS -->
-
-<div class="playlist-sections" id="playlistSections">
-</div>
+<div class="video-grid" id="latestVideos"></div>
 
 </div>
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-import {
-getDatabase,
-ref,
-onValue
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-/* =========================
-FIREBASE
-========================= */
-
+/* FIREBASE CONFIG */
 const firebaseConfig = {
-
 apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-
 authDomain: "nipunadhamma-video.firebaseapp.com",
-
-databaseURL:
-"https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-
+databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
 projectId: "nipunadhamma-video",
-
-storageBucket:
-"nipunadhamma-video.firebasestorage.app",
-
+storageBucket: "nipunadhamma-video.firebasestorage.app",
 messagingSenderId: "571055014816",
-
-appId:
-"1:571055014816:web:301e15593a7ab7dd591ac5"
-
+appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* =========================
-ELEMENTS
-========================= */
-
-const player =
-document.getElementById("mainPlayer");
-
-const titleBox =
-document.getElementById("mainTitle");
-
-const speakerBox =
-document.getElementById("mainSpeaker");
-
-const descBox =
-document.getElementById("mainDesc");
-
-const sideVideos =
-document.getElementById("sideVideos");
-
-const latestVideos =
-document.getElementById("latestVideos");
-
-const playlistSections =
-document.getElementById("playlistSections");
-
-const sideHead =
-document.getElementById("sideHead");
-
-/* =========================
-VIDEOS ARRAY
-========================= */
+/* ELEMENTS */
+const player = document.getElementById("mainPlayer");
+const titleBox = document.getElementById("mainTitle");
+const speakerBox = document.getElementById("mainSpeaker");
+const descBox = document.getElementById("mainDesc");
+const sideVideos = document.getElementById("sideVideos");
+const latestVideos = document.getElementById("latestVideos");
+const sideHead = document.getElementById("sideHead");
 
 let videos = [];
 
-/* =========================
-GET VIDEO ID
-========================= */
-
+/* GET ID */
 function getVideoId(url){
-
 if(!url) return "";
-
-try{
-
 if(url.includes("watch?v=")){
-
 return url.split("watch?v=")[1].split("&")[0];
-
 }
-
 if(url.includes("youtu.be/")){
-
 return url.split("youtu.be/")[1].split("?")[0];
-
 }
-
 return "";
-
-}catch{
-
-return "";
-
 }
 
-}
-
-/* =========================
-PLAY VIDEO
-========================= */
-
+/* PLAY */
 window.playVideo = function(index){
+const v = videos[index];
+const id = getVideoId(v.youtube);
 
-const data = videos[index];
+player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
 
-if(!data) return;
+titleBox.innerText = v.title;
+speakerBox.innerText = v.speaker;
+descBox.innerText = v.description;
 
-const videoId =
-getVideoId(data.youtube);
-
-player.src =
-`https://www.youtube.com/embed/${videoId}?autoplay=1`;
-
-titleBox.innerText =
-data.title || "";
-
-speakerBox.innerText =
-"🎙 " + (data.speaker || "");
-
-descBox.innerText =
-data.description || "";
-
-const currentPlaylist =
-data.playlist || "Other";
-
-sideHead.innerText =
-"📂 " + currentPlaylist;
-
-renderSideVideos(currentPlaylist,index);
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
+renderSide(index);
 }
 
-/* =========================
-SIDE VIDEOS
-========================= */
-
-function renderSideVideos(playlist,currentIndex){
-
+/* SIDE */
+function renderSide(current){
 sideVideos.innerHTML = "";
 
-videos.forEach((data,index)=>{
+videos.forEach((v,i)=>{
+if(i === current) return;
 
-if(index === currentIndex) return;
-
-if((data.playlist || "Other") !== playlist) return;
-
-const videoId =
-getVideoId(data.youtube);
-
-const thumb =
-`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+const id = getVideoId(v.youtube);
+const thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
 sideVideos.innerHTML += `
-
-<div
-class="side-video"
-onclick="playVideo(${index})">
-
-<img
-src="${thumb}"
-class="side-thumb">
-
-<div class="side-content">
-
-<div class="side-video-title">
-${data.title || ""}
+<div class="side-video" onclick="playVideo(${i})">
+<img src="${thumb}" class="side-thumb">
+<div>
+<div>${v.title}</div>
+<div style="font-size:11px;color:#94a3b8">${v.speaker}</div>
 </div>
-
-<div class="side-video-speaker">
-${data.speaker || ""}
-</div>
-
-</div>
-
-</div>
-
-`;
-
+</div>`;
 });
-
 }
 
-/* =========================
-VIDEO CARD
-========================= */
-
-function createVideoCard(data,index){
-
-const videoId =
-getVideoId(data.youtube);
-
-const thumb =
-`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-return `
-
-<div
-class="video-card"
-onclick="playVideo(${index})">
-
-<img
-src="${thumb}"
-class="video-thumb">
-
-<div class="video-content">
-
-<div class="video-title">
-${data.title || ""}
-</div>
-
-<div class="video-desc">
-${data.description || ""}
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================
-LOAD VIDEOS
-========================= */
-
-onValue(ref(db,"videos"),(snapshot)=>{
-
+/* LOAD DATA */
+onValue(ref(db,"videos"),(snap)=>{
 videos = [];
 
-snapshot.forEach((child)=>{
-
+snap.forEach(child=>{
 videos.push(child.val());
-
 });
 
 videos.reverse();
 
-latestVideos.innerHTML = "";
-playlistSections.innerHTML = "";
-
+/* first video play */
 if(videos.length > 0){
-
 playVideo(0);
-
 }
 
-/* LATEST */
-
-videos.slice(0,8).forEach((video,index)=>{
-
-latestVideos.innerHTML +=
-createVideoCard(video,index);
-
-});
-
-/* PLAYLISTS */
-
-const playlists = {};
-
-videos.forEach((video,index)=>{
-
-const playlist =
-video.playlist || "Other";
-
-if(!playlists[playlist]){
-
-playlists[playlist] = [];
-
-}
-
-playlists[playlist].push({
-video,
-index
-});
-
-});
-
-Object.keys(playlists).forEach((playlist)=>{
-
-playlistSections.innerHTML += `
-
-<div>
-
-<div class="section-title">
-📂 ${playlist}
+/* latest grid */
+latestVideos.innerHTML = "";
+videos.slice(0,8).forEach((v,i)=>{
+latestVideos.innerHTML += `
+<div class="video-card" onclick="playVideo(${i})">
+<img class="video-thumb" src="https://img.youtube.com/vi/${getVideoId(v.youtube)}/hqdefault.jpg">
+<div class="video-content">
+<div class="video-title">${v.title}</div>
+<div class="video-desc">${v.description}</div>
 </div>
-
-<div class="video-grid">
-
-${playlists[playlist].map(item =>
-createVideoCard(item.video,item.index)
-).join("")}
-
-</div>
-
-</div>
-
-`;
-
+</div>`;
 });
 
 });
 
 </script>
+
+</body>
+</html>
