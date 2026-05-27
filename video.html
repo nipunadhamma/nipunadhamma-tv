@@ -5,7 +5,312 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nipunadhamma TV</title>
 
+<style><!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nipunadhamma TV</title>
+
 <style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+}
+
+/* NAV */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+background:#111;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+color:#ff0000;
+font-weight:bold;
+}
+
+select{
+padding:8px;
+border-radius:6px;
+}
+
+/* PLAYER */
+.player{
+width:100%;
+height:55vh;
+background:black;
+}
+
+.player iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+.title{
+padding:10px;
+font-size:18px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+gap:10px;
+padding:10px;
+}
+
+.card{
+background:#1f1f1f;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+transition:0.2s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
+height:100px;
+object-fit:cover;
+}
+
+.card p{
+padding:8px;
+font-size:13px;
+}
+
+/* QUEUE PANEL */
+.queue{
+padding:10px;
+background:#181818;
+margin:10px;
+border-radius:10px;
+}
+
+.queue-item{
+padding:8px;
+border-bottom:1px solid #333;
+cursor:pointer;
+}
+
+.queue-item:hover{
+background:#222;
+}
+
+/* MOBILE TOUCH OPTIMIZED */
+@media(max-width:600px){
+
+.player{
+height:35vh;
+}
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+
+<div class="logo">▶ Nipunadhamma TV</div>
+
+<select id="playlistSelect" onchange="filterPlaylist()">
+<option value="All">All Playlists</option>
+</select>
+
+</div>
+
+<!-- PLAYER -->
+<div class="player">
+<iframe id="player"></iframe>
+</div>
+
+<div class="title" id="title">Loading...</div>
+
+<!-- QUEUE -->
+<div class="queue">
+<h3>▶ Up Next</h3>
+<div id="queueList"></div>
+</div>
+
+<!-- GRID -->
+<div class="grid" id="grid"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+  authDomain: "nipunadhamma-video.firebaseapp.com",
+  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nipunadhamma-video",
+  storageBucket: "nipunadhamma-video.firebasestorage.app",
+  messagingSenderId: "571055014816",
+  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+let videos = [];
+let currentPlaylist = "All";
+
+/* LOAD DATA */
+onValue(ref(db,"videos"),(snap)=>{
+
+videos = [];
+
+snap.forEach(v=>{
+videos.push({...v.val(), id:v.key});
+});
+
+videos.reverse();
+
+fillPlaylistDropdown();
+render();
+playVideo(videos[0]);
+
+});
+
+/* PLAY VIDEO */
+function playVideo(v){
+
+const id = getId(v.youtube);
+
+document.getElementById("player").src =
+`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+
+document.getElementById("title").innerText = v.title;
+
+/* views */
+update(ref(db,"videos/"+v.id),{
+views:(v.views||0)+1
+});
+
+/* QUEUE */
+showQueue(v);
+}
+
+/* QUEUE SYSTEM */
+function showQueue(current){
+
+let filtered = videos.filter(v=>v.playlist === current.playlist);
+
+let html = "";
+
+filtered.forEach(v=>{
+
+html += `
+<div class="queue-item" onclick='playVideoGlobal(${JSON.stringify(v)})'>
+▶ ${v.title}
+</div>
+`;
+
+});
+
+document.getElementById("queueList").innerHTML = html;
+}
+
+/* GRID RENDER */
+function render(){
+
+let list = videos;
+
+if(currentPlaylist !== "All"){
+list = videos.filter(v=>v.playlist === currentPlaylist);
+}
+
+/* sort by views */
+list = list.sort((a,b)=>(b.views||0)-(a.views||0));
+
+let html = "";
+
+list.forEach(v=>{
+
+const id = getId(v.youtube);
+
+html += `
+<div class="card" onclick='playVideoGlobal(${JSON.stringify(v)})'>
+<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
+<p>${v.title}</p>
+</div>
+`;
+
+});
+
+document.getElementById("grid").innerHTML = html;
+
+}
+
+/* PLAY GLOBAL */
+window.playVideoGlobal = function(v){
+playVideo(v);
+}
+
+/* PLAYLIST DROPDOWN */
+function fillPlaylistDropdown(){
+
+let set = new Set();
+
+videos.forEach(v=>{
+set.add(v.playlist || "Other");
+});
+
+let html = `<option value="All">All Playlists</option>`;
+
+set.forEach(p=>{
+html += `<option value="${p}">${p}</option>`;
+});
+
+document.getElementById("playlistSelect").innerHTML = html;
+}
+
+/* FILTER */
+window.filterPlaylist = function(){
+
+currentPlaylist = document.getElementById("playlistSelect").value;
+
+render();
+
+}
+
+/* YT ID */
+function getId(url){
+if(!url) return "";
+if(url.includes("youtu.be/")){
+return url.split("/").pop();
+}
+if(url.includes("watch?v=")){
+return url.split("v=")[1].split("&")[0];
+}
+return "";
+}
+
+</script>
+
+</body>
+</html>
 body{
 margin:0;
 font-family:Arial;
