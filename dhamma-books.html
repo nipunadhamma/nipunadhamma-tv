@@ -1,375 +1,115 @@
 <!DOCTYPE html>
 <html lang="si">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>නිපුණධම්ම දහම් පොත්</title>
+    <style>
+        /* මූලික සැකසුම් */
+        body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+        .page-header { padding: 30px 20px; text-align: center; }
+        .page-header h2 { color: gold; margin: 0 0 10px 0; }
+        
+        /* සෙවුම් තීරුව - Responsive */
+        .page-header input { 
+            width: 90%; max-width: 500px; padding: 12px; 
+            border-radius: 25px; border: none; outline: none; 
+        }
 
-<title>නිපුණධම්ම දහම් පොත්</title>
+        /* ෆිල්ටර් බොත්තම් */
+        #filters { text-align: center; margin-bottom: 10px; }
+        #filters button { 
+            margin: 5px; padding: 6px 12px; border: none; 
+            border-radius: 15px; cursor: pointer; background: #222; color: white; 
+        }
+        #filters button:hover { background: gold; color: black; }
 
-<link rel="stylesheet" href="nipunadhamma/style.css">
-<link rel="stylesheet" href="nipunadhamma/navbar.css">
+        /* ග්‍රිඩ් සැකසුම */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; padding: 20px; }
+        .card { background: #1e1e1e; padding: 15px; border-radius: 12px; }
+        .cover { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .title { color: gold; font-size: 16px; margin-bottom: 5px; }
+        .small { color: #bbb; font-size: 12px; }
+        .card a { display: inline-block; margin-top: 10px; margin-right: 10px; color: #00ffcc; text-decoration: none; }
 
-<base href="/nipunadhamma/">
-
-<style>
-
-/* BODY */
-body{
-    margin:0;
-    background:#111;
-    color:white;
-    font-family:sans-serif;
-}
-
-/* HEADER */
-.page-header{
-    padding:30px 20px;
-    text-align:center;
-}
-
-.page-header h2{
-    color:gold;
-    margin:0 0 10px 0;
-}
-
-/* SEARCH */
-.page-header input{
-    width:60%;
-    padding:10px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-}
-
-/* FILTERS */
-#filters{
-    text-align:center;
-    margin-bottom:10px;
-}
-
-#filters button{
-    margin:5px;
-    padding:6px 12px;
-    border:none;
-    border-radius:15px;
-    cursor:pointer;
-    background:#222;
-    color:white;
-}
-
-#filters button:hover{
-    background:gold;
-    color:black;
-}
-
-/* AUTHOR BUTTONS */
-#authorButtons{
-    margin-top:15px;
-}
-
-#authorButtons button{
-    margin:5px;
-    padding:6px 12px;
-    border:none;
-    border-radius:15px;
-    cursor:pointer;
-    background:#444;
-    color:white;
-}
-
-#authorButtons button:hover{
-    background:gold;
-    color:black;
-}
-
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    padding:20px;
-}
-
-/* CARD */
-.card{
-    background:#1e1e1e;
-    padding:15px;
-    border-radius:12px;
-}
-
-/* COVER */
-.cover{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:10px;
-    margin-bottom:10px;
-}
-
-/* TITLE */
-.title{
-    color:gold;
-    font-size:16px;
-    margin-bottom:5px;
-}
-
-/* SMALL */
-.small{
-    color:#bbb;
-    font-size:12px;
-}
-
-/* LINKS */
-.card a{
-    display:inline-block;
-    margin-top:10px;
-    margin-right:10px;
-    color:#00ffcc;
-    text-decoration:none;
-}
-
-/* VIEWER */
-#viewer{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    z-index:9999;
-    display:none;
-    flex-direction:column;
-}
-
-/* TOP BAR */
-#topbar{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 15px;
-    background:#111;
-}
-
-/* PDF */
-#pdfFrame{
-    flex:1;
-    width:100%;
-    border:none;
-}
-
-/* FULLSCREEN */
-.fullscreen{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:99999;
-}
-
-#error{
-    padding:20px;
-    color:red;
-}
-
-</style>
-
+        /* PDF Viewer */
+        #viewer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 9999; display: none; flex-direction: column; }
+        #topbar { display: flex; justify-content: space-between; padding: 10px 15px; background: #111; }
+        #pdfFrame { flex: 1; width: 100%; border: none; }
+        .fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; }
+    </style>
 </head>
-
 <body>
-<script src="nipunadhamma/navbar.js"></script>
-<!-- NAVBAR -->
-<div id="navbar"></div>
 
-<!-- HEADER -->
-<div class="page-header">
+    <div id="navbar"></div>
 
-    <h2>📚 Dhamma Books Library</h2>
-
-    <input type="text" id="searchBox"
-           placeholder="🔎 Search books..."
-           onkeyup="filterBooks()">
-
-</div>
-
-<!-- FILTERS -->
-<div id="filters">
-
-    <button onclick="filterCategory('All')">All</button>
-    <button onclick="filterCategory('Dhamma')">Dhamma</button>
-    <button onclick="filterCategory('Pirith')">Pirith</button>
-    <button onclick="filterCategory('Meditation')">Meditation</button>
-
-    <!-- AUTHOR BUTTONS -->
-    <div id="authorButtons"></div>
-
-</div>
-
-<!-- GRID -->
-<div class="grid" id="grid"></div>
-
-<!-- VIEWER -->
-<div id="viewer">
-
-    <div id="topbar">
-        <span onclick="closeViewer()">✖ Close</span>
-        <span onclick="toggleFullscreen()">⛶ Fullscreen</span>
+    <div class="page-header">
+        <h2>📚 Dhamma Books Library</h2>
+        <input type="text" id="searchBox" placeholder="🔎 Search books..." onkeyup="filterBooks()">
     </div>
 
-    <iframe id="pdfFrame"></iframe>
+    <div id="filters">
+        <button onclick="filterCategory('All')">All</button>
+        <button onclick="filterCategory('Dhamma')">Dhamma</button>
+        <button onclick="filterCategory('Pirith')">Pirith</button>
+        <button onclick="filterCategory('Meditation')">Meditation</button>
+        <div id="authorButtons"></div>
+    </div>
 
-</div>
+    <div class="grid" id="grid"></div>
 
-<script>
-
-const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
-
-let allBooks = [];
-
-// LOAD DATA
-fetch(API)
-.then(res => res.json())
-.then(data => {
-
-    allBooks = data;
-
-    renderBooks(allBooks);
-    loadAuthors();
-
-})
-.catch(err => {
-    document.getElementById("grid").innerHTML =
-    "<div id='error'>Error loading books</div>";
-});
-
-
-// RENDER BOOKS
-function renderBooks(data){
-
-    let grid = document.getElementById("grid");
-    grid.innerHTML = "";
-
-    data.forEach(book => {
-
-        grid.innerHTML += `
-        <div class="card">
-
-            <img src="${book.cover}" class="cover">
-
-            <div class="title">${book.title}</div>
-
-            <div class="small">✍ ${book.author}</div>
-
-            <div class="small">📂 ${book.category}</div>
-
-            <a href="${book.link}" target="_blank">📥 Download</a>
-
-            <a href="javascript:void(0)" onclick="openBook('${book.link}')">📖 View</a>
-
+    <div id="viewer">
+        <div id="topbar">
+            <span onclick="closeViewer()" style="cursor:pointer">✖ Close</span>
+            <span onclick="toggleFullscreen()" style="cursor:pointer">⛶ Fullscreen</span>
         </div>
-        `;
-    });
-}
+        <iframe id="pdfFrame"></iframe>
+    </div>
 
+    <script>
+        const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
+        let allBooks = [];
 
-// SEARCH
-function filterBooks(){
+        fetch(API)
+        .then(res => res.json())
+        .then(data => {
+            allBooks = data;
+            renderBooks(allBooks);
+            loadAuthors();
+        });
 
-    let value = document.getElementById("searchBox").value.toLowerCase();
+        function renderBooks(data) {
+            let grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            data.forEach(book => {
+                grid.innerHTML += `
+                <div class="card">
+                    <img src="${book.cover}" class="cover" onerror="this.src='https://via.placeholder.com/220x180?text=No+Cover'">
+                    <div class="title">${book.title}</div>
+                    <div class="small">✍ ${book.author}</div>
+                    <div class="small">📂 ${book.category}</div>
+                    <a href="${book.link}" target="_blank">📥 Download</a>
+                    <a href="javascript:void(0)" onclick="openBook('${book.link}')">📖 View</a>
+                </div>`;
+            });
+        }
 
-    let filtered = allBooks.filter(book =>
-        book.title.toLowerCase().includes(value) ||
-        book.author.toLowerCase().includes(value)
-    );
+        function openBook(url) {
+            document.getElementById("viewer").style.display = "flex";
+            // Google Docs Viewer හරහා PDF විවෘත කිරීම
+            document.getElementById("pdfFrame").src = "https://docs.google.com/viewer?url=" + encodeURIComponent(url) + "&embedded=true";
+        }
 
-    renderBooks(filtered);
-}
+        function closeViewer() {
+            document.getElementById("viewer").style.display = "none";
+            document.getElementById("pdfFrame").src = "";
+        }
 
+        function toggleFullscreen() {
+            document.getElementById("viewer").classList.toggle("fullscreen");
+        }
 
-// CATEGORY FILTER
-function filterCategory(cat){
-
-    if(cat === "All"){
-        renderBooks(allBooks);
-        return;
-    }
-
-    let filtered = allBooks.filter(book =>
-        book.category.toLowerCase() === cat.toLowerCase()
-    );
-
-    renderBooks(filtered);
-}
-
-
-// AUTHOR BUTTONS
-function loadAuthors(){
-
-    let container = document.getElementById("authorButtons");
-    container.innerHTML = "";
-
-    container.innerHTML += `
-        <button onclick="filterAuthor('All')">All Authors</button>
-    `;
-
-    let authors = [...new Set(allBooks.map(book => book.author))];
-
-    authors.sort();
-
-    authors.forEach(author => {
-
-        container.innerHTML += `
-            <button onclick="filterAuthor('${author}')">
-                ${author}
-            </button>
-        `;
-    });
-}
-
-
-// AUTHOR FILTER
-function filterAuthor(author){
-
-    if(author === "All"){
-        renderBooks(allBooks);
-        return;
-    }
-
-    let filtered = allBooks.filter(book =>
-        book.author === author
-    );
-
-    renderBooks(filtered);
-}
-
-
-// VIEWER
-function openBook(url){
-    document.getElementById("viewer").style.display = "flex";
-    document.getElementById("pdfFrame").src = url;
-}
-
-function closeViewer(){
-    document.getElementById("viewer").style.display = "none";
-    document.getElementById("pdfFrame").src = "";
-}
-
-function toggleFullscreen(){
-    document.getElementById("viewer").classList.toggle("fullscreen");
-}
-
-
-// ESC CLOSE
-document.addEventListener("keydown", function(e){
-    if(e.key === "Escape"){
-        closeViewer();
-    }
-});
-
-</script>
-
-<!-- NAVBAR -->
-<script src="/navbar.js"></script>
-
+        // පෙර තිබූ අනවශ්‍ය දෙවන script ටැගය ඉවත් කරන ලදී.
+    </script>
 </body>
 </html>
