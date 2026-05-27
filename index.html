@@ -6,46 +6,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NIPUNADHAMMA නිපුණධම්ම</title>
+<title>නිපුණධම්ම TV</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
+
+<!-- =============================== -->
+<!-- NAVBAR -->
+<!-- =============================== -->
+
 <div id="navbar"></div>
 
-<script>
-fetch("navbar.html")
-.then(response => response.text())
-.then(data => {
-    document.getElementById("navbar").innerHTML = data;
-});
-</script>
-
-<!-- ================================= -->
+<!-- =============================== -->
 <!-- HERO SECTION -->
-<!-- ================================= -->
+<!-- =============================== -->
 
 <section class="hero">
 
 <div class="overlay">
 
-<h2>නිපුණධම්ම</h2>
+<h2>නිපුණධම්ම TV</h2>
 
 <p>
 බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්
 </p>
 
+<a href="dhamma-books.html">
 <button>Watch Now</button>
+</a>
 
 </div>
 
 </section>
 
-<!-- ================================= -->
-<!-- VIDEO ROW 1 -->
-<!-- ================================= -->
+<!-- =============================== -->
+<!-- LATEST SERMONS -->
+<!-- =============================== -->
 
 <section class="content-row">
 
@@ -54,52 +53,37 @@ fetch("navbar.html")
 <div class="card-row">
 
 <div class="video-card">
-
-<img src="images/thumb1.webp">
-
+<img src="images/thumb1.webp" alt="ධර්ම දේශනාව">
 <h3>ධර්ම දේශනාව 01</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb2.webp">
-
+<img src="images/thumb2.webp" alt="භාවනා">
 <h3>භාවනා වැඩසටහන</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb3.webp">
-
+<img src="images/thumb3.webp" alt="බෝධි පූජාව">
 <h3>බෝධි පූජාව</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb4.webp">
-
+<img src="images/thumb4.webp" alt="පින්කම">
 <h3>පින්කම</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb5.webp">
-
+<img src="images/thumb5.webp" alt="පිරිත්">
 <h3>පිරිත් දේශනාව</h3>
-
 </div>
 
 </div>
 
 </section>
 
-<!-- ================================= -->
-<!-- VIDEO ROW 2 -->
-<!-- ================================= -->
+<!-- =============================== -->
+<!-- POPULAR VIDEOS -->
+<!-- =============================== -->
 
 <section class="content-row">
 
@@ -108,52 +92,37 @@ fetch("navbar.html")
 <div class="card-row">
 
 <div class="video-card">
-
-<img src="images/thumb6.webp">
-
+<img src="images/thumb6.webp" alt="දේශනාව">
 <h3>දේශනාව</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb7.webp">
-
+<img src="images/thumb7.webp" alt="භාවනා">
 <h3>භාවනා</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb8.webp">
-
+<img src="images/thumb8.webp" alt="පූජාව">
 <h3>පූජාව</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb9.webp">
-
+<img src="images/thumb9.webp" alt="බණ">
 <h3>බණ</h3>
-
 </div>
 
 <div class="video-card">
-
-<img src="images/thumb10.webp">
-
+<img src="images/thumb10.webp" alt="ධර්මය">
 <h3>ධර්මය</h3>
-
 </div>
 
 </div>
 
 </section>
 
-<!-- ================================= -->
-<!-- AUDIO ROW -->
-<!-- ================================= -->
+<!-- =============================== -->
+<!-- MP3 AUDIO -->
+<!-- =============================== -->
 
 <section class="content-row">
 
@@ -162,98 +131,94 @@ fetch("navbar.html")
 <div class="card-row">
 
 <div class="audio-card">
-
 🎧 MP3 01
-
 </div>
 
 <div class="audio-card">
-
 🎧 MP3 02
-
 </div>
 
 <div class="audio-card">
-
 🎧 MP3 03
-
 </div>
 
 <div class="audio-card">
-
 🎧 MP3 04
-
 </div>
 
 </div>
 
 </section>
 
-<!-- ================================= -->
-<!-- BOOK ROW -->
-<!-- ================================= -->
+<!-- =============================== -->
+<!-- BUDDHIST BOOKS -->
+<!-- =============================== -->
 
 <section class="content-row">
 
-<h2>බෞද්ධ පොත් මැදුර</h2>
+<h2>Buddhist Books</h2>
 
 <div class="card-row">
 
+<a href="dhamma-books.html" class="book-link">
+
 <div class="book-card">
-
-<img src="images/book1.webp">
-
+<img src="images/book1.webp" alt="ධර්ම පොත">
 <p>ධර්ම පොත්</p>
-
 </div>
 
+</a>
+
+<a href="dhamma-books.html" class="book-link">
+
 <div class="book-card">
-
-<img src="images/book2.webp">
-
+<img src="images/book2.webp" alt="භාවනා පොත">
 <p>භාවනා පොත්</p>
-
 </div>
+
+</a>
+
+<a href="dhamma-books.html" class="book-link">
 
 <div class="book-card">
-
-<img src="images/book3.webp">
-
-<p>සූත්‍ර පොත්</p>
-
-</div>
-  <div class="book-card">
-
-<img src="images/book3.webp">
-
-<p>විනය පොත්</p>
-
-</div>
-
-  <div class="book-card">
-
-<img src="images/book3.webp">
-
+<img src="images/book3.webp" alt="බුදු දහම">
 <p>බුදු දහම</p>
-
 </div>
+
+</a>
 
 </div>
 
 </section>
 
-<!-- ================================= -->
+<!-- =============================== -->
 <!-- FOOTER -->
-<!-- ================================= -->
+<!-- =============================== -->
 
 <footer>
 
-<p>© 2026 Nipunadhamma</p>
+<p>© 2026 Nipunadhamma TV</p>
 
 </footer>
-  
-<script src="/nipunadhamma-tv/script.js"></script>
-  
+
+<!-- =============================== -->
+<!-- NAVBAR SCRIPT -->
+<!-- =============================== -->
+
+<script>
+
+fetch("./navbar.html")
+
+.then(response => response.text())
+
+.then(data => {
+
+document.getElementById("navbar").innerHTML = data;
+
+});
+
+</script>
+
 </body>
 
 </html>
