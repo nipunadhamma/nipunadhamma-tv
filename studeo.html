@@ -141,18 +141,20 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_AUTH_DOMAIN",
-databaseURL: "YOUR_DATABASE_URL",
-projectId: "YOUR_PROJECT_ID",
-appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+  authDomain: "nipunadhamma-video.firebaseapp.com",
+  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nipunadhamma-video",
+  storageBucket: "nipunadhamma-video.firebasestorage.app",
+  messagingSenderId: "571055014816",
+  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-const ADMINS = ["yourmail@gmail.com"];
+const ADMINS = ["kalawanesangamaji@gmail.com"];
 
 window.login = function(){
 const provider = new GoogleAuthProvider();
