@@ -14,12 +14,12 @@ background:#0f0f0f;
 color:white;
 }
 
-/* NAV */
-.navbar{
+/* NAVBAR */
+.nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:12px;
+padding:10px 15px;
 background:#111;
 position:sticky;
 top:0;
@@ -29,24 +29,26 @@ z-index:100;
 .logo{
 color:#ff0000;
 font-weight:bold;
+font-size:18px;
 }
 
-select{
-padding:8px;
-border-radius:6px;
+/* MAIN LAYOUT */
+.container{
+display:flex;
+gap:10px;
+padding:10px;
 }
 
-/* PLAYER */
+/* PLAYER AREA */
+.player-area{
+flex:2;
+}
+
 .player{
 width:100%;
-height:55vh;
-background:black;
-}
-
-.player iframe{
-width:100%;
-height:100%;
+height:60vh;
 border:none;
+background:black;
 }
 
 .title{
@@ -54,10 +56,37 @@ padding:10px;
 font-size:18px;
 }
 
-/* GRID */
+/* QUEUE SIDE PANEL */
+.queue{
+flex:1;
+background:#181818;
+border-radius:10px;
+padding:10px;
+height:70vh;
+overflow-y:auto;
+}
+
+.queue h3{
+margin-top:0;
+}
+
+.queue-item{
+padding:8px;
+margin-bottom:5px;
+background:#222;
+border-radius:6px;
+cursor:pointer;
+font-size:13px;
+}
+
+.queue-item:hover{
+background:#333;
+}
+
+/* GRID (HOME STYLE) */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
 gap:10px;
 padding:10px;
 }
@@ -76,7 +105,7 @@ transform:scale(1.05);
 
 .card img{
 width:100%;
-height:100px;
+height:110px;
 object-fit:cover;
 }
 
@@ -85,33 +114,20 @@ padding:8px;
 font-size:13px;
 }
 
-/* QUEUE PANEL */
-.queue{
-padding:10px;
-background:#181818;
-margin:10px;
-border-radius:10px;
-}
+/* MOBILE RESPONSIVE */
+@media(max-width:768px){
 
-.queue-item{
-padding:8px;
-border-bottom:1px solid #333;
-cursor:pointer;
+.container{
+flex-direction:column;
 }
-
-.queue-item:hover{
-background:#222;
-}
-
-/* MOBILE TOUCH OPTIMIZED */
-@media(max-width:600px){
 
 .player{
 height:35vh;
 }
 
-.grid{
-grid-template-columns:repeat(2,1fr);
+.queue{
+height:auto;
+order:2;
 }
 
 }
@@ -121,31 +137,26 @@ grid-template-columns:repeat(2,1fr);
 
 <body>
 
-<!-- NAV -->
-<div class="navbar">
-
+<div class="nav">
 <div class="logo">▶ Nipunadhamma TV</div>
-
-<select id="playlistSelect" onchange="filterPlaylist()">
-<option value="All">All Playlists</option>
-</select>
-
 </div>
 
-<!-- PLAYER -->
-<div class="player">
-<iframe id="player"></iframe>
-</div>
+<!-- PLAYER + QUEUE -->
+<div class="container">
 
+<div class="player-area">
+<iframe id="player" class="player"></iframe>
 <div class="title" id="title">Loading...</div>
+</div>
 
-<!-- QUEUE -->
 <div class="queue">
 <h3>▶ Up Next</h3>
 <div id="queueList"></div>
 </div>
 
-<!-- GRID -->
+</div>
+
+<!-- HOME GRID -->
 <div class="grid" id="grid"></div>
 
 <script type="module">
@@ -167,9 +178,8 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let videos = [];
-let currentPlaylist = "All";
 
-/* LOAD DATA */
+/* LOAD */
 onValue(ref(db,"videos"),(snap)=>{
 
 videos = [];
@@ -180,9 +190,11 @@ videos.push({...v.val(), id:v.key});
 
 videos.reverse();
 
-fillPlaylistDropdown();
-render();
+if(videos.length){
 playVideo(videos[0]);
+}
+
+renderGrid();
 
 });
 
@@ -201,18 +213,18 @@ update(ref(db,"videos/"+v.id),{
 views:(v.views||0)+1
 });
 
-/* QUEUE */
-showQueue(v);
+/* queue */
+renderQueue(v.playlist);
 }
 
-/* QUEUE SYSTEM */
-function showQueue(current){
+/* QUEUE (YouTube style) */
+function renderQueue(playlist){
 
-let filtered = videos.filter(v=>v.playlist === current.playlist);
+let list = videos.filter(v=>v.playlist===playlist);
 
 let html = "";
 
-filtered.forEach(v=>{
+list.forEach(v=>{
 
 html += `
 <div class="queue-item" onclick='playVideoGlobal(${JSON.stringify(v)})'>
@@ -223,23 +235,17 @@ html += `
 });
 
 document.getElementById("queueList").innerHTML = html;
+
 }
 
-/* GRID RENDER */
-function render(){
+/* GRID */
+function renderGrid(){
 
-let list = videos;
+let html="";
 
-if(currentPlaylist !== "All"){
-list = videos.filter(v=>v.playlist === currentPlaylist);
-}
+videos = videos.sort((a,b)=>(b.views||0)-(a.views||0));
 
-/* sort by views */
-list = list.sort((a,b)=>(b.views||0)-(a.views||0));
-
-let html = "";
-
-list.forEach(v=>{
+videos.forEach(v=>{
 
 const id = getId(v.youtube);
 
@@ -256,39 +262,11 @@ document.getElementById("grid").innerHTML = html;
 
 }
 
-/* PLAY GLOBAL */
 window.playVideoGlobal = function(v){
 playVideo(v);
 }
 
-/* PLAYLIST DROPDOWN */
-function fillPlaylistDropdown(){
-
-let set = new Set();
-
-videos.forEach(v=>{
-set.add(v.playlist || "Other");
-});
-
-let html = `<option value="All">All Playlists</option>`;
-
-set.forEach(p=>{
-html += `<option value="${p}">${p}</option>`;
-});
-
-document.getElementById("playlistSelect").innerHTML = html;
-}
-
-/* FILTER */
-window.filterPlaylist = function(){
-
-currentPlaylist = document.getElementById("playlistSelect").value;
-
-render();
-
-}
-
-/* YT ID */
+/* YOUTUBE ID */
 function getId(url){
 if(!url) return "";
 if(url.includes("youtu.be/")){
