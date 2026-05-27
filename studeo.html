@@ -1,21 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="si">
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Studio</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f19;
+color:white;
+}
+
+.center{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:15px;
+}
+
+button{
+padding:10px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.google{
+background:white;
+color:black;
+}
+
+.app{
+display:flex;
+}
+
+.sidebar{
+width:240px;
+height:100vh;
+background:#111827;
+padding:20px;
+position:fixed;
+}
+
+.sidebar h2{
+color:#e50914;
+}
+
+.main{
+margin-left:260px;
+padding:20px;
+width:100%;
+}
+
+.card{
+background:#141a2a;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:none;
+background:#1f2937;
+color:white;
+}
+
+.video{
+background:#1f2937;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.hidden{display:none;}
+
+</style>
 </head>
 
 <body>
 
-<h2>Admin Panel</h2>
+<div id="login" class="center">
+<h1>Admin Login</h1>
+<button class="google" onclick="login()">Google Login</button>
+</div>
 
-<input id="title" placeholder="Title"><br>
-<input id="youtube" placeholder="YouTube link"><br>
-<textarea id="desc" placeholder="Desc"></textarea><br>
+<div id="app" class="app hidden">
+
+<div class="sidebar">
+<h2>Studio</h2>
+<p id="email"></p>
+<a href="index.html">🏠 Home</a>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="main">
+
+<div class="card">
+<h2>Upload Video</h2>
+<input id="title" placeholder="Title">
+<input id="youtube" placeholder="YouTube Link">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<select id="playlist">
+<option>Dhamma</option>
+<option>Stories</option>
+<option>Meditation</option>
+</select>
 
 <button onclick="upload()">Upload</button>
+</div>
 
+<div class="card">
+<h2>Videos</h2>
 <div id="list"></div>
+</div>
+
+<div class="card">
+<h2>📊 Analytics</h2>
+<p id="stats"></p>
+</div>
+
+</div>
+
+</div>
 
 <script type="module">
 
@@ -24,52 +141,56 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-  authDomain: "nipunadhamma-video.firebaseapp.com",
-  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "nipunadhamma-video",
-  storageBucket: "nipunadhamma-video.firebasestorage.app",
-  messagingSenderId: "571055014816",
-  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_AUTH_DOMAIN",
+databaseURL: "YOUR_DATABASE_URL",
+projectId: "YOUR_PROJECT_ID",
+appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-const ADMINS=["kalawanesangamaji@gmail.com"];
+const ADMINS = ["yourmail@gmail.com"];
 
-window.login=function(){
-signInWithPopup(auth,new GoogleAuthProvider());
+window.login = function(){
+const provider = new GoogleAuthProvider();
+signInWithPopup(auth, provider);
 }
 
-window.logout=function(){
+window.logout = function(){
 signOut(auth);
 }
 
 onAuthStateChanged(auth,(user)=>{
 
-if(!user){
-window.login();
-return;
-}
+if(user && ADMINS.includes(user.email)){
 
-if(!ADMINS.includes(user.email)){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+
+document.getElementById("email").innerText = user.email;
+
+loadVideos();
+
+}else if(user){
+
 alert("Not allowed");
 signOut(auth);
-return;
-}
 
-load();
+}
 
 });
 
-window.upload=function(){
+window.upload = function(){
 
 push(ref(db,"videos"),{
 title:title.value,
 youtube:youtube.value,
 desc:desc.value,
+playlist:playlist.value,
+views:0,
 time:Date.now()
 });
 
@@ -77,28 +198,38 @@ alert("Uploaded");
 
 }
 
-function load(){
+function loadVideos(){
 
 onValue(ref(db,"videos"),(snap)=>{
 
-let html="";
+let list = document.getElementById("list");
+list.innerHTML = "";
+
+let total = 0;
 
 snap.forEach(v=>{
-html+=`
-<div>
-${v.val().title}
-<button onclick="del('${v.key}')">Delete</button>
+
+let d = v.val();
+total++;
+
+list.innerHTML += `
+<div class="video">
+<b>${d.title}</b>
+<br>
+<button onclick="deleteVideo('${v.key}')">Delete</button>
 </div>
 `;
+
 });
 
-document.getElementById("list").innerHTML=html;
+document.getElementById("stats").innerText =
+"Total Videos: " + total;
 
 });
 
 }
 
-window.del=function(id){
+window.deleteVideo = function(id){
 remove(ref(db,"videos/"+id));
 }
 
