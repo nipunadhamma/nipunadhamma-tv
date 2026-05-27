@@ -1,142 +1,28 @@
 <!DOCTYPE html>
-<html lang="si">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nipunadhamma TV</title>
-
-<style>
-
-/* =========================
-BASE
-========================= */
-body{
-margin:0;
-font-family:Arial;
-background:#0b0f19;
-color:white;
-}
-
-/* =========================
-NAV
-========================= */
-.nav{
-padding:15px;
-background:#111827;
-font-size:22px;
-font-weight:bold;
-position:sticky;
-top:0;
-z-index:10;
-}
-
-/* =========================
-HERO
-========================= */
-.hero{
-position:relative;
-height:60vh;
-background:black;
-display:flex;
-align-items:flex-end;
-padding:20px;
-overflow:hidden;
-}
-
-.hero iframe{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0.6;
-border:none;
-}
-
-.hero h1{
-z-index:2;
-font-size:28px;
-}
-
-/* =========================
-ROWS
-========================= */
-.row{
-padding:20px;
-}
-
-.row h2{
-margin-bottom:10px;
-}
-
-.row-posters{
-display:flex;
-gap:10px;
-overflow-x:auto;
-}
-
-.card{
-min-width:200px;
-background:#1f2937;
-border-radius:10px;
-overflow:hidden;
-cursor:pointer;
-transition:0.3s;
-}
-
-.card:hover{
-transform:scale(1.05);
-}
-
-.card img{
-width:100%;
-height:120px;
-object-fit:cover;
-}
-
-.card p{
-padding:10px;
-font-size:14px;
-}
-
-/* =========================
-ADMIN LINK
-========================= */
-.admin{
-position:fixed;
-right:15px;
-bottom:15px;
-background:#e50914;
-padding:12px 15px;
-border-radius:50px;
-cursor:pointer;
-font-weight:bold;
-}
-
-</style>
+<title>Admin</title>
 </head>
 
 <body>
 
-<div class="nav">🎬 Nipunadhamma TV</div>
+<h2>Admin Panel</h2>
 
-<div class="hero">
-<iframe id="hero"></iframe>
-<h1 id="title">Loading...</h1>
-</div>
+<input id="title" placeholder="Title"><br>
+<input id="youtube" placeholder="YouTube link"><br>
+<textarea id="desc" placeholder="Desc"></textarea><br>
 
-<div id="content"></div>
+<button onclick="upload()">Upload</button>
 
-<div class="admin" onclick="goAdmin()">
-⚙ Admin
-</div>
+<div id="list"></div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* =========================
-FIREBASE CONFIG
-========================= */
 const firebaseConfig = {
   apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
   authDomain: "nipunadhamma-video.firebaseapp.com",
@@ -148,99 +34,72 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
-let videos = [];
+const ADMINS=["kalawanesangamaji@gmail.com"];
 
-/* =========================
-LOAD VIDEOS
-========================= */
+window.login=function(){
+signInWithPopup(auth,new GoogleAuthProvider());
+}
+
+window.logout=function(){
+signOut(auth);
+}
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+window.login();
+return;
+}
+
+if(!ADMINS.includes(user.email)){
+alert("Not allowed");
+signOut(auth);
+return;
+}
+
+load();
+
+});
+
+window.upload=function(){
+
+push(ref(db,"videos"),{
+title:title.value,
+youtube:youtube.value,
+desc:desc.value,
+time:Date.now()
+});
+
+alert("Uploaded");
+
+}
+
+function load(){
+
 onValue(ref(db,"videos"),(snap)=>{
 
-videos = [];
+let html="";
 
 snap.forEach(v=>{
-videos.push(v.val());
-});
-
-videos.reverse();
-
-if(videos.length>0){
-setHero(videos[0]);
-}
-
-render();
-
-});
-
-/* =========================
-HERO
-========================= */
-function setHero(v){
-
-const id = getId(v.youtube);
-
-document.getElementById("hero").src =
-`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
-
-document.getElementById("title").innerText = v.title;
-
-}
-
-/* =========================
-RENDER
-========================= */
-function render(){
-
-let html = `<div class="row">
-<h2>All Videos</h2>
-<div class="row-posters">`;
-
-videos.forEach(v=>{
-
-const id = getId(v.youtube);
-
-html += `
-<div class="card" onclick='setHeroGlobal(${JSON.stringify(v)})'>
-<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
-<p>${v.title}</p>
+html+=`
+<div>
+${v.val().title}
+<button onclick="del('${v.key}')">Delete</button>
 </div>
 `;
+});
+
+document.getElementById("list").innerHTML=html;
 
 });
 
-html += `</div></div>`;
-
-document.getElementById("content").innerHTML = html;
-
 }
 
-/* =========================
-GLOBAL HERO CLICK
-========================= */
-window.setHeroGlobal = function(v){
-setHero(v);
-}
-
-/* =========================
-ADMIN BUTTON
-========================= */
-window.goAdmin = function(){
-window.location.href = "admin.html";
-}
-
-/* =========================
-GET YOUTUBE ID
-========================= */
-function getId(url){
-if(!url) return "";
-if(url.includes("youtu.be/")){
-return url.split("/").pop();
-}
-if(url.includes("watch?v=")){
-return url.split("v=")[1].split("&")[0];
-}
-return "";
+window.del=function(id){
+remove(ref(db,"videos/"+id));
 }
 
 </script>
