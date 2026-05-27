@@ -6,182 +6,128 @@
 <title>Nipunadhamma TV</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html,body{
-width:100%;
-overflow-x:hidden;
-background:#070b14;
-font-family:Arial,sans-serif;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:#0b0f19;
 color:white;
+font-family:Arial;
+overflow-x:hidden;
 }
 
-.container{
-width:100%;
-padding:10px;
-}
-
-.top-title{
-font-size:34px;
+/* NAVBAR */
+.nav{
+padding:15px 25px;
+font-size:22px;
 font-weight:bold;
-text-align:center;
-margin-bottom:20px;
+color:#e50914;
 }
 
-.player-layout{
-display:grid;
-grid-template-columns:2.2fr 1fr;
-gap:15px;
-}
-
-.player-box{
+/* HERO */
+.hero{
 width:100%;
-aspect-ratio:16/9;
-background:black;
-border-radius:12px;
-overflow:hidden;
+height:60vh;
+position:relative;
+display:flex;
+align-items:flex-end;
+padding:30px;
+background:#000;
 }
 
-.player-box iframe{
-width:100%;
-height:100%;
-border:none;
+.hero iframe{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+opacity:0.6;
 }
 
-.main-title{
-font-size:28px;
+.hero-content{
+position:relative;
+z-index:2;
+}
+
+.hero-title{
+font-size:32px;
 font-weight:bold;
-margin-top:15px;
 }
 
-.main-speaker{
-font-size:15px;
-color:#cbd5e1;
-margin-top:8px;
+.hero-desc{
+color:#bbb;
+margin-top:10px;
+max-width:500px;
 }
 
-.main-desc{
-font-size:14px;
-color:#94a3b8;
-margin-top:8px;
+/* ROW */
+.row{
+margin-top:30px;
+padding:0 20px;
 }
 
-.side-panel{
-background:#111827;
-padding:12px;
-border-radius:12px;
-}
-
-.side-title-head{
-font-size:20px;
+.row h2{
 margin-bottom:10px;
-font-weight:bold;
+font-size:20px;
 }
 
-.side-videos{
+.row-posters{
 display:flex;
-flex-direction:column;
-gap:10px;
+gap:12px;
+overflow-x:auto;
+padding-bottom:10px;
 }
 
-.side-video{
-display:flex;
-gap:10px;
-background:#1e293b;
-padding:8px;
+.row-posters::-webkit-scrollbar{
+display:none;
+}
+
+/* CARD */
+.card{
+min-width:220px;
+background:#141a2a;
 border-radius:10px;
-cursor:pointer;
-}
-
-.side-thumb{
-width:120px;
-height:70px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.video-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.video-card{
-background:#111827;
-border-radius:12px;
 overflow:hidden;
 cursor:pointer;
+transition:0.3s;
 }
 
-.video-thumb{
+.card:hover{
+transform:scale(1.08);
+}
+
+.card img{
 width:100%;
-aspect-ratio:16/9;
+height:130px;
 object-fit:cover;
 }
 
-.video-content{
+.card p{
 padding:10px;
+font-size:13px;
 }
 
-.video-title{
-font-size:14px;
-font-weight:bold;
-}
-
-.video-desc{
-font-size:12px;
-color:#94a3b8;
-}
-
-@media(max-width:900px){
-.player-layout{
-grid-template-columns:1fr;
-}
-}
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="nav">🎬 Nipunadhamma TV</div>
 
-<div class="top-title">🎬 Nipunadhamma TV</div>
+<!-- HERO -->
+<div class="hero">
+<iframe id="heroPlayer"></iframe>
 
-<div class="player-layout">
-
-<div>
-<div class="player-box">
-<iframe id="mainPlayer"></iframe>
+<div class="hero-content">
+<div class="hero-title" id="heroTitle">Loading...</div>
+<div class="hero-desc" id="heroDesc"></div>
+</div>
 </div>
 
-<div class="main-title" id="mainTitle">Loading...</div>
-<div class="main-speaker" id="mainSpeaker"></div>
-<div class="main-desc" id="mainDesc"></div>
-</div>
-
-<div class="side-panel">
-<div class="side-title-head" id="sideHead">📂 Videos</div>
-<div class="side-videos" id="sideVideos"></div>
-</div>
-
-</div>
-
-<div class="video-grid" id="latestVideos"></div>
-
-</div>
+<!-- ROWS -->
+<div id="rows"></div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* FIREBASE CONFIG */
 const firebaseConfig = {
 apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
 authDomain: "nipunadhamma-video.firebaseapp.com",
@@ -195,93 +141,79 @@ appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* ELEMENTS */
-const player = document.getElementById("mainPlayer");
-const titleBox = document.getElementById("mainTitle");
-const speakerBox = document.getElementById("mainSpeaker");
-const descBox = document.getElementById("mainDesc");
-const sideVideos = document.getElementById("sideVideos");
-const latestVideos = document.getElementById("latestVideos");
-const sideHead = document.getElementById("sideHead");
-
 let videos = [];
 
 /* GET ID */
-function getVideoId(url){
+function getId(url){
 if(!url) return "";
-if(url.includes("watch?v=")){
-return url.split("watch?v=")[1].split("&")[0];
-}
 if(url.includes("youtu.be/")){
 return url.split("youtu.be/")[1].split("?")[0];
+}
+if(url.includes("watch?v=")){
+return url.split("watch?v=")[1].split("&")[0];
 }
 return "";
 }
 
-/* PLAY */
-window.playVideo = function(index){
-const v = videos[index];
-const id = getVideoId(v.youtube);
+/* HERO */
+function setHero(video){
+const id = getId(video.youtube);
 
-player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+document.getElementById("heroPlayer").src =
+`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
 
-titleBox.innerText = v.title;
-speakerBox.innerText = v.speaker;
-descBox.innerText = v.description;
-
-renderSide(index);
+document.getElementById("heroTitle").innerText = video.title;
+document.getElementById("heroDesc").innerText = video.description;
 }
 
-/* SIDE */
-function renderSide(current){
-sideVideos.innerHTML = "";
-
-videos.forEach((v,i)=>{
-if(i === current) return;
-
-const id = getVideoId(v.youtube);
-const thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-
-sideVideos.innerHTML += `
-<div class="side-video" onclick="playVideo(${i})">
-<img src="${thumb}" class="side-thumb">
-<div>
-<div>${v.title}</div>
-<div style="font-size:11px;color:#94a3b8">${v.speaker}</div>
-</div>
-</div>`;
+/* GROUP BY PLAYLIST */
+function groupByPlaylist(videos){
+const groups = {};
+videos.forEach(v=>{
+const p = v.playlist || "Others";
+if(!groups[p]) groups[p]=[];
+groups[p].push(v);
 });
+return groups;
 }
 
-/* LOAD DATA */
+/* RENDER */
 onValue(ref(db,"videos"),(snap)=>{
 videos = [];
-
-snap.forEach(child=>{
-videos.push(child.val());
-});
-
+snap.forEach(c=>videos.push(c.val()));
 videos.reverse();
 
-/* first video play */
-if(videos.length > 0){
-playVideo(0);
+if(videos.length>0){
+setHero(videos[0]);
 }
 
-/* latest grid */
-latestVideos.innerHTML = "";
-videos.slice(0,8).forEach((v,i)=>{
-latestVideos.innerHTML += `
-<div class="video-card" onclick="playVideo(${i})">
-<img class="video-thumb" src="https://img.youtube.com/vi/${getVideoId(v.youtube)}/hqdefault.jpg">
-<div class="video-content">
-<div class="video-title">${v.title}</div>
-<div class="video-desc">${v.description}</div>
+const rows = document.getElementById("rows");
+rows.innerHTML = "";
+
+const groups = groupByPlaylist(videos);
+
+Object.keys(groups).forEach(name=>{
+rows.innerHTML += `
+<div class="row">
+<h2>${name}</h2>
+<div class="row-posters">
+${groups[name].map(v=>{
+const id = getId(v.youtube);
+return `
+<div class="card" onclick='setHero(${JSON.stringify(v)})'>
+<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
+<p>${v.title}</p>
 </div>
-</div>`;
+`;
+}).join("")}
+</div>
+</div>
+`;
 });
 
 });
+
+window.setHero = setHero;
 
 </script>
 
