@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Studio - Nipunadhamma TV</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f19;
+color:white;
+}
+
+/* LOGIN */
+.center{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:15px;
+}
+
+button{
+padding:12px 18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.google{
+background:white;
+color:black;
+}
+
+/* APP */
+.app{
+display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:240px;
+height:100vh;
+background:#111827;
+padding:20px;
+position:fixed;
+}
+
+.sidebar h2{
+color:#e50914;
+}
+
+.sidebar a, .sidebar button{
+display:block;
+margin-top:10px;
+padding:10px;
+background:#1f2937;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+text-decoration:none;
+}
+
+/* MAIN */
+.main{
+margin-left:260px;
+padding:20px;
+width:100%;
+}
+
+/* CARD */
+.card{
+background:#141a2a;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+/* INPUTS */
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+margin-bottom:10px;
+border-radius:8px;
+border:none;
+background:#1f2937;
+color:white;
+}
+
+/* VIDEO */
+.video{
+background:#1f2937;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.hidden{display:none;}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+LOGIN PAGE
+========================= -->
+<div id="loginPage" class="center">
+
+<h1>🎬 Admin Login</h1>
+
+<button class="google" onclick="login()">
+🔐 Sign in with Google
+</button>
+
+</div>
+
+<!-- =========================
+APP
+========================= -->
+<div id="app" class="app hidden">
+
+<div class="sidebar">
+
+<h2>Nipunadhamma TV</h2>
+
+<p id="userEmail"></p>
+
+<a href="index.html">🏠 Home</a>
+
+<button onclick="logout()">🚪 Logout</button>
+
+</div>
+
+<div class="main">
+
+<!-- UPLOAD -->
+<div class="card">
+
+<h2>🎥 Upload Video</h2>
+
+<input id="title" placeholder="Title">
+<input id="youtube" placeholder="YouTube Link">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<select id="playlist">
+<option>Dhamma</option>
+<option>Sermons</option>
+<option>Stories</option>
+<option>Meditation</option>
+<option>Other</option>
+</select>
+
+<button onclick="upload()">⬆ Upload</button>
+
+</div>
+
+<!-- VIDEO LIST -->
+<div class="card">
+
+<h2>📺 Uploaded Videos</h2>
+
+<div id="list"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+FIREBASE
+========================= -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getDatabase,
+ref,
+push,
+onValue,
+remove
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+  authDomain: "nipunadhamma-video.firebaseapp.com",
+  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nipunadhamma-video",
+  storageBucket: "nipunadhamma-video.firebasestorage.app",
+  messagingSenderId: "571055014816",
+  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+/* ONLY ADMIN EMAIL */
+const ADMIN_EMAIL = "kalawanesangamaji@gmail.com";
+
+/* LOGIN */
+window.login = function(){
+const provider = new GoogleAuthProvider();
+signInWithPopup(auth, provider);
+}
+
+/* LOGOUT */
+window.logout = function(){
+signOut(auth);
+}
+
+/* AUTH CHECK */
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+if(user.email !== ADMIN_EMAIL){
+alert("⛔ Not authorized!");
+signOut(auth);
+return;
+}
+
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+
+document.getElementById("userEmail").innerText =
+user.email;
+
+loadVideos();
+
+}else{
+
+document.getElementById("loginPage").classList.remove("hidden");
+document.getElementById("app").classList.add("hidden");
+
+}
+
+});
+
+/* UPLOAD */
+window.upload = function(){
+
+const title = document.getElementById("title").value;
+const youtube = document.getElementById("youtube").value;
+const desc = document.getElementById("desc").value;
+const playlist = document.getElementById("playlist").value;
+
+if(!title || !youtube){
+alert("Fill required fields");
+return;
+}
+
+push(ref(db,"videos"),{
+title,
+youtube,
+desc,
+playlist,
+time:Date.now()
+});
+
+alert("Uploaded ✅");
+
+document.getElementById("title").value="";
+document.getElementById("youtube").value="";
+document.getElementById("desc").value="";
+
+}
+
+/* LOAD VIDEOS */
+function loadVideos(){
+
+onValue(ref(db,"videos"),(snap)=>{
+
+const list = document.getElementById("list");
+list.innerHTML = "";
+
+snap.forEach(v=>{
+
+let d = v.val();
+
+list.innerHTML += `
+<div class="video">
+<b>${d.title}</b><br>
+<small>${d.playlist}</small>
+</div>
+`;
+
+});
+
+});
+
+}
+
+/* DELETE (optional future use) */
+window.deleteVideo = function(key){
+remove(ref(db,"videos/"+key));
+}
+
+</script>
+
+</body>
+</html>
