@@ -13,55 +13,42 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #2d0303;
-    color: rgb(188, 174, 12);
+    color: rgb(230, 183, 13);
 }
 .nav-left, .nav-right { display: flex; align-items: center; }
 .logo { width: 40px; height: 40px; margin-right: 10px; }
 .site-name { font-size: 20px; font-weight: bold; }
 .dropdown { position: relative; display: inline-block; }
-.dropbtn { background: none; border: none; color: rgb(209, 188, 26); cursor: pointer; padding: 10px; font-size: 16px; }
-/* --- NAVBAR & DROPDOWN STYLES --- */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #2d0303;
-    color: rgb(230, 183, 13);
-}
+.dropbtn { background: none; border: none; color: rgb(230, 183, 13); cursor: pointer; padding: 10px; font-size: 16px; }
 
-/* වීදුරු වැනි පෙනුම සඳහා කොටස */
+/* වීදුරු ආචරණය (Glassmorphism) */
 .dropdown-content {
     display: none;
     position: absolute;
     right: 0;
-    background: rgba(255, 255, 255, 0.1); /* 10% විනිවිදභාවය */
-    backdrop-filter: blur(10px);         /* බොඳ කිරීමේ ආචරණය */
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(45, 3, 3, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(230, 183, 13, 0.2);
     border-radius: 10px;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
     z-index: 1000;
 }
-
-/* අකුරු වෙනස් වීමේ ප්‍රයෝගය (Hover Effect) */
 .dropdown-content a {
-    color: rgb(208, 180, 20);
+    color: rgb(230, 183, 13);
     padding: 12px 16px;
     display: block;
     text-decoration: none;
-    transition: background 0.3s ease, color 0.3s ease; /* සෙමින් වෙනස් වීමට */
+    transition: 0.3s;
 }
-
 .dropdown-content a:hover {
-    background: rgba(255, 255, 255, 0.3); /* Hover වර්ණය */
-    color: #ffcc00;                       /* Hover කරන විට රන්වන් පැහැය */
-    cursor: pointer;
+    background: rgba(230, 183, 13, 0.2);
+    color: #fff;
 }
-
-/* Dropdown එක පෙන්වීමට */
 .dropdown:hover .dropdown-content { display: block; }
+
+/* Hamburger Menu */
+.menu-toggle { display: none; font-size: 28px; cursor: pointer; color: rgb(230, 183, 13); }
 
 /* PAGE STYLES */
 body { margin: 0; background: #950404; color: rgb(217, 209, 184); font-family: sans-serif; }
@@ -73,9 +60,19 @@ body { margin: 0; background: #950404; color: rgb(217, 209, 184); font-family: s
 footer { text-align: center; padding: 20px; color: #777; }
 
 /* Mobile Responsive */
-@media (max-width: 600px) {
-    .navbar { padding: 5px 10px; }
-    .site-name { font-size: 16px; }
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-right {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #2d0303;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+    .nav-right.active { display: flex; }
+    .nav-right a, .dropbtn { width: 100%; text-align: center; }
 }
 </style>
 </head>
@@ -87,38 +84,34 @@ footer { text-align: center; padding: 20px; color: #777; }
         <img src="images/logo.png" alt="Logo" class="logo">
         <span class="site-name">නිපුණධම්ම</span>
     </div>
-    <div class="nav-right">
-        <a href="index.html" style="color:rgb(224, 193, 20); text-decoration:none; margin-right:15px;">ආලින්දය</a>
+    
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-right" id="navMenu">
+        <a href="index.html" style="color:rgb(230, 183, 13); padding: 10px; text-decoration:none;">ආලින්දය</a>
+        
         <div class="dropdown">
-            <button class="dropbtn">පොත්</button>
+            <button class="dropbtn">පොත් ▼</button>
             <div class="dropdown-content">
                 <a href="dhamma-books.html">ධර්ම පොත්</a>
                 <a href="dhamma-books.html">භාවනා පොත්</a>
             </div>
         </div>
+
         <div class="dropdown">
-            <button class="video.html">ධම්මවාහිණී</button>
+            <button class="dropbtn">ධම්මවාහිණී ▼</button>
             <div class="dropdown-content">
                 <a href="video.html">වීඩියෝ</a>
                 <a href="#">ඕඩියෝ</a>
-            </div>
-        </div>
-         <div class="dropdown">
-            <button class="dropbtn">MENU</button>
-            <div class="dropdown-content">
-                <a href="dhamma-books.html">ධර්ම පොත්</a>
-                <a href="dhamma-books.html">භාවනා පොත්</a>
             </div>
         </div>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="overlay">
-        <h2>නිපුණධම්ම</h2>
-        <p>බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්</p>
-        <a href="video.html"><button>Watch Now</button></a>
-    </div>
+    <h2>නිපුණධම්ම</h2>
+    <p>බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්</p>
+    <a href="video.html"><button>Watch Now</button></a>
 </section>
 
 <section class="content-row">
@@ -126,51 +119,14 @@ footer { text-align: center; padding: 20px; color: #777; }
     <div class="card-row">
         <div class="video-card"><img src="images/thumb1.webp" alt="ධර්ම දේශනාව"><h3>ධර්ම දේශනාව 01</h3></div>
         <div class="video-card"><img src="images/thumb2.webp" alt="භාවනා"><h3>භාවනා වැඩසටහන</h3></div>
-        <div class="video-card"><img src="images/thumb3.webp" alt="බෝධි පූජාව"><h3>බෝධි පූජාව</h3></div>
-        <div class="video-card"><img src="images/thumb4.webp" alt="පින්කම"><h3>පින්කම</h3></div>
-        <div class="video-card"><img src="images/thumb5.webp" alt="පිරිත්"><h3>පිරිත් දේශනාව</h3></div>
     </div>
 </section>
 
-<section class="content-row">
-    <h2>Popular Videos</h2>
-    <div class="card-row">
-        <div class="video-card"><img src="images/thumb6.webp" alt="දේශනාව"><h3>දේශනාව</h3></div>
-        <div class="video-card"><img src="images/thumb7.webp" alt="භාවනා"><h3>භාවනා</h3></div>
-        <div class="video-card"><img src="images/thumb8.webp" alt="පූජාව"><h3>පූජාව</h3></div>
-        <div class="video-card"><img src="images/thumb9.webp" alt="බණ"><h3>බණ</h3></div>
-        <div class="video-card"><img src="images/thumb10.webp" alt="ධර්මය"><h3>ධර්මය</h3></div>
-    </div>
-</section>
-
-<section class="content-row">
-    <h2>MP3 Audio</h2>
-    <div class="card-row">
-        <div class="audio-card">🎧 MP3 01</div>
-        <div class="audio-card">🎧 MP3 02</div>
-        <div class="audio-card">🎧 MP3 03</div>
-        <div class="audio-card">🎧 MP3 04</div>
-    </div>
-</section>
-
-<section class="content-row">
-    <h2>Buddhist Books</h2>
-    <div class="card-row">
-        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
-            <div class="book-card"><img src="images/book1.webp" alt="ධර්ම පොත"><p>ධර්ම පොත්</p></div>
-        </a>
-        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
-            <div class="book-card"><img src="images/book2.webp" alt="භාවනා පොත"><p>භාවනා පොත්</p></div>
-        </a>
-        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
-            <div class="book-card"><img src="images/book3.webp" alt="බුදු දහම"><p>බුදු දහම</p></div>
-        </a>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 Nipunadhamma</p>
-</footer>
+<script>
+function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
