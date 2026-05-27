@@ -20,9 +20,26 @@
 .site-name { font-size: 20px; font-weight: bold; }
 .dropdown { position: relative; display: inline-block; }
 .dropbtn { background: none; border: none; color: white; cursor: pointer; padding: 10px; font-size: 16px; }
-.dropdown-content { display: none; position: absolute; right: 0; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1000; }
-.dropdown-content a { color: black; padding: 12px 16px; display: block; text-decoration: none; }
+
+/* Glassmorphism Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+.dropdown-content a { color: white; padding: 12px 16px; display: block; text-decoration: none; transition: 0.3s; }
+.dropdown-content a:hover { background: rgba(255, 255, 255, 0.3); color: #ffcc00; }
 .dropdown:hover .dropdown-content { display: block; }
+
+/* Hamburger Menu Toggle */
+.menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
 
 /* BODY & OTHER STYLES */
 body{ margin:0; background:#111; color:white; font-family:sans-serif; }
@@ -48,11 +65,20 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
 #error{ padding:20px; color:red; }
 
 /* Responsive Media Query */
-@media (max-width: 600px) {
-    .navbar { padding: 5px 10px; }
-    .site-name { font-size: 16px; }
-    .logo { width: 30px; height: 30px; }
-    .dropbtn { font-size: 14px; padding: 5px; }
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-right {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #222;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+    }
+    .nav-right.active { display: flex; }
+    .nav-right a, .dropbtn { width: 100%; text-align: center; padding: 15px; }
 }
 </style>
 </head>
@@ -64,8 +90,9 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
         <img src="images/logo.png" alt="Logo" class="logo">
         <span class="site-name">නිපුණධම්ම</span>
     </div>
-    <div class="nav-right">
-        <a href="index.html" style="color:white; text-decoration:none; margin-right:15px;">Home</a>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-right" id="navMenu">
+        <a href="index.html" style="color:white; text-decoration:none; padding:10px;">Home</a>
         <div class="dropdown">
             <button class="dropbtn">MENU ▼</button>
             <div class="dropdown-content">
@@ -100,6 +127,8 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
 </div>
 
 <script>
+function toggleMenu() { document.getElementById("navMenu").classList.toggle("active"); }
+
 const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
 let allBooks = [];
 
