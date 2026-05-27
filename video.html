@@ -3,304 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nipunadhamma TV</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-}
-
 body{
-font-family:Arial, sans-serif;
-background:
-linear-gradient(
-to bottom,
-#000814,
-#0b0f19
-);
+margin:0;
+font-family:Arial;
+background:#0b0f19;
 color:white;
-overflow-x:hidden;
 }
 
-/* =========================
-NAVBAR
-========================= */
-
+/* NAV */
 .nav{
-position:fixed;
+padding:15px;
+font-size:22px;
+background:#111827;
+position:sticky;
 top:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 30px;
-z-index:999;
-backdrop-filter:blur(12px);
-background:rgba(0,0,0,0.4);
-border-bottom:1px solid rgba(255,255,255,0.08);
 }
-
-.logo{
-font-size:26px;
-font-weight:bold;
-color:#e50914;
-}
-
-#search{
-padding:11px 18px;
-border:none;
-border-radius:30px;
-background:#1c2333;
-color:white;
-outline:none;
-width:240px;
-font-size:14px;
-}
-
-/* =========================
-HERO
-========================= */
 
 .hero{
-position:relative;
-width:100%;
-height:70vh;
-overflow:hidden;
+height:60vh;
+background:#000;
 display:flex;
 align-items:flex-end;
-padding:40px;
-margin-top:70px;
-background:black;
+padding:20px;
+position:relative;
 }
 
 .hero iframe{
 position:absolute;
-top:0;
-left:0;
 width:100%;
 height:100%;
-border:none;
 opacity:0.6;
-pointer-events:none;
 }
 
-.hero::after{
-content:'';
-position:absolute;
-left:0;
-bottom:0;
-width:100%;
-height:60%;
-background:linear-gradient(
-to top,
-#0b0f19,
-transparent
-);
-z-index:1;
-}
-
-.hero-content{
-position:relative;
+.hero h1{
 z-index:2;
-max-width:600px;
 }
 
-.hero-title{
-font-size:42px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-.hero-desc{
-font-size:15px;
-line-height:1.7;
-color:#d0d0d0;
-margin-bottom:20px;
-}
-
-.hero-buttons{
-display:flex;
-gap:15px;
-}
-
-.btn{
-padding:12px 22px;
-border:none;
-border-radius:30px;
-cursor:pointer;
-font-weight:bold;
-transition:0.3s;
-}
-
-.play-btn{
-background:#e50914;
-color:white;
-}
-
-.play-btn:hover{
-background:#ff1e28;
-}
-
-.info-btn{
-background:rgba(255,255,255,0.12);
-color:white;
-}
-
-.info-btn:hover{
-background:rgba(255,255,255,0.2);
-}
-
-/* =========================
-ROWS
-========================= */
-
+/* ROW */
 .row{
-margin-top:35px;
-padding:0 20px;
+padding:20px;
 }
 
 .row h2{
-font-size:24px;
-margin-bottom:15px;
-padding-left:8px;
-position:relative;
-}
-
-.row h2::before{
-content:'';
-position:absolute;
-left:-5px;
-top:0;
-width:4px;
-height:100%;
-background:#e50914;
-border-radius:20px;
+margin-bottom:10px;
 }
 
 .row-posters{
 display:flex;
-gap:14px;
+gap:10px;
 overflow-x:auto;
-padding-bottom:10px;
 }
-
-.row-posters::-webkit-scrollbar{
-display:none;
-}
-
-/* =========================
-CARD
-========================= */
 
 .card{
-position:relative;
-min-width:250px;
-background:#141a2a;
-border-radius:14px;
+min-width:200px;
+background:#1f2937;
+border-radius:10px;
 overflow:hidden;
 cursor:pointer;
-transition:0.35s;
-flex-shrink:0;
-}
-
-.card:hover{
-transform:scale(1.08) translateY(-5px);
-box-shadow:0 15px 35px rgba(0,0,0,0.5);
 }
 
 .card img{
 width:100%;
-height:150px;
+height:120px;
 object-fit:cover;
-transition:0.4s;
 }
 
-.card:hover img{
-transform:scale(1.1);
-}
-
-.card-content{
-padding:12px;
-}
-
-.card-title{
+.card p{
+padding:10px;
 font-size:14px;
-font-weight:bold;
-margin-bottom:6px;
-}
-
-.card-playlist{
-font-size:12px;
-color:#9ca3af;
-}
-
-/* =========================
-LOADER
-========================= */
-
-.loader{
-text-align:center;
-padding:60px;
-font-size:20px;
-color:#aaa;
-}
-
-/* =========================
-MOBILE
-========================= */
-
-@media(max-width:768px){
-
-.nav{
-padding:15px;
-}
-
-.logo{
-font-size:20px;
-}
-
-#search{
-width:140px;
-font-size:12px;
-padding:10px 15px;
-}
-
-.hero{
-height:50vh;
-padding:20px;
-}
-
-.hero-title{
-font-size:24px;
-}
-
-.hero-desc{
-font-size:13px;
-}
-
-.btn{
-padding:10px 18px;
-font-size:12px;
-}
-
-.card{
-min-width:170px;
-}
-
-.card img{
-height:100px;
-}
-
-.row h2{
-font-size:19px;
-}
-
 }
 
 </style>
@@ -308,348 +82,94 @@ font-size:19px;
 
 <body>
 
-<!-- =========================
-NAVBAR
-========================= -->
-
-<div class="nav">
-
-<div class="logo">
-🎬 Nipunadhamma TV
-</div>
-
-<input
-type="text"
-id="search"
-placeholder="Search videos..."
->
-
-</div>
-
-<!-- =========================
-HERO
-========================= -->
+<div class="nav">🎬 Nipunadhamma TV</div>
 
 <div class="hero">
-
-<iframe id="heroPlayer"></iframe>
-
-<div class="hero-content">
-
-<div class="hero-title" id="heroTitle">
-Loading...
+<iframe id="hero"></iframe>
+<h1 id="title">Loading...</h1>
 </div>
 
-<div class="hero-desc" id="heroDesc">
-Please wait...
-</div>
-
-<div class="hero-buttons">
-
-<button class="btn play-btn">
-▶ Watch Now
-</button>
-
-<button class="btn info-btn">
-ℹ More Info
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================
-ROWS
-========================= -->
-
-<div id="rows">
-
-<div class="loader">
-Loading videos...
-</div>
-
-</div>
-
-<!-- =========================
-FIREBASE + APP
-========================= -->
+<div id="content"></div>
 
 <script type="module">
 
-import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getDatabase,
-ref,
-onValue
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-/* =========================
-FIREBASE CONFIG
-========================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-
-authDomain:
-"nipunadhamma-video.firebaseapp.com",
-
-databaseURL:
-"https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-projectId:
-"nipunadhamma-video",
-
-storageBucket:
-"nipunadhamma-video.firebasestorage.app",
-
-messagingSenderId:
-"571055014816",
-
-appId:
-"1:571055014816:web:301e15593a7ab7dd591ac5"
-
+  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+  authDomain: "nipunadhamma-video.firebaseapp.com",
+  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nipunadhamma-video",
+  storageBucket: "nipunadhamma-video.firebasestorage.app",
+  messagingSenderId: "571055014816",
+  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let videos = [];
+let videos=[];
 
-/* =========================
-GET YOUTUBE ID
-========================= */
+/* LOAD */
+onValue(ref(db,"videos"),(snap)=>{
 
-function getId(url){
-
-if(!url) return "";
-
-if(url.includes("youtu.be/")){
-
-return url
-.split("youtu.be/")[1]
-.split("?")[0];
-
-}
-
-if(url.includes("watch?v=")){
-
-return url
-.split("watch?v=")[1]
-.split("&")[0];
-
-}
-
-return "";
-
-}
-
-/* =========================
-SET HERO
-========================= */
-
-function setHero(video){
-
-const id = getId(video.youtube);
-
-document
-.getElementById("heroPlayer")
-.src =
-`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0`;
-
-document
-.getElementById("heroTitle")
-.innerText =
-video.title || "Untitled";
-
-document
-.getElementById("heroDesc")
-.innerText =
-video.description || "No description available.";
-
-}
-
-/* =========================
-GROUP PLAYLIST
-========================= */
-
-function groupByPlaylist(videos){
-
-const groups = {};
-
-videos.forEach(v=>{
-
-const playlist =
-v.playlist || "Other Videos";
-
-if(!groups[playlist]){
-
-groups[playlist] = [];
-
-}
-
-groups[playlist].push(v);
-
-});
-
-return groups;
-
-}
-
-/* =========================
-RENDER ROWS
-========================= */
-
-function renderRows(data){
-
-const rows =
-document.getElementById("rows");
-
-rows.innerHTML = "";
-
-const groups =
-groupByPlaylist(data);
-
-Object.keys(groups).forEach(name=>{
-
-rows.innerHTML += `
-
-<div class="row">
-
-<h2>${name}</h2>
-
-<div class="row-posters">
-
-${groups[name].map(v=>{
-
-const id = getId(v.youtube);
-
-return `
-
-<div
-class="card"
-onclick='setHero(${JSON.stringify(v)})'
->
-
-<img
-src="https://img.youtube.com/vi/${id}/maxresdefault.jpg"
->
-
-<div class="card-content">
-
-<div class="card-title">
-${v.title}
-</div>
-
-<div class="card-playlist">
-${v.playlist || ""}
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}).join("")}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* =========================
-FIREBASE LOAD
-========================= */
-
-onValue(ref(db,"videos"),(snapshot)=>{
-
-videos = [];
-
-snapshot.forEach(child=>{
-
-videos.push(child.val());
-
+videos=[];
+snap.forEach(v=>{
+videos.push(v.val());
 });
 
 videos.reverse();
 
-if(videos.length > 0){
-
+if(videos.length>0){
 setHero(videos[0]);
-
 }
 
-renderRows(videos);
+render();
 
 });
 
-/* =========================
-SEARCH
-========================= */
+/* HERO */
+function setHero(v){
+const id = getId(v.youtube);
+document.getElementById("hero").src =
+`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+document.getElementById("title").innerText = v.title;
+}
 
-document
-.getElementById("search")
-.addEventListener("input",(e)=>{
+/* GROUP */
+function render(){
 
-const text =
-e.target.value.toLowerCase();
+let html = "";
 
-const filtered =
-videos.filter(v=>
+html += `<div class="row"><h2>All Videos</h2><div class="row-posters">`;
 
-(v.title || "")
-.toLowerCase()
-.includes(text)
+videos.forEach(v=>{
 
-);
+const id = getId(v.youtube);
 
-renderRows(filtered);
+html += `
+<div class="card" onclick='setHeroGlobal(${JSON.stringify(v)})'>
+<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
+<p>${v.title}</p>
+</div>
+`;
 
 });
 
-/* =========================
-AUTO HERO SLIDER
-========================= */
+html += `</div></div>`;
 
-let current = 0;
-
-setInterval(()=>{
-
-if(videos.length === 0) return;
-
-current++;
-
-if(current >= videos.length){
-
-current = 0;
+document.getElementById("content").innerHTML = html;
 
 }
 
-setHero(videos[current]);
+window.setHeroGlobal = setHero;
 
-},10000);
-
-/* =========================
-GLOBAL
-========================= */
-
-window.setHero = setHero;
+function getId(url){
+if(!url) return "";
+if(url.includes("youtu.be/")) return url.split("/").pop();
+return url.split("v=")[1];
+}
 
 </script>
 
