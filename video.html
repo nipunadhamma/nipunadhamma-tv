@@ -1,44 +1,27 @@
 <style>
-  /* ===== FORCE TOP FIX ===== */
 
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,
 body{
-margin:0 !important;
-padding:0 !important;
-overflow-x:hidden !important;
+width:100%;
+overflow-x:hidden;
+background:#070b14;
+font-family:Arial,sans-serif;
+color:white;
 }
 
-html{
-margin:0 !important;
-padding:0 !important;
-}
-
-#content,
-.content,
-.content-outer,
-.main-outer,
-.main-inner,
-.columns,
-.post,
-.post-body,
-.post-outer,
-.post-outer-container,
-.main-wrapper,
-.region-inner{
-
-margin-top:-50 !important;
-padding-top:-50 !important;
-
-}
-
-/* ===== MOVE PLAYER UP ===== */
-
-.container{
-
-margin-top:-250px !important;
-padding-top:10 !important;
-
-}
-/* ===== REMOVE ONLY TOP WHITE AREA ===== */
+/* =========================
+REMOVE BLOGGER SPACE
+========================= */
 
 .header-outer,
 .header-inner,
@@ -49,59 +32,9 @@ padding-top:10 !important;
 .widget.Header,
 .blog-feeds,
 .feed-links{
-
 display:none !important;
-
 }
 
-/* ===== REMOVE BLOGGER WHITE SPACE ===== */
-
-body,
-html,
-.content-outer,
-.content-fauxcolumn-outer,
-.region-inner,
-.main-outer,
-.main-inner,
-.columns,
-.content-wrapper{
-
-margin:0 !important;
-padding:0 !important;
-max-width:100% !important;
-width:100% !important;
-background:#070b14 !important;
-
-}
-
-/* ===== KEEP PAGE CONTENT ===== */
-
-.post-outer-container,
-.post-outer,
-.post,
-.post-body{
-
-margin:0 auto !important;
-padding:0 !important;
-width:100% !important;
-max-width:100% !important;
-background:#070b14 !important;
-
-}
-
-/* ===== PLAYER TOP ===== */
-
-.container{
-
-margin-top:0 !important;
-padding-top:0 !important;
-
-}
-/* ===== BLOGGER WHITE SPACE REMOVE ===== */
-
-html,
-body,
-body#layout,
 .content-outer,
 .content-fauxcolumn-outer,
 .region-inner,
@@ -115,44 +48,37 @@ body#layout,
 .post-body,
 .section,
 .widget,
-.widget-content {
-
+.widget-content{
 margin:0 !important;
 padding:0 !important;
 width:100% !important;
 max-width:100% !important;
-overflow-x:hidden !important;
-box-sizing:border-box !important;
-
-}
-
-/* ===== HIDE BLOGGER EXTRA WHITE AREA ===== */
-
-body{
 background:#070b14 !important;
-font-family:Arial,sans-serif;
-color:white;
 }
 
-/* ===== MAIN CONTAINER ===== */
+/* =========================
+MAIN CONTAINER
+========================= */
 
 .container{
 width:100%;
-max-width:100%;
-margin:0;
-padding:8px;
+padding:10px;
 }
 
-/* ===== TITLE ===== */
+/* =========================
+TOP TITLE
+========================= */
 
 .top-title{
 font-size:34px;
 font-weight:bold;
-margin:8px 0 20px;
 text-align:center;
+margin-bottom:20px;
 }
 
-/* ===== PLAYER LAYOUT ===== */
+/* =========================
+PLAYER LAYOUT
+========================= */
 
 .player-layout{
 display:grid;
@@ -161,19 +87,15 @@ gap:15px;
 align-items:start;
 }
 
-/* ===== PLAYER SIDE ===== */
-
-.player-side{
-width:100%;
-}
-
-/* ===== PLAYER ===== */
+/* =========================
+PLAYER
+========================= */
 
 .player-box{
 width:100%;
 aspect-ratio:16/9;
 background:black;
-border-radius:10px;
+border-radius:12px;
 overflow:hidden;
 }
 
@@ -183,7 +105,9 @@ height:100%;
 border:none;
 }
 
-/* ===== VIDEO DETAILS ===== */
+/* =========================
+VIDEO DETAILS
+========================= */
 
 .main-title{
 font-size:28px;
@@ -205,13 +129,14 @@ line-height:1.7;
 color:#94a3b8;
 }
 
-/* ===== SIDE PANEL ===== */
+/* =========================
+SIDE PANEL
+========================= */
 
 .side-panel{
 background:#111827;
 border-radius:12px;
 padding:12px;
-height:100%;
 }
 
 .side-title-head{
@@ -228,7 +153,9 @@ max-height:720px;
 overflow-y:auto;
 }
 
-/* ===== SIDE VIDEO ===== */
+/* =========================
+SIDE VIDEO
+========================= */
 
 .side-video{
 display:flex;
@@ -237,7 +164,7 @@ background:#1e293b;
 padding:8px;
 border-radius:10px;
 cursor:pointer;
-transition:0.3s;
+transition:.3s;
 }
 
 .side-video:hover{
@@ -267,7 +194,9 @@ font-size:11px;
 color:#94a3b8;
 }
 
-/* ===== SECTION TITLE ===== */
+/* =========================
+SECTION TITLE
+========================= */
 
 .section-title{
 font-size:28px;
@@ -275,7 +204,9 @@ font-weight:bold;
 margin:35px 0 20px;
 }
 
-/* ===== VIDEO GRID ===== */
+/* =========================
+VIDEO GRID
+========================= */
 
 .video-grid{
 display:grid;
@@ -283,14 +214,16 @@ grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
 gap:18px;
 }
 
-/* ===== VIDEO CARD ===== */
+/* =========================
+VIDEO CARD
+========================= */
 
 .video-card{
 background:#111827;
 border-radius:12px;
 overflow:hidden;
 cursor:pointer;
-transition:0.3s;
+transition:.3s;
 }
 
 .video-card:hover{
@@ -323,7 +256,9 @@ height:40px;
 overflow:hidden;
 }
 
-/* ===== PLAYLIST AREA ===== */
+/* =========================
+PLAYLIST AREA
+========================= */
 
 .playlist-sections{
 display:flex;
@@ -331,7 +266,9 @@ flex-direction:column;
 gap:40px;
 }
 
-/* ===== MOBILE ===== */
+/* =========================
+MOBILE
+========================= */
 
 @media(max-width:900px){
 
@@ -373,11 +310,15 @@ padding:5px;
 
 <div class="player-layout">
 
-<div class="player-side">
+<!-- PLAYER SIDE -->
+
+<div>
 
 <div class="player-box">
 
-<iframe allowfullscreen="" id="mainPlayer">
+<iframe
+id="mainPlayer"
+allowfullscreen>
 </iframe>
 
 </div>
@@ -396,10 +337,12 @@ Loading...
 
 </div>
 
+<!-- SIDE VIDEOS -->
+
 <div class="side-panel">
 
 <div class="side-title-head" id="sideHead">
-📂 ඊළඟට නරඹන්න...
+📂 Related Videos
 </div>
 
 <div class="side-videos" id="sideVideos">
@@ -409,12 +352,16 @@ Loading...
 
 </div>
 
+<!-- LATEST -->
+
 <div class="section-title">
 🔥 නවතම දේශනා
 </div>
 
 <div class="video-grid" id="latestVideos">
 </div>
+
+<!-- PLAYLISTS -->
 
 <div class="playlist-sections" id="playlistSections">
 </div>
@@ -433,27 +380,37 @@ onValue
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+/* =========================
+FIREBASE
+========================= */
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
 
 authDomain: "nipunadhamma-video.firebaseapp.com",
 
-databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+databaseURL:
+"https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
 
 projectId: "nipunadhamma-video",
 
-storageBucket: "nipunadhamma-video.firebasestorage.app",
+storageBucket:
+"nipunadhamma-video.firebasestorage.app",
 
 messagingSenderId: "571055014816",
 
-appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+appId:
+"1:571055014816:web:301e15593a7ab7dd591ac5"
 
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getDatabase(app);
+
+/* =========================
+ELEMENTS
+========================= */
 
 const player =
 document.getElementById("mainPlayer");
@@ -479,9 +436,19 @@ document.getElementById("playlistSections");
 const sideHead =
 document.getElementById("sideHead");
 
+/* =========================
+VIDEOS ARRAY
+========================= */
+
 let videos = [];
 
+/* =========================
+GET VIDEO ID
+========================= */
+
 function getVideoId(url){
+
+if(!url) return "";
 
 try{
 
@@ -499,7 +466,7 @@ return url.split("youtu.be/")[1].split("?")[0];
 
 return "";
 
-}catch(e){
+}catch{
 
 return "";
 
@@ -507,9 +474,15 @@ return "";
 
 }
 
+/* =========================
+PLAY VIDEO
+========================= */
+
 window.playVideo = function(index){
 
 const data = videos[index];
+
+if(!data) return;
 
 const videoId =
 getVideoId(data.youtube);
@@ -527,7 +500,7 @@ descBox.innerText =
 data.description || "";
 
 const currentPlaylist =
-data.playlist || "Related Videos";
+data.playlist || "Other";
 
 sideHead.innerText =
 "📂 " + currentPlaylist;
@@ -541,15 +514,19 @@ behavior:"smooth"
 
 }
 
+/* =========================
+SIDE VIDEOS
+========================= */
+
 function renderSideVideos(playlist,currentIndex){
 
-sideVideos.innerHTML="";
+sideVideos.innerHTML = "";
 
 videos.forEach((data,index)=>{
 
-if(index===currentIndex) return;
+if(index === currentIndex) return;
 
-if((data.playlist||"")!==playlist) return;
+if((data.playlist || "Other") !== playlist) return;
 
 const videoId =
 getVideoId(data.youtube);
@@ -570,7 +547,7 @@ class="side-thumb">
 <div class="side-content">
 
 <div class="side-video-title">
-${data.title}
+${data.title || ""}
 </div>
 
 <div class="side-video-speaker">
@@ -586,6 +563,10 @@ ${data.speaker || ""}
 });
 
 }
+
+/* =========================
+VIDEO CARD
+========================= */
 
 function createVideoCard(data,index){
 
@@ -608,7 +589,7 @@ class="video-thumb">
 <div class="video-content">
 
 <div class="video-title">
-${data.title}
+${data.title || ""}
 </div>
 
 <div class="video-desc">
@@ -623,9 +604,13 @@ ${data.description || ""}
 
 }
 
+/* =========================
+LOAD VIDEOS
+========================= */
+
 onValue(ref(db,"videos"),(snapshot)=>{
 
-videos=[];
+videos = [];
 
 snapshot.forEach((child)=>{
 
@@ -635,21 +620,25 @@ videos.push(child.val());
 
 videos.reverse();
 
-latestVideos.innerHTML="";
-playlistSections.innerHTML="";
+latestVideos.innerHTML = "";
+playlistSections.innerHTML = "";
 
-if(videos.length>0){
+if(videos.length > 0){
 
 playVideo(0);
 
 }
 
-videos.slice(0,8).forEach((data,index)=>{
+/* LATEST */
+
+videos.slice(0,8).forEach((video,index)=>{
 
 latestVideos.innerHTML +=
-createVideoCard(data,index);
+createVideoCard(video,index);
 
 });
+
+/* PLAYLISTS */
 
 const playlists = {};
 
@@ -660,13 +649,13 @@ video.playlist || "Other";
 
 if(!playlists[playlist]){
 
-playlists[playlist]=[];
+playlists[playlist] = [];
 
 }
 
 playlists[playlist].push({
-...video,
-realIndex:index
+video,
+index
 });
 
 });
@@ -683,8 +672,8 @@ playlistSections.innerHTML += `
 
 <div class="video-grid">
 
-${playlists[playlist].map(v=>
-createVideoCard(v,v.realIndex)
+${playlists[playlist].map(item =>
+createVideoCard(item.video,item.index)
 ).join("")}
 
 </div>
