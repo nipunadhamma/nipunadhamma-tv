@@ -1,163 +1,110 @@
-/* ===== BODY ===== */
-
-body{
-    margin:0;
-    font-family: sans-serif;
-    background:#111;
-}
-
 /* ===== NAVBAR ===== */
 
 .navbar{
     width:100%;
-    height:75px;
-    background:#3b2a1d; /* තද කුඹුරු පාට */
+    height:70px;
+    background:#3b2a1d;
 
     display:flex;
-    justify-content:space-between;
     align-items:center;
 
-    padding:0 40px;
+    padding:0 20px;
     box-sizing:border-box;
 
     position:sticky;
     top:0;
-    z-index:999;
-
-    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    z-index:9999;
 }
 
-/* ===== LEFT SIDE ===== */
-
+/* LEFT */
 .nav-left{
     display:flex;
     align-items:center;
 }
 
-/* LOGO */
-
 .logo{
-    width:50px;
-    height:50px;
+    width:45px;
+    height:45px;
     border-radius:50%;
-    object-fit:cover;
-    margin-right:12px;
-
-    border:2px solid #f5d7a1;
+    margin-right:10px;
 }
-
-/* TITLE */
 
 .site-title{
     color:#f5d7a1;
-    font-size:28px;
-    font-weight:bold;
-    letter-spacing:1px;
+    font-size:22px;
 }
 
-/* ===== MENU ===== */
+/* HOME BUTTON */
+.home-btn{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
 
+/* MENU */
 .nav-menu{
-    list-style:none;
     display:flex;
-    align-items:center;
-    gap:25px;
-
-    margin:0;
-    padding:0;
+    list-style:none;
+    margin-left:auto;
+    gap:20px;
 }
-
-.nav-menu li{
-    position:relative;
-}
-
-/* MENU LINKS */
 
 .nav-menu li a{
-    text-decoration:none;
     color:white;
-
-    font-size:17px;
-    padding:10px 14px;
-
-    display:block;
-
+    text-decoration:none;
+    padding:8px 12px;
     border-radius:8px;
-
-    transition:all 0.3s ease;
+    transition:0.3s;
 }
-
-/* HOVER ANIMATION */
 
 .nav-menu li a:hover{
     background:#f5d7a1;
     color:#3b2a1d;
-
-    transform:translateY(-3px) scale(1.05);
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* ===== DROPDOWN ===== */
-
-.dropdown-menu{
-    position:absolute;
-    top:55px;
-    left:0;
-
-    background:#4b3424;
-
-    min-width:220px;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-    opacity:0;
-    visibility:hidden;
-
-    transform:translateY(10px);
-
-    transition:0.3s;
-
-    box-shadow:0 10px 20px rgba(0,0,0,0.4);
-
-    padding:8px 0;
-}
-
-/* DROPDOWN ITEMS */
-
-.dropdown-menu li{
-    width:100%;
-}
-
-.dropdown-menu li a{
-    padding:12px 18px;
-    border-radius:0;
-}
-
-/* SHOW DROPDOWN */
-
-.dropdown:hover .dropdown-menu{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
+/* MOBILE BUTTON */
+.menu-toggle{
+    display:none;
+    margin-left:auto;
+    color:white;
+    background:#2b1b12;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
 /* ===== MOBILE ===== */
 
-@media(max-width:900px){
+@media(max-width:768px){
 
-    .navbar{
-        flex-direction:column;
-        height:auto;
-        padding:20px;
+    .menu-toggle{
+        display:block;
+    }
+
+    .home-btn{
+        margin-left:auto;
     }
 
     .nav-menu{
-        flex-wrap:wrap;
-        justify-content:center;
-        margin-top:15px;
+        position:absolute;
+        top:70px;
+        left:0;
+
+        width:100%;
+        background:#3b2a1d;
+
+        flex-direction:column;
+        display:none;
+
+        padding:10px 0;
     }
 
+    .nav-menu li{
+        text-align:center;
+        padding:10px;
+    }
+
+    .nav-menu.active{
+        display:flex;
+    }
 }
