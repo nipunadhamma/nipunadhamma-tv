@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nipunadhamma TV Studio</title>
 
 <style>
@@ -12,757 +11,281 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Arial;
 }
-
-/* =========================
-BODY
-========================= */
 
 body{
 background:#0b0f19;
 color:white;
-overflow-x:hidden;
 }
 
-/* =========================
-LOGIN PAGE
-========================= */
-
-.login-page{
-width:100%;
+/* LOGIN */
+.center{
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:
-linear-gradient(
-135deg,
-#000814,
-#0b0f19
-);
+flex-direction:column;
+gap:15px;
 }
 
-.login-box{
-background:#141a2a;
-padding:40px;
-border-radius:20px;
-width:350px;
-text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.4);
-}
-
-.login-box h1{
-margin-bottom:25px;
-color:#e50914;
-}
-
-.login-box input{
-width:100%;
-padding:14px;
-margin-bottom:15px;
+button{
+padding:12px 18px;
 border:none;
-border-radius:12px;
-background:#1f2937;
-color:white;
-outline:none;
-}
-
-.login-btn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#e50914;
-color:white;
-font-size:16px;
-font-weight:bold;
+border-radius:10px;
 cursor:pointer;
-transition:0.3s;
+font-weight:bold;
 }
 
-.login-btn:hover{
-background:#ff1e28;
+.google{
+background:white;
+color:black;
 }
 
-.error{
-margin-top:15px;
-color:#ff4d4d;
-font-size:14px;
-}
-
-/* =========================
-APP
-========================= */
-
+/* APP */
 .app{
-display:none;
+display:flex;
 }
-
-/* =========================
-SIDEBAR
-========================= */
 
 .sidebar{
-width:260px;
-background:#111827;
-padding:25px 20px;
-position:fixed;
-left:0;
-top:0;
+width:240px;
 height:100vh;
-border-right:1px solid rgba(255,255,255,0.08);
+background:#111827;
+padding:20px;
+position:fixed;
 }
 
-.logo{
-font-size:26px;
-font-weight:bold;
+.sidebar h2{
 color:#e50914;
-margin-bottom:40px;
-}
-
-.menu{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.menu button,
-.menu a{
-background:#1f2937;
-color:white;
-border:none;
-padding:14px;
-border-radius:12px;
-cursor:pointer;
-transition:0.3s;
-font-size:15px;
-text-align:left;
-text-decoration:none;
-display:block;
-}
-
-.menu button:hover,
-.menu a:hover{
-background:#e50914;
-transform:translateX(5px);
-}
-
-/* =========================
-MAIN
-========================= */
-
-.main{
-margin-left:260px;
-padding:30px;
-}
-
-/* =========================
-TOPBAR
-========================= */
-
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-}
-
-.topbar h1{
-font-size:30px;
-}
-
-.profile{
-width:45px;
-height:45px;
-border-radius:50%;
-background:#e50914;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-}
-
-/* =========================
-CARD
-========================= */
-
-.card{
-background:#141a2a;
-padding:25px;
-border-radius:18px;
-margin-bottom:30px;
-}
-
-.card h2{
-margin-bottom:20px;
-}
-
-/* =========================
-FORM
-========================= */
-
-.form-group{
-margin-bottom:20px;
-}
-
-.form-group label{
-display:block;
-margin-bottom:8px;
-font-size:14px;
-color:#cbd5e1;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#1f2937;
-color:white;
-outline:none;
-}
-
-textarea{
-resize:none;
-height:120px;
-}
-
-/* =========================
-BUTTON
-========================= */
-
-.upload-btn{
-background:#e50914;
-color:white;
-border:none;
-padding:14px 24px;
-border-radius:12px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-}
-
-.upload-btn:hover{
-background:#ff1e28;
-}
-
-/* =========================
-VIDEOS
-========================= */
-
-.video-list{
-display:grid;
-grid-template-columns:
-repeat(auto-fill,minmax(260px,1fr));
-gap:20px;
-}
-
-.video-card{
-background:#1a2235;
-border-radius:16px;
-overflow:hidden;
-}
-
-.video-card img{
-width:100%;
-height:160px;
-object-fit:cover;
-}
-
-.video-content{
-padding:15px;
-}
-
-.video-title{
-font-size:15px;
-font-weight:bold;
 margin-bottom:10px;
 }
 
-.video-playlist{
-font-size:13px;
-color:#9ca3af;
-margin-bottom:15px;
-}
-
-.delete-btn{
-background:#dc2626;
+.sidebar a, .sidebar button{
+display:block;
+margin-top:10px;
+padding:10px;
+background:#1f2937;
 color:white;
 border:none;
-padding:10px;
-border-radius:10px;
+border-radius:8px;
 cursor:pointer;
-width:100%;
-}
-
-/* =========================
-MOBILE
-========================= */
-
-@media(max-width:768px){
-
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
+text-decoration:none;
 }
 
 .main{
-margin-left:0;
+margin-left:260px;
 padding:20px;
+width:100%;
 }
 
-.video-list{
-grid-template-columns:1fr;
+.card{
+background:#141a2a;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
 }
 
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+margin-bottom:10px;
+border-radius:8px;
+border:none;
+background:#1f2937;
+color:white;
 }
+
+.video{
+background:#1f2937;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.hidden{display:none;}
 
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-LOGIN PAGE
-========================= -->
-
-<div class="login-page" id="loginPage">
-
-<div class="login-box">
+<!-- LOGIN -->
+<div id="loginPage" class="center">
 
 <h1>🎬 Admin Login</h1>
 
-<input
-type="password"
-id="password"
-placeholder="Enter Password"
->
-
-<button
-class="login-btn"
-onclick="login()"
->
-
-🔐 Login
-
+<button class="google" onclick="login()">
+🔐 Sign in with Google
 </button>
 
-<div class="error" id="error"></div>
-
 </div>
 
-</div>
-
-<!-- =========================
-APP
-========================= -->
-
-<div class="app" id="app">
-
-<!-- SIDEBAR -->
+<!-- APP -->
+<div id="app" class="app hidden">
 
 <div class="sidebar">
 
-<div class="logo">
-🎬 Nipunadhamma TV
-</div>
+<h2>Nipunadhamma TV</h2>
 
-<div class="menu">
+<p id="userEmail"></p>
 
-<a href="index.html">
-🏠 Home
-</a>
+<a href="index.html">🏠 Home</a>
 
-<button>
-📊 Dashboard
-</button>
-
-<button>
-🎥 Upload Video
-</button>
-
-<button>
-📚 Playlists
-</button>
-
-<button onclick="logout()">
-🚪 Logout
-</button>
+<button onclick="logout()">🚪 Logout</button>
 
 </div>
-
-</div>
-
-<!-- MAIN -->
 
 <div class="main">
-
-<div class="topbar">
-
-<h1>YouTube Studio</h1>
-
-<div class="profile">
-N
-</div>
-
-</div>
-
-<!-- UPLOAD -->
 
 <div class="card">
 
 <h2>🎥 Upload Video</h2>
 
-<form id="videoForm">
-
-<div class="form-group">
-
-<label>Video Title</label>
-
-<input
-type="text"
-id="title"
-required
->
-
-</div>
-
-<div class="form-group">
-
-<label>YouTube Link</label>
-
-<input
-type="url"
-id="youtube"
-required
->
-
-</div>
-
-<div class="form-group">
-
-<label>Description</label>
-
-<textarea
-id="description"
-></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>Playlist</label>
+<input id="title" placeholder="Title">
+<input id="youtube" placeholder="YouTube Link">
+<textarea id="desc" placeholder="Description"></textarea>
 
 <select id="playlist">
-
 <option>Dhamma</option>
 <option>Sermons</option>
 <option>Stories</option>
 <option>Meditation</option>
-<option>Other Videos</option>
-
 </select>
 
-</div>
-
-<button
-class="upload-btn"
-type="submit"
->
-
-⬆ Upload Video
-
-</button>
-
-</form>
+<button onclick="upload()">⬆ Upload</button>
 
 </div>
-
-<!-- VIDEOS -->
 
 <div class="card">
 
-<h2>📺 Uploaded Videos</h2>
+<h2>📺 Videos</h2>
 
-<div
-class="video-list"
-id="videoList"
->
+<div id="list"></div>
 
 </div>
 
 </div>
 
 </div>
-
-</div>
-
-<!-- =========================
-FIREBASE
-========================= -->
 
 <script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
 getDatabase,
 ref,
 push,
-onValue,
-remove
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* =========================
-FIREBASE CONFIG
-========================= */
-
+/* 🔥 FIREBASE CONFIG */
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-
-authDomain:
-"nipunadhamma-video.firebaseapp.com",
-
-databaseURL:
-"https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-projectId:
-"nipunadhamma-video",
-
-storageBucket:
-"nipunadhamma-video.firebasestorage.app",
-
-messagingSenderId:
-"571055014816",
-
-appId:
-"1:571055014816:web:301e15593a7ab7dd591ac5"
-
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_AUTH_DOMAIN",
+databaseURL: "YOUR_DATABASE_URL",
+projectId: "YOUR_PROJECT_ID",
+appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
-/* =========================
-PASSWORD LOGIN
-========================= */
+/* 🔐 ONLY ADMIN EMAIL */
+const ADMIN_EMAIL = "yourmail@gmail.com";
 
-const ADMIN_PASSWORD = "123456";
-
+/* LOGIN */
 window.login = function(){
+const provider = new GoogleAuthProvider();
+signInWithPopup(auth, provider);
+}
 
-const pass =
-document.getElementById("password").value;
+/* LOGOUT */
+window.logout = function(){
+signOut(auth);
+}
 
-if(pass === ADMIN_PASSWORD){
+/* AUTH CHECK */
+onAuthStateChanged(auth,(user)=>{
 
-localStorage.setItem("adminLogged","true");
+if(user){
 
-document
-.getElementById("loginPage")
-.style.display = "none";
+/* 🔥 SECURITY CHECK */
+if(user.email !== ADMIN_EMAIL){
 
-document
-.getElementById("app")
-.style.display = "block";
+alert("⛔ Not authorized!");
+signOut(auth);
+return;
+}
+
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+
+document.getElementById("userEmail").innerText =
+user.email;
+
+loadVideos();
 
 }else{
 
-document
-.getElementById("error")
-.innerText =
-"❌ Wrong Password";
+document.getElementById("loginPage").classList.remove("hidden");
+document.getElementById("app").classList.add("hidden");
 
 }
 
-}
+});
 
-/* =========================
-AUTO LOGIN
-========================= */
+/* UPLOAD */
+window.upload = function(){
 
-if(localStorage.getItem("adminLogged") === "true"){
-
-document
-.getElementById("loginPage")
-.style.display = "none";
-
-document
-.getElementById("app")
-.style.display = "block";
-
-}
-
-/* =========================
-LOGOUT
-========================= */
-
-window.logout = function(){
-
-localStorage.removeItem("adminLogged");
-
-location.reload();
-
-}
-
-/* =========================
-GET YOUTUBE ID
-========================= */
-
-function getId(url){
-
-if(!url) return "";
-
-if(url.includes("youtu.be/")){
-
-return url
-.split("youtu.be/")[1]
-.split("?")[0];
-
-}
-
-if(url.includes("watch?v=")){
-
-return url
-.split("watch?v=")[1]
-.split("&")[0];
-
-}
-
-return "";
-
-}
-
-/* =========================
-UPLOAD VIDEO
-========================= */
-
-const form =
-document.getElementById("videoForm");
-
-form.addEventListener("submit",(e)=>{
-
-e.preventDefault();
-
-const title =
-document.getElementById("title").value;
-
-const youtube =
-document.getElementById("youtube").value;
-
-const description =
-document.getElementById("description").value;
-
-const playlist =
-document.getElementById("playlist").value;
+const title = document.getElementById("title").value;
+const youtube = document.getElementById("youtube").value;
+const desc = document.getElementById("desc").value;
+const playlist = document.getElementById("playlist").value;
 
 push(ref(db,"videos"),{
-
 title,
 youtube,
-description,
+desc,
 playlist,
-timestamp:Date.now()
-
+time:Date.now()
 });
 
-alert("✅ Uploaded Successfully");
+alert("Uploaded ✅");
 
-form.reset();
+}
 
-});
+/* LOAD */
+function loadVideos(){
 
-/* =========================
-LOAD VIDEOS
-========================= */
+onValue(ref(db,"videos"),(snap)=>{
 
-const videoList =
-document.getElementById("videoList");
+const list = document.getElementById("list");
+list.innerHTML = "";
 
-onValue(ref(db,"videos"),(snapshot)=>{
+snap.forEach(v=>{
 
-videoList.innerHTML = "";
+let d = v.val();
 
-const arr = [];
-
-snapshot.forEach(child=>{
-
-arr.push({
-
-key:child.key,
-...child.val()
-
-});
-
-});
-
-arr.reverse();
-
-arr.forEach(v=>{
-
-const id = getId(v.youtube);
-
-videoList.innerHTML += `
-
-<div class="video-card">
-
-<img
-src="https://img.youtube.com/vi/${id}/hqdefault.jpg"
->
-
-<div class="video-content">
-
-<div class="video-title">
-${v.title}
+list.innerHTML += `
+<div class="video">
+<b>${d.title}</b><br>
+<small>${d.playlist}</small>
 </div>
-
-<div class="video-playlist">
-📚 ${v.playlist}
-</div>
-
-<button
-class="delete-btn"
-onclick="deleteVideo('${v.key}')"
->
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
 `;
 
 });
 
 });
-
-/* =========================
-DELETE VIDEO
-========================= */
-
-window.deleteVideo = function(key){
-
-if(confirm("Delete video?")){
-
-remove(ref(db,"videos/"+key));
-
-}
 
 }
 
