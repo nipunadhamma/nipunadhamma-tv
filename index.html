@@ -1,175 +1,123 @@
 <!DOCTYPE html>
 <html lang="si">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>නිපුණධම්ම</title>
 
-<title>නිපුණධම්ම TV</title>
+<style>
+/* NAVBAR STYLES */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+.nav-left, .nav-right { display: flex; align-items: center; }
+.logo { width: 40px; height: 40px; margin-right: 10px; }
+.site-name { font-size: 20px; font-weight: bold; }
+.dropdown { position: relative; display: inline-block; }
+.dropbtn { background: none; border: none; color: white; cursor: pointer; padding: 10px; font-size: 16px; }
+.dropdown-content { display: none; position: absolute; right: 0; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1000; }
+.dropdown-content a { color: black; padding: 12px 16px; display: block; text-decoration: none; }
+.dropdown:hover .dropdown-content { display: block; }
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="navbar.css">
+/* PAGE STYLES */
+body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+.hero { padding: 50px 20px; text-align: center; background: #222; }
+.content-row { padding: 20px; }
+.card-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
+.video-card, .audio-card, .book-card { background: #1e1e1e; padding: 10px; border-radius: 8px; text-align: center; }
+.video-card img, .book-card img { width: 100%; height: auto; border-radius: 5px; }
+footer { text-align: center; padding: 20px; color: #777; }
 
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .navbar { padding: 5px 10px; }
+    .site-name { font-size: 16px; }
+}
+</style>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<div id="navbar"></div>
+<nav class="navbar">
+    <div class="nav-left">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <span class="site-name">නිපුණධම්ම</span>
+    </div>
+    <div class="nav-right">
+        <a href="index.html" style="color:white; text-decoration:none; margin-right:15px;">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">පොත් වර්ග ▼</button>
+            <div class="dropdown-content">
+                <a href="dhamma-books.html">ධර්ම පොත්</a>
+                <a href="dhamma-books.html">භාවනා පොත්</a>
+            </div>
+        </div>
+    </div>
+</nav>
 
-<!-- ================= HERO SECTION ================= -->
 <section class="hero">
-
-<div class="overlay">
-
-<h2>නිපුණධම්ම TV</h2>
-
-<p>
-බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්
-</p>
-
-<a href="video.html">
-<button>Watch Now</button>
-</a>
-
-</div>
-
+    <div class="overlay">
+        <h2>නිපුණධම්ම TV</h2>
+        <p>බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්</p>
+        <a href="video.html"><button>Watch Now</button></a>
+    </div>
 </section>
 
-<!-- ================= LATEST SERMONS ================= -->
 <section class="content-row">
-
-<h2>Latest Sermons</h2>
-
-<div class="card-row">
-
-<div class="video-card">
-<img src="images/thumb1.webp" alt="ධර්ම දේශනාව">
-<h3>ධර්ම දේශනාව 01</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb2.webp" alt="භාවනා">
-<h3>භාවනා වැඩසටහන</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb3.webp" alt="බෝධි පූජාව">
-<h3>බෝධි පූජාව</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb4.webp" alt="පින්කම">
-<h3>පින්කම</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb5.webp" alt="පිරිත්">
-<h3>පිරිත් දේශනාව</h3>
-</div>
-
-</div>
-
+    <h2>Latest Sermons</h2>
+    <div class="card-row">
+        <div class="video-card"><img src="images/thumb1.webp" alt="ධර්ම දේශනාව"><h3>ධර්ම දේශනාව 01</h3></div>
+        <div class="video-card"><img src="images/thumb2.webp" alt="භාවනා"><h3>භාවනා වැඩසටහන</h3></div>
+        <div class="video-card"><img src="images/thumb3.webp" alt="බෝධි පූජාව"><h3>බෝධි පූජාව</h3></div>
+        <div class="video-card"><img src="images/thumb4.webp" alt="පින්කම"><h3>පින්කම</h3></div>
+        <div class="video-card"><img src="images/thumb5.webp" alt="පිරිත්"><h3>පිරිත් දේශනාව</h3></div>
+    </div>
 </section>
 
-<!-- ================= POPULAR VIDEOS ================= -->
 <section class="content-row">
-
-<h2>Popular Videos</h2>
-
-<div class="card-row">
-
-<div class="video-card">
-<img src="images/thumb6.webp" alt="දේශනාව">
-<h3>දේශනාව</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb7.webp" alt="භාවනා">
-<h3>භාවනා</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb8.webp" alt="පූජාව">
-<h3>පූජාව</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb9.webp" alt="බණ">
-<h3>බණ</h3>
-</div>
-
-<div class="video-card">
-<img src="images/thumb10.webp" alt="ධර්මය">
-<h3>ධර්මය</h3>
-</div>
-
-</div>
-
+    <h2>Popular Videos</h2>
+    <div class="card-row">
+        <div class="video-card"><img src="images/thumb6.webp" alt="දේශනාව"><h3>දේශනාව</h3></div>
+        <div class="video-card"><img src="images/thumb7.webp" alt="භාවනා"><h3>භාවනා</h3></div>
+        <div class="video-card"><img src="images/thumb8.webp" alt="පූජාව"><h3>පූජාව</h3></div>
+        <div class="video-card"><img src="images/thumb9.webp" alt="බණ"><h3>බණ</h3></div>
+        <div class="video-card"><img src="images/thumb10.webp" alt="ධර්මය"><h3>ධර්මය</h3></div>
+    </div>
 </section>
 
-<!-- ================= MP3 AUDIO ================= -->
 <section class="content-row">
-
-<h2>MP3 Audio</h2>
-
-<div class="card-row">
-
-<div class="audio-card">🎧 MP3 01</div>
-<div class="audio-card">🎧 MP3 02</div>
-<div class="audio-card">🎧 MP3 03</div>
-<div class="audio-card">🎧 MP3 04</div>
-
-</div>
-
+    <h2>MP3 Audio</h2>
+    <div class="card-row">
+        <div class="audio-card">🎧 MP3 01</div>
+        <div class="audio-card">🎧 MP3 02</div>
+        <div class="audio-card">🎧 MP3 03</div>
+        <div class="audio-card">🎧 MP3 04</div>
+    </div>
 </section>
 
-<!-- ================= BOOKS ================= -->
 <section class="content-row">
-
-<h2>Buddhist Books</h2>
-
-<div class="card-row">
-
-<a href="dhamma-books.html" class="book-link">
-<div class="book-card">
-<img src="images/book1.webp" alt="ධර්ම පොත">
-<p>ධර්ම පොත්</p>
-</div>
-</a>
-
-<a href="dhamma-books.html" class="book-link">
-<div class="book-card">
-<img src="images/book2.webp" alt="භාවනා පොත">
-<p>භාවනා පොත්</p>
-</div>
-</a>
-
-<a href="dhamma-books.html" class="book-link">
-<div class="book-card">
-<img src="images/book3.webp" alt="බුදු දහම">
-<p>බුදු දහම</p>
-</div>
-</a>
-
-</div>
-
+    <h2>Buddhist Books</h2>
+    <div class="card-row">
+        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
+            <div class="book-card"><img src="images/book1.webp" alt="ධර්ම පොත"><p>ධර්ම පොත්</p></div>
+        </a>
+        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
+            <div class="book-card"><img src="images/book2.webp" alt="භාවනා පොත"><p>භාවනා පොත්</p></div>
+        </a>
+        <a href="dhamma-books.html" style="text-decoration:none; color:white;">
+            <div class="book-card"><img src="images/book3.webp" alt="බුදු දහම"><p>බුදු දහම</p></div>
+        </a>
+    </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer>
-<p>© 2026 Nipunadhamma TV</p>
+    <p>© 2026 Nipunadhamma TV</p>
 </footer>
-
-<!-- ================= NAVBAR SCRIPT ================= -->
-<script>
-fetch("./navbar.html")
-.then(res => res.text())
-.then(data => {
-    document.getElementById("navbar").innerHTML = data;
-})
-.catch(err => console.log("Navbar load error:", err));
-</script>
 
 </body>
 </html>
