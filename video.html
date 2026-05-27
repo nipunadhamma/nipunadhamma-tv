@@ -14,32 +14,24 @@ background:#0f0f0f;
 color:white;
 }
 
-/* NAVBAR */
+/* NAV */
 .nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
 padding:10px 15px;
 background:#111;
+font-weight:bold;
+color:#ff0000;
 position:sticky;
 top:0;
-z-index:100;
 }
 
-.logo{
-color:#ff0000;
-font-weight:bold;
-font-size:18px;
-}
-
-/* MAIN LAYOUT */
+/* LAYOUT */
 .container{
 display:flex;
 gap:10px;
 padding:10px;
 }
 
-/* PLAYER AREA */
+/* PLAYER */
 .player-area{
 flex:2;
 }
@@ -56,7 +48,7 @@ padding:10px;
 font-size:18px;
 }
 
-/* QUEUE SIDE PANEL */
+/* QUEUE */
 .queue{
 flex:1;
 background:#181818;
@@ -64,10 +56,6 @@ border-radius:10px;
 padding:10px;
 height:70vh;
 overflow-y:auto;
-}
-
-.queue h3{
-margin-top:0;
 }
 
 .queue-item{
@@ -83,7 +71,7 @@ font-size:13px;
 background:#333;
 }
 
-/* GRID (HOME STYLE) */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -114,22 +102,11 @@ padding:8px;
 font-size:13px;
 }
 
-/* MOBILE RESPONSIVE */
+/* MOBILE */
 @media(max-width:768px){
-
-.container{
-flex-direction:column;
-}
-
-.player{
-height:35vh;
-}
-
-.queue{
-height:auto;
-order:2;
-}
-
+.container{flex-direction:column;}
+.player{height:35vh;}
+.queue{height:auto;}
 }
 
 </style>
@@ -137,18 +114,17 @@ order:2;
 
 <body>
 
-<div class="nav">
-<div class="logo">▶ Nipunadhamma TV</div>
-</div>
+<div class="nav">▶ Nipunadhamma TV</div>
 
-<!-- PLAYER + QUEUE -->
 <div class="container">
 
+<!-- PLAYER -->
 <div class="player-area">
 <iframe id="player" class="player"></iframe>
 <div class="title" id="title">Loading...</div>
 </div>
 
+<!-- QUEUE -->
 <div class="queue">
 <h3>▶ Up Next</h3>
 <div id="queueList"></div>
@@ -156,7 +132,7 @@ order:2;
 
 </div>
 
-<!-- HOME GRID -->
+<!-- GRID -->
 <div class="grid" id="grid"></div>
 
 <script type="module">
@@ -165,19 +141,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-  authDomain: "nipunadhamma-video.firebaseapp.com",
-  databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "nipunadhamma-video",
-  storageBucket: "nipunadhamma-video.firebasestorage.app",
-  messagingSenderId: "571055014816",
-  appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+authDomain: "nipunadhamma-video.firebaseapp.com",
+databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "nipunadhamma-video",
+storageBucket: "nipunadhamma-video.firebasestorage.app",
+appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let videos = [];
+let currentVideo = null;
 
 /* LOAD */
 onValue(ref(db,"videos"),(snap)=>{
@@ -185,12 +161,12 @@ onValue(ref(db,"videos"),(snap)=>{
 videos = [];
 
 snap.forEach(v=>{
-videos.push({...v.val(), id:v.key});
+videos.push({id:v.key, ...v.val()});
 });
 
 videos.reverse();
 
-if(videos.length){
+if(videos.length>0){
 playVideo(videos[0]);
 }
 
@@ -201,58 +177,66 @@ renderGrid();
 /* PLAY VIDEO */
 function playVideo(v){
 
+currentVideo = v;
+
 const id = getId(v.youtube);
 
-document.getElementById("player").src =
-`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+if(!id) return;
 
-document.getElementById("title").innerText = v.title;
+const player = document.getElementById("player");
+player.src = "";
 
-/* views */
+setTimeout(()=>{
+player.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+},100);
+
+document.getElementById("title").innerText = v.title || "Untitled";
+
+/* views safe */
 update(ref(db,"videos/"+v.id),{
 views:(v.views||0)+1
 });
 
 /* queue */
-renderQueue(v.playlist);
+renderQueue(v.playlist || "All");
+
 }
 
-/* QUEUE (YouTube style) */
+/* QUEUE */
 function renderQueue(playlist){
 
-let list = videos.filter(v=>v.playlist===playlist);
+let list = videos.filter(v=>
+(playlist==="All") ? true : v.playlist===playlist
+);
 
 let html = "";
 
 list.forEach(v=>{
-
 html += `
-<div class="queue-item" onclick='playVideoGlobal(${JSON.stringify(v)})'>
-▶ ${v.title}
+<div class="queue-item" onclick="window.playFromQueue('${v.id}')">
+▶ ${v.title || "No title"}
 </div>
 `;
-
 });
 
 document.getElementById("queueList").innerHTML = html;
-
 }
 
 /* GRID */
 function renderGrid(){
 
-let html="";
-
 videos = videos.sort((a,b)=>(b.views||0)-(a.views||0));
+
+let html="";
 
 videos.forEach(v=>{
 
 const id = getId(v.youtube);
 
 html += `
-<div class="card" onclick='playVideoGlobal(${JSON.stringify(v)})'>
+<div class="card" onclick="window.playFromGrid('${v.id}')">
 <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
-<p>${v.title}</p>
+<p>${v.title || ""}</p>
 </div>
 `;
 
@@ -262,19 +246,31 @@ document.getElementById("grid").innerHTML = html;
 
 }
 
-window.playVideoGlobal = function(v){
-playVideo(v);
+/* GLOBAL PLAY FUNCTIONS */
+window.playFromGrid = function(id){
+const v = videos.find(x=>x.id===id);
+if(v) playVideo(v);
 }
 
-/* YOUTUBE ID */
+window.playFromQueue = function(id){
+const v = videos.find(x=>x.id===id);
+if(v) playVideo(v);
+}
+
+/* YT ID SAFE */
 function getId(url){
+
 if(!url) return "";
-if(url.includes("youtu.be/")){
-return url.split("/").pop();
-}
-if(url.includes("watch?v=")){
-return url.split("v=")[1].split("&")[0];
-}
+
+let m = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+if(m) return m[1];
+
+m = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+if(m) return m[1];
+
+m = url.match(/embed\/([a-zA-Z0-9_-]+)/);
+if(m) return m[1];
+
 return "";
 }
 
