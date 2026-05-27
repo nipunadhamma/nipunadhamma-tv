@@ -5,32 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>නිපුණධම්ම TV</title>
+<title>නිපුණධම්ම දහම් පොත්</title>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="navbar.css">
 
-</head>
+<base href="/nipunadhamma/">
 
-<body>
-
-<!-- ================= NAVBAR ================= -->
-<div id="navbar"></div>
-
-<!-- ================= HERO SECTION ================= -->
-<section class="hero">
-
-<div class="overlay">
-
-<script src="navbar.js"></script>
-
-<h1>Books Page</h1>
 <style>
 
-/* ============================= */
 /* BODY */
-/* ============================= */
-
 body{
     margin:0;
     background:#111;
@@ -38,275 +22,154 @@ body{
     font-family:sans-serif;
 }
 
-/* ============================= */
-/* PAGE HEADER */
-/* ============================= */
-
+/* HEADER */
 .page-header{
-    padding:40px 20px 20px;
+    padding:30px 20px;
     text-align:center;
 }
 
 .page-header h2{
-    color:#f5d7a1;
-    margin-bottom:15px;
-    font-size:32px;
+    color:gold;
+    margin:0 0 10px 0;
 }
 
-/* ============================= */
-/* SEARCH BOX */
-/* ============================= */
-
+/* SEARCH */
 .page-header input{
     width:60%;
-    max-width:500px;
-
-    padding:12px 18px;
-
+    padding:10px;
+    border-radius:20px;
     border:none;
     outline:none;
-
-    border-radius:30px;
-
-    background:#222;
-    color:white;
-
-    font-size:16px;
 }
 
-/* ============================= */
 /* FILTERS */
-/* ============================= */
-
 #filters{
     text-align:center;
-    margin:15px 0;
+    margin-bottom:10px;
 }
 
-#filters button,
-#authorButtons button{
-
-    margin:6px;
-
-    padding:8px 15px;
-
+#filters button{
+    margin:5px;
+    padding:6px 12px;
     border:none;
-
-    border-radius:20px;
-
+    border-radius:15px;
     cursor:pointer;
-
-    background:#2b2b2b;
-
+    background:#222;
     color:white;
-
-    transition:0.3s;
 }
 
-#filters button:hover,
-#authorButtons button:hover{
-
-    background:#f5d7a1;
-    color:#111;
-
-    transform:scale(1.05);
+#filters button:hover{
+    background:gold;
+    color:black;
 }
 
-/* ============================= */
 /* AUTHOR BUTTONS */
-/* ============================= */
-
 #authorButtons{
     margin-top:15px;
 }
 
-/* ============================= */
-/* GRID */
-/* ============================= */
+#authorButtons button{
+    margin:5px;
+    padding:6px 12px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    background:#444;
+    color:white;
+}
 
+#authorButtons button:hover{
+    background:gold;
+    color:black;
+}
+
+/* GRID */
 .grid{
     display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(230px,1fr));
-
-    gap:20px;
-
-    padding:25px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    padding:20px;
 }
 
-/* ============================= */
 /* CARD */
-/* ============================= */
-
 .card{
-
-    background:#1c1c1c;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    transition:0.3s;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-.card:hover{
-
-    transform:translateY(-8px) scale(1.02);
-
-    box-shadow:0 10px 25px rgba(0,0,0,0.5);
-}
-
-/* ============================= */
-/* COVER */
-/* ============================= */
-
-.cover{
-
-    width:100%;
-    height:280px;
-
-    object-fit:cover;
-}
-
-/* ============================= */
-/* CARD CONTENT */
-/* ============================= */
-
-.card-content{
+    background:#1e1e1e;
     padding:15px;
+    border-radius:12px;
 }
 
+/* COVER */
+.cover{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+/* TITLE */
 .title{
-    color:#f5d7a1;
-    font-size:18px;
-    margin-bottom:8px;
+    color:gold;
+    font-size:16px;
+    margin-bottom:5px;
 }
 
+/* SMALL */
 .small{
     color:#bbb;
-    font-size:13px;
-    margin-bottom:4px;
+    font-size:12px;
 }
 
-/* ============================= */
 /* LINKS */
-/* ============================= */
-
 .card a{
-
     display:inline-block;
-
-    margin-top:12px;
+    margin-top:10px;
     margin-right:10px;
-
-    color:#00ffd5;
-
+    color:#00ffcc;
     text-decoration:none;
-
-    font-size:14px;
-
-    transition:0.3s;
 }
 
-.card a:hover{
-    color:#f5d7a1;
-}
-
-/* ============================= */
-/* PDF VIEWER */
-/* ============================= */
-
+/* VIEWER */
 #viewer{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:black;
-
-    z-index:99999;
-
+    z-index:9999;
     display:none;
-
     flex-direction:column;
 }
 
 /* TOP BAR */
-
 #topbar{
-
     display:flex;
-
     justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px;
-
+    padding:10px 15px;
     background:#111;
-
-    color:white;
-
-    font-size:18px;
-}
-
-#topbar span{
-    cursor:pointer;
 }
 
 /* PDF */
-
 #pdfFrame{
-
     flex:1;
-
     width:100%;
-
     border:none;
 }
 
 /* FULLSCREEN */
-
 .fullscreen{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
+    z-index:99999;
 }
-
-/* ERROR */
 
 #error{
-    padding:30px;
+    padding:20px;
     color:red;
-    text-align:center;
-}
-
-/* ============================= */
-/* MOBILE */
-/* ============================= */
-
-@media(max-width:768px){
-
-    .page-header input{
-        width:90%;
-    }
-
-    .page-header h2{
-        font-size:26px;
-    }
-
 }
 
 </style>
@@ -314,185 +177,108 @@ body{
 </head>
 
 <body>
-
-<!-- ============================= -->
+<script src="navbar.js"></script>
 <!-- NAVBAR -->
-<!-- ============================= -->
-
 <div id="navbar"></div>
 
-<!-- ============================= -->
-<!-- PAGE HEADER -->
-<!-- ============================= -->
-
+<!-- HEADER -->
 <div class="page-header">
 
     <h2>📚 Dhamma Books Library</h2>
 
-    <input type="text"
-           id="searchBox"
+    <input type="text" id="searchBox"
            placeholder="🔎 Search books..."
            onkeyup="filterBooks()">
 
 </div>
 
-<!-- ============================= -->
 <!-- FILTERS -->
-<!-- ============================= -->
-
 <div id="filters">
 
-    <button onclick="filterCategory('All')">
-        All
-    </button>
-
-    <button onclick="filterCategory('Dhamma')">
-        Dhamma
-    </button>
-
-    <button onclick="filterCategory('Pirith')">
-        Pirith
-    </button>
-
-    <button onclick="filterCategory('Meditation')">
-        Meditation
-    </button>
+    <button onclick="filterCategory('All')">All</button>
+    <button onclick="filterCategory('Dhamma')">Dhamma</button>
+    <button onclick="filterCategory('Pirith')">Pirith</button>
+    <button onclick="filterCategory('Meditation')">Meditation</button>
 
     <!-- AUTHOR BUTTONS -->
     <div id="authorButtons"></div>
 
 </div>
 
-<!-- ============================= -->
-<!-- BOOK GRID -->
-<!-- ============================= -->
-
+<!-- GRID -->
 <div class="grid" id="grid"></div>
 
-<!-- ============================= -->
-<!-- PDF VIEWER -->
-<!-- ============================= -->
-
+<!-- VIEWER -->
 <div id="viewer">
 
     <div id="topbar">
-
-        <span onclick="closeViewer()">
-            ✖ Close
-        </span>
-
-        <span onclick="toggleFullscreen()">
-            ⛶ Fullscreen
-        </span>
-
+        <span onclick="closeViewer()">✖ Close</span>
+        <span onclick="toggleFullscreen()">⛶ Fullscreen</span>
     </div>
 
     <iframe id="pdfFrame"></iframe>
 
 </div>
 
-<!-- ============================= -->
-<!-- BOOK SCRIPT -->
-<!-- ============================= -->
-
 <script>
 
-const API =
-"https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
+const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
 
 let allBooks = [];
 
-/* LOAD DATA */
-
+// LOAD DATA
 fetch(API)
-
 .then(res => res.json())
-
 .then(data => {
 
     allBooks = data;
 
     renderBooks(allBooks);
-
     loadAuthors();
 
 })
-
 .catch(err => {
-
     document.getElementById("grid").innerHTML =
-
     "<div id='error'>Error loading books</div>";
-
 });
 
 
-/* RENDER BOOKS */
-
+// RENDER BOOKS
 function renderBooks(data){
 
     let grid = document.getElementById("grid");
-
     grid.innerHTML = "";
 
     data.forEach(book => {
 
         grid.innerHTML += `
-
         <div class="card">
 
-            <img src="${book.cover}"
-                 class="cover"
-                 alt="${book.title}">
+            <img src="${book.cover}" class="cover">
 
-            <div class="card-content">
+            <div class="title">${book.title}</div>
 
-                <div class="title">
-                    ${book.title}
-                </div>
+            <div class="small">✍ ${book.author}</div>
 
-                <div class="small">
-                    ✍ ${book.author}
-                </div>
+            <div class="small">📂 ${book.category}</div>
 
-                <div class="small">
-                    📂 ${book.category}
-                </div>
+            <a href="${book.link}" target="_blank">📥 Download</a>
 
-                <a href="${book.link}"
-                   target="_blank">
-                   📥 Download
-                </a>
-
-                <a href="javascript:void(0)"
-                   onclick="openBook('${book.link}')">
-                   📖 View
-                </a>
-
-            </div>
+            <a href="javascript:void(0)" onclick="openBook('${book.link}')">📖 View</a>
 
         </div>
-
         `;
     });
 }
 
 
-/* SEARCH */
-
+// SEARCH
 function filterBooks(){
 
-    let value =
-    document.getElementById("searchBox")
-    .value
-    .toLowerCase();
+    let value = document.getElementById("searchBox").value.toLowerCase();
 
     let filtered = allBooks.filter(book =>
-
-        book.title.toLowerCase().includes(value)
-
-        ||
-
+        book.title.toLowerCase().includes(value) ||
         book.author.toLowerCase().includes(value)
     );
 
@@ -500,84 +286,56 @@ function filterBooks(){
 }
 
 
-/* CATEGORY FILTER */
-
+// CATEGORY FILTER
 function filterCategory(cat){
 
     if(cat === "All"){
-
         renderBooks(allBooks);
-
         return;
     }
 
     let filtered = allBooks.filter(book =>
-
-        book.category.toLowerCase() ===
-        cat.toLowerCase()
+        book.category.toLowerCase() === cat.toLowerCase()
     );
 
     renderBooks(filtered);
 }
 
 
-/* LOAD AUTHORS */
-
+// AUTHOR BUTTONS
 function loadAuthors(){
 
-    let container =
-    document.getElementById("authorButtons");
-
+    let container = document.getElementById("authorButtons");
     container.innerHTML = "";
 
     container.innerHTML += `
-
-    <button onclick="filterAuthor('All')">
-
-        All Authors
-
-    </button>
-
+        <button onclick="filterAuthor('All')">All Authors</button>
     `;
 
-    let authors = [
-
-        ...new Set(
-            allBooks.map(book => book.author)
-        )
-
-    ];
+    let authors = [...new Set(allBooks.map(book => book.author))];
 
     authors.sort();
 
     authors.forEach(author => {
 
         container.innerHTML += `
-
-        <button onclick="filterAuthor('${author}')">
-
-            ${author}
-
-        </button>
-
+            <button onclick="filterAuthor('${author}')">
+                ${author}
+            </button>
         `;
     });
 }
 
 
-/* FILTER AUTHOR */
-
+// AUTHOR FILTER
 function filterAuthor(author){
 
     if(author === "All"){
-
         renderBooks(allBooks);
-
         return;
     }
 
     let filtered = allBooks.filter(book =>
-
         book.author === author
     );
 
@@ -585,71 +343,33 @@ function filterAuthor(author){
 }
 
 
-/* OPEN BOOK */
-
+// VIEWER
 function openBook(url){
-
-    document.getElementById("viewer")
-    .style.display = "flex";
-
-    document.getElementById("pdfFrame")
-    .src = url;
+    document.getElementById("viewer").style.display = "flex";
+    document.getElementById("pdfFrame").src = url;
 }
-
-
-/* CLOSE VIEWER */
 
 function closeViewer(){
-
-    document.getElementById("viewer")
-    .style.display = "none";
-
-    document.getElementById("pdfFrame")
-    .src = "";
+    document.getElementById("viewer").style.display = "none";
+    document.getElementById("pdfFrame").src = "";
 }
-
-
-/* FULLSCREEN */
 
 function toggleFullscreen(){
-
-    document.getElementById("viewer")
-    .classList.toggle("fullscreen");
+    document.getElementById("viewer").classList.toggle("fullscreen");
 }
 
 
-/* ESC CLOSE */
-
+// ESC CLOSE
 document.addEventListener("keydown", function(e){
-
     if(e.key === "Escape"){
-
         closeViewer();
     }
-
 });
 
 </script>
 
-<!-- ============================= -->
-<!-- NAVBAR SCRIPT -->
-<!-- ============================= -->
-
-<script>
-
-fetch("./navbar.html")
-
-.then(response => response.text())
-
-.then(data => {
-
-    document.getElementById("navbar")
-    .innerHTML = data;
-
-});
-
-</script>
+<!-- NAVBAR -->
+<script src="/navbar.js"></script>
 
 </body>
-
 </html>
