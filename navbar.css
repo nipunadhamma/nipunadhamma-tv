@@ -1,3 +1,11 @@
+/* ===== BODY ===== */
+
+body{
+    margin:0;
+    font-family: sans-serif;
+    background:#111;
+}
+
 /* ===== NAVBAR ===== */
 
 .navbar{
