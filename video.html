@@ -6,7 +6,6 @@
 <title>Nipunadhamma TV</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial;
@@ -14,22 +13,22 @@ background:#0b0f19;
 color:white;
 }
 
-/* NAV */
 .nav{
 padding:15px;
-font-size:22px;
 background:#111827;
+font-size:22px;
+font-weight:bold;
 position:sticky;
 top:0;
 }
 
 .hero{
 height:60vh;
-background:#000;
+background:black;
+position:relative;
 display:flex;
 align-items:flex-end;
 padding:20px;
-position:relative;
 }
 
 .hero iframe{
@@ -37,13 +36,13 @@ position:absolute;
 width:100%;
 height:100%;
 opacity:0.6;
+border:none;
 }
 
 .hero h1{
 z-index:2;
 }
 
-/* ROW */
 .row{
 padding:20px;
 }
@@ -94,7 +93,7 @@ font-size:14px;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
@@ -109,14 +108,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let videos=[];
+let videos = [];
 
-/* LOAD */
 onValue(ref(db,"videos"),(snap)=>{
 
-videos=[];
+videos = [];
+
 snap.forEach(v=>{
-videos.push(v.val());
+videos.push({...v.val(), id:v.key});
 });
 
 videos.reverse();
@@ -129,20 +128,27 @@ render();
 
 });
 
-/* HERO */
 function setHero(v){
+
 const id = getId(v.youtube);
+
 document.getElementById("hero").src =
 `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+
 document.getElementById("title").innerText = v.title;
+
+/* VIEW COUNT */
+update(ref(db,"videos/"+v.id),{
+views:(v.views||0)+1
+});
+
 }
 
-/* GROUP */
 function render(){
 
-let html = "";
+let html = `<div class="row"><h2>🔥 Trending</h2><div class="row-posters">`;
 
-html += `<div class="row"><h2>All Videos</h2><div class="row-posters">`;
+videos = videos.sort((a,b)=>(b.views||0)-(a.views||0));
 
 videos.forEach(v=>{
 
@@ -163,12 +169,14 @@ document.getElementById("content").innerHTML = html;
 
 }
 
-window.setHeroGlobal = setHero;
+window.setHeroGlobal = function(v){
+setHero(v);
+}
 
 function getId(url){
 if(!url) return "";
 if(url.includes("youtu.be/")) return url.split("/").pop();
-return url.split("v=")[1];
+return url.split("v=")[1].split("&")[0];
 }
 
 </script>
