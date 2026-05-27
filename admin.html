@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Studio - Nipunadhamma TV</title>
+<title>Admin Studio</title>
 
 <style>
 
@@ -14,7 +14,6 @@ background:#0b0f19;
 color:white;
 }
 
-/* LOGIN */
 .center{
 height:100vh;
 display:flex;
@@ -25,7 +24,7 @@ gap:15px;
 }
 
 button{
-padding:12px 18px;
+padding:10px 15px;
 border:none;
 border-radius:10px;
 cursor:pointer;
@@ -37,12 +36,10 @@ background:white;
 color:black;
 }
 
-/* APP */
 .app{
 display:flex;
 }
 
-/* SIDEBAR */
 .sidebar{
 width:240px;
 height:100vh;
@@ -55,26 +52,12 @@ position:fixed;
 color:#e50914;
 }
 
-.sidebar a, .sidebar button{
-display:block;
-margin-top:10px;
-padding:10px;
-background:#1f2937;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-text-decoration:none;
-}
-
-/* MAIN */
 .main{
 margin-left:260px;
 padding:20px;
 width:100%;
 }
 
-/* CARD */
 .card{
 background:#141a2a;
 padding:20px;
@@ -82,19 +65,16 @@ border-radius:12px;
 margin-bottom:20px;
 }
 
-/* INPUTS */
 input,textarea,select{
 width:100%;
 padding:10px;
-margin-top:8px;
-margin-bottom:10px;
+margin:8px 0;
 border-radius:8px;
 border:none;
 background:#1f2937;
 color:white;
 }
 
-/* VIDEO */
 .video{
 background:#1f2937;
 padding:10px;
@@ -109,95 +89,57 @@ margin-bottom:10px;
 
 <body>
 
-<!-- =========================
-LOGIN PAGE
-========================= -->
-<div id="loginPage" class="center">
-
-<h1>🎬 Admin Login</h1>
-
-<button class="google" onclick="login()">
-🔐 Sign in with Google
-</button>
-
+<div id="login" class="center">
+<h1>Admin Login</h1>
+<button class="google" onclick="login()">Google Login</button>
 </div>
 
-<!-- =========================
-APP
-========================= -->
 <div id="app" class="app hidden">
 
 <div class="sidebar">
-
-<h2>Nipunadhamma TV</h2>
-
-<p id="userEmail"></p>
-
+<h2>Studio</h2>
+<p id="email"></p>
 <a href="index.html">🏠 Home</a>
-
-<button onclick="logout()">🚪 Logout</button>
-
+<button onclick="logout()">Logout</button>
 </div>
 
 <div class="main">
 
-<!-- UPLOAD -->
 <div class="card">
-
-<h2>🎥 Upload Video</h2>
-
+<h2>Upload Video</h2>
 <input id="title" placeholder="Title">
 <input id="youtube" placeholder="YouTube Link">
 <textarea id="desc" placeholder="Description"></textarea>
 
 <select id="playlist">
 <option>Dhamma</option>
-<option>Sermons</option>
 <option>Stories</option>
 <option>Meditation</option>
-<option>Other</option>
 </select>
 
-<button onclick="upload()">⬆ Upload</button>
-
+<button onclick="upload()">Upload</button>
 </div>
 
-<!-- VIDEO LIST -->
 <div class="card">
-
-<h2>📺 Uploaded Videos</h2>
-
+<h2>Videos</h2>
 <div id="list"></div>
+</div>
 
+<div class="card">
+<h2>📊 Analytics</h2>
+<p id="stats"></p>
 </div>
 
 </div>
 
 </div>
 
-<!-- =========================
-FIREBASE
-========================= -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-import {
-getDatabase,
-ref,
-push,
-onValue,
-remove
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
   authDomain: "nipunadhamma-video.firebaseapp.com",
@@ -212,105 +154,85 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-/* ONLY ADMIN EMAIL */
-const ADMIN_EMAIL = "kalawanesangamaji@gmail.com";
+const ADMINS = ["kalawanesangamaji@gmail.com"];
 
-/* LOGIN */
 window.login = function(){
 const provider = new GoogleAuthProvider();
 signInWithPopup(auth, provider);
 }
 
-/* LOGOUT */
 window.logout = function(){
 signOut(auth);
 }
 
-/* AUTH CHECK */
 onAuthStateChanged(auth,(user)=>{
 
-if(user){
+if(user && ADMINS.includes(user.email)){
 
-if(user.email !== ADMIN_EMAIL){
-alert("⛔ Not authorized!");
-signOut(auth);
-return;
-}
-
-document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("login").classList.add("hidden");
 document.getElementById("app").classList.remove("hidden");
 
-document.getElementById("userEmail").innerText =
-user.email;
+document.getElementById("email").innerText = user.email;
 
 loadVideos();
 
-}else{
+}else if(user){
 
-document.getElementById("loginPage").classList.remove("hidden");
-document.getElementById("app").classList.add("hidden");
+alert("Not allowed");
+signOut(auth);
 
 }
 
 });
 
-/* UPLOAD */
 window.upload = function(){
 
-const title = document.getElementById("title").value;
-const youtube = document.getElementById("youtube").value;
-const desc = document.getElementById("desc").value;
-const playlist = document.getElementById("playlist").value;
-
-if(!title || !youtube){
-alert("Fill required fields");
-return;
-}
-
 push(ref(db,"videos"),{
-title,
-youtube,
-desc,
-playlist,
+title:title.value,
+youtube:youtube.value,
+desc:desc.value,
+playlist:playlist.value,
+views:0,
 time:Date.now()
 });
 
-alert("Uploaded ✅");
-
-document.getElementById("title").value="";
-document.getElementById("youtube").value="";
-document.getElementById("desc").value="";
+alert("Uploaded");
 
 }
 
-/* LOAD VIDEOS */
 function loadVideos(){
 
 onValue(ref(db,"videos"),(snap)=>{
 
-const list = document.getElementById("list");
+let list = document.getElementById("list");
 list.innerHTML = "";
+
+let total = 0;
 
 snap.forEach(v=>{
 
 let d = v.val();
+total++;
 
 list.innerHTML += `
 <div class="video">
-<b>${d.title}</b><br>
-<small>${d.playlist}</small>
+<b>${d.title}</b>
+<br>
+<button onclick="deleteVideo('${v.key}')">Delete</button>
 </div>
 `;
 
 });
 
+document.getElementById("stats").innerText =
+"Total Videos: " + total;
+
 });
 
 }
 
-/* DELETE (optional future use) */
-window.deleteVideo = function(key){
-remove(ref(db,"videos/"+key));
+window.deleteVideo = function(id){
+remove(ref(db,"videos/"+id));
 }
 
 </script>
