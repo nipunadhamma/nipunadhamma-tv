@@ -1,25 +1,73 @@
-<!DOCTYPE html>
-<html lang="si">
-<head>
+<!-- ===== NAVBAR START ===== -->
+<link rel="stylesheet" href="navbar.css">
 
-<meta charset="UTF-8">
-<title>නිපුණධම්ම</title>
+<nav class="navbar">
 
-</head>
+    <!-- LEFT SIDE -->
+    <div class="nav-left">
+        <img src="images/logo.png" alt="Logo" class="logo">
 
-<body>
+        <h1 class="site-title">නිපුණධම්ම</h1>
+    </div>
 
-<div id="navbar"></div>
+    <!-- MENU -->
+    <ul class="nav-menu">
 
-<script>
-fetch("navbar.html")
-.then(response => response.text())
-.then(data => {
-    document.getElementById("navbar").innerHTML = data;
-});
-</script>
+        <li><a href="index.html">මුල් පිටුව</a></li>
 
-<h1>Home Page</h1>
+        <!-- VIDEOS -->
+        <li class="dropdown">
+            <a href="#">වීඩියෝ ▾</a>
 
-</body>
-</html>
+            <ul class="dropdown-menu">
+                <li><a href="bana-videos.html">බණ වීඩියෝ</a></li>
+                <li><a href="shorts.html">Shorts</a></li>
+                <li><a href="live.html">Live</a></li>
+            </ul>
+        </li>
+
+        <!-- DESHANA -->
+        <li class="dropdown">
+            <a href="#">දේශනා ▾</a>
+
+            <ul class="dropdown-menu">
+                <li><a href="dhamma.html">ධර්ම දේශනා</a></li>
+                <li><a href="pirith.html">පිරිත්</a></li>
+                <li><a href="meditation.html">භාවනා</a></li>
+            </ul>
+        </li>
+
+        <!-- BOOKS -->
+        <li class="dropdown">
+            <a href="#">පොත් ▾</a>
+
+            <ul class="dropdown-menu">
+                <li><a href="books.html">ධර්ම පොත්</a></li>
+                <li><a href="pdf.html">PDF Library</a></li>
+            </ul>
+        </li>
+
+        <!-- IMAGES -->
+        <li class="dropdown">
+            <a href="#">පින්තූර ▾</a>
+
+            <ul class="dropdown-menu">
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+            </ul>
+        </li>
+
+        <!-- ABOUT -->
+        <li class="dropdown">
+            <a href="#">අප ගැන ▾</a>
+
+            <ul class="dropdown-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+</nav>
+<!-- ===== NAVBAR END ===== -->
