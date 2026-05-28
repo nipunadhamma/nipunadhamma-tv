@@ -7,6 +7,10 @@
 
 <style>
 
+body {
+    padding-top: 60px; /* Navbar එකේ උස 60px නිසා, body එකට 60px ඉඩක් ඉහළින් වෙන් කරයි */
+    margin: 0;
+}
 
 /* BODY & OTHER STYLES */
 body{ margin:0; background:#111; color:white; font-family:sans-serif; }
@@ -37,7 +41,15 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
 
 <body>
 
+<div id="navbar-container"></div>
 
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+        });
+</script>
 
 <div class="page-header">
     <h2>📚 දහම් පොත් මැදුර</h2>
