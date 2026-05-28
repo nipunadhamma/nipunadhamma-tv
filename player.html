@@ -8,18 +8,12 @@
         body { padding-top: 70px; }
         body { margin: 0; font-family: sans-serif; background: #0f0f0f; color: white; }
         
-        .navbar { display: flex; align-items: center; padding: 15px; background: #111; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 20px; font-weight: bold; color: #ff0000; margin-right: 20px; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: white; text-decoration: none; }
+       
         
-        .menu-toggle { display: none; cursor: pointer; font-size: 24px; margin-left: auto; }
+         }
         
-        @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; background: #222; position: absolute; top: 60px; right: 0; width: 200px; padding: 20px; }
-            .menu-toggle { display: block; }
-            .show { display: flex; }
-        }
+        @media (max-width: 768px) 
+            
 
         .container { padding: 20px; }
         
@@ -64,15 +58,7 @@
         .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
 </script>
    
- <div class="navbar">
-    <div class="logo">▶ නිපුණධම්ම</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="nav-links" id="navLinks">
-        <a href="#">හෝම්</a>
-        <a href="#">දේශනා</a>
-        <a href="#">අප ගැන</a>
-    </div>
-</div> 
+ 
 
 <div class="container">
     <div class="player-section">
