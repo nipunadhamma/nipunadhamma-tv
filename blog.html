@@ -3,20 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>දේශනා මාලාව - Nipunadhamma</title>
-    <link rel="stylesheet" href="navbar.css">
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .post-list { margin-top: 30px; }
+        /* CSS කොටස - වෙබ් අඩවියේ පෙනුම */
+        body {
+            background-color: #FAF0E6; /* ලා ක්‍රීම් පසුබිම */
+            font-family: 'Times New Roman', serif;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header-section {
+            padding: 20px;
+            border-bottom: 2px solid #D2B48C;
+            margin-bottom: 30px;
+        }
+
+        .header-section h1 {
+            color: #8B4513; /* තද දුඹුරු */
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .post-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .post-item {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .post-item a {
+            text-decoration: none;
+            color: #8B4513;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .post-item a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #8B4513;
+        }
     </style>
 </head>
 <body>
-    <h1>සියලුම දේශනා</h1>
-    <div class="post-list">
-        <ul>
-            <li><a href="posts/2026-05-28-first-post.html">2026-05-28 - පළමු දේශනාව</a></li>
-            </ul>
+
+    <div class="header-section">
+        <h1>දේශනා මාලාව</h1>
+        <p>ධර්ම මාර්ගයේ දෛනික ලිපි එකතුව</p>
     </div>
-    <br>
-    <a href="index.html">මුල් පිටුවට යන්න</a>
+
+    <div class="post-list">
+        <div class="post-item">
+            <a href="posts/2026-05-28-first-post.html">2026-05-28 - පළමු දේශනාව</a>
+        </div>
+        </div>
+
+    <a href="index.html" class="footer-link">මුල් පිටුවට යන්න</a>
+
 </body>
 </html>
