@@ -3,7 +3,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
     
     .navbar {
-        /* මෙතැනදී background එක Fade වන ලෙස Linear Gradient යොදා ඇත */
         background: linear-gradient(to bottom, #d7a163 70%, rgba(215, 161, 99, 0) 100%);
         height: 70px;
         display: flex;
@@ -19,27 +18,22 @@
     .logo-section img { height: 50px; margin-right: 10px; }
     .logo-section span { font-weight: bold; font-size: 22px; color: #333; }
 
-    /* මෙනු අයිතම - මුලින්ම පසුබිම් වර්ණයක් නොමැත */
     .nav-links { display: flex; margin-left: auto; }
     .nav-item { position: relative; padding: 25px 15px; cursor: pointer; color: #333; font-weight: 500; transition: 0.3s; }
-    
-    /* මවුස් එක තැබූ විට පසුබිම් වර්ණය දිස්වේ */
     .nav-item:hover { background-color: rgba(255, 255, 255, 0.4); }
 
-    /* Dropdown මෙනුව */
-    .dropdown { display: none; position: absolute; top: 70px; left: 0; background-color: #f9f9f9; min-width: 150px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background-color: #f9f9f9; min-width: 150px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1000; }
     .nav-item:hover .dropdown { display: block; }
     .dropdown a { display: block; padding: 12px; text-decoration: none; color: #333; }
     .dropdown a:hover { background-color: #f0f0f0; }
 
-    /* Mobile මෙනු අයිකනය */
     .menu-toggle { display: none; font-size: 25px; cursor: pointer; color: #333; margin-left: auto; }
 
     @media (max-width: 768px) {
         .menu-toggle { display: block; }
         .nav-links { display: none; flex-direction: column; width: 100%; background: #d7a163; position: absolute; top: 70px; left: 0; padding: 10px; }
         .nav-links.active { display: flex; }
-        .nav-item { padding: 15px; }
+        .nav-item { padding: 15px; width: 100%; }
     }
 </style>
 
@@ -48,29 +42,16 @@
         <img src="image/logo.png" alt="Logo">
         <span>nipunadhamma.org</span>
     </div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</div>
     <div class="nav-links" id="navLinks">
-        <div class="nav-item">ආලින්දය</div>
-        <div class="nav-item">ධම්ම වාහිණී ▼
+        <div class="nav-item">මුල් පිටුව</div>
+        <div class="nav-item">වීඩියෝස් ▼
             <div class="dropdown">
-                <a href="video.html">ධර්ම දේශනා</a>
+                <a href="#">ධර්ම දේශනා</a>
                 <a href="#">පිරිත්</a>
-                <a href="#">සාකච්ඡා</a>
-            </div>
-        </div>
-        <div class="nav-item">පොත්ගුල ▼
-            <div class="dropdown">
-                <a href="dhamma-book.html">දහම් පොත්</a>
-                <a href="blog.html">සඟරාව</a>
                 <a href="#">සාකච්ඡා</a>
             </div>
         </div>
         <div class="nav-item">අපි ගැන</div>
     </div>
 </div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("active");
-    }
-</script>
