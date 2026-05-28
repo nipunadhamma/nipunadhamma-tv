@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma ධර්ම දේශනා එකතුව</title>
     <style>
-        body { padding-top: 70px; }
+        /* Navbar එක සඳහා ඉඩ වෙන් කිරීම - ඉතා වැදගත් */
+        body { padding-top: 80px; margin: 0; font-family: sans-serif; background-color: #f4f4f4; }
         
-        
-        @media (max-width: 768px) 
-            
-
         .container { padding: 20px; }
         
         .player-wrapper {
@@ -26,7 +23,7 @@
             border: none;
             display: block;
         }
-        /* 11.5% Overlay */
+        
         .overlay {
             position: absolute;
             bottom: 0;
@@ -39,83 +36,81 @@
         
         .playlist-section { margin-top: 40px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
-        .card { background: #1a1a1a; padding: 8px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .card:hover { background: #333; }
+        .card { background: #fff; padding: 8px; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card:hover { background: #eee; }
         .card img { width: 100%; border-radius: 5px; }
         .card p { font-size: 14px; margin: 8px 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Mobile සඳහා responsive */
+        @media (max-width: 768px) {
+            iframe { height: 250px; }
+        }
     </style>
 </head>
 <body>
 
-<div id="navbar-placeholder"></div>
-<script>
-    fetch('navbar.html')
-        .then(res => res.text())
-        .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
-</script>
-   
- 
+    <div id="navbar-placeholder"></div>
 
-<div class="container">
-    <div class="player-section">
-        <div class="player-wrapper">
-            <iframe id="main-player" src="" allowfullscreen></iframe>
-            <div class="overlay"></div> 
+    <div class="container">
+        <div class="player-section">
+            <div class="player-wrapper">
+                <iframe id="main-player" src="" allowfullscreen></iframe>
+                <div class="overlay"></div> 
+            </div>
+            <h2 id="video-title">සාදරයෙන් පිළිගනිමු</h2>
         </div>
-        <h2 id="video-title">සාදරයෙන් පිළිගනිමු</h2>
+
+        <div id="content"></div>
     </div>
 
-    <div id="content"></div>
-</div>
+    <script>
+        // Navbar එක Load කිරීම
+        fetch('navbar.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+            });
 
-<script>
-    const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; 
-    const INTRO_VIDEO_ID = "_cMMwvmmmn8"; // මෙතැනට ඔබේ හැඳින්වීමේ වීඩියෝ ID එක දමන්න
+        // වීඩියෝ ලෝඩ් කිරීමේ කොටස
+        const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; // ඔබේ API Key එක මෙතැනට දමන්න
+        const INTRO_VIDEO_ID = "_cMMwvmmmn8";
 
-    function toggleMenu() { document.getElementById("navLinks").classList.toggle("show"); }
+        document.getElementById('main-player').src = `https://www.youtube.com/embed/${INTRO_VIDEO_ID}?autoplay=1&mute=1&modestbranding=1&rel=0`;
 
-    // පිටුව ලෝඩ් වූ විගස Intro වීඩියෝව ප්ලේ කිරීම
-    document.getElementById('main-player').src = `https://www.youtube.com/embed/${INTRO_VIDEO_ID}?autoplay=1&mute=1&modestbranding=1&rel=0`;
+        async function loadPlaylists() {
+            try {
+                const response = await fetch('data.json');
+                const fullData = await response.json();
+                const playlists = fullData.playlists; 
 
-    async function loadPlaylists() {
-        try {
-            const response = await fetch('data.json');
-            const fullData = await response.json(); // මුළු දත්ත එකතුවම ගන්න
-            // මෙය loadPlaylists() ශ්‍රිතයට ඇතුළත, playlists ලෝඩ් කරන පේළියට උඩින් දාන්න
-            const monkContainer = document.getElementById('monkButtons'); // ඔබේ HTML එකේ ID එක සමානදැයි බලන්න
+                for (const list of playlists) {
+                    const section = document.createElement('div');
+                    section.className = 'playlist-section';
+                    section.innerHTML = `<h3>${list.category}</h3><div class="video-grid" id="${list.playlistId}"></div>`;
+                    document.getElementById('content').appendChild(section);
 
-            // දැන් මෙහි playlists වලට පමණක් ප්‍රවේශ වන්න
-            const playlists = fullData.playlists; 
-
-            for (const list of playlists) {
-                const section = document.createElement('div');
-                section.className = 'playlist-section';
-                section.innerHTML = `<h3>${list.category}</h3><div class="video-grid" id="${list.playlistId}"></div>`;
-                document.getElementById('content').appendChild(section);
-
-                const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
-                const data = await res.json();
-                
-                // දත්ත නිවැරදි දැයි පරීක්ෂා කර පෙන්වීම
-                if (data.items) {
-                    const grid = document.getElementById(list.playlistId);
-                    data.items.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-                        card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
-                        card.onclick = () => {
-                            document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1&modestbranding=1&rel=0`;
-                            document.getElementById('video-title').innerText = item.snippet.title;
-                            window.scrollTo({top: 0, behavior: 'smooth'});
-                        };
-                        grid.appendChild(card);
-                    });
+                    const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
+                    const data = await res.json();
+                    
+                    if (data.items) {
+                        const grid = document.getElementById(list.playlistId);
+                        data.items.forEach(item => {
+                            const card = document.createElement('div');
+                            card.className = 'card';
+                            card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
+                            card.onclick = () => {
+                                document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1&modestbranding=1&rel=0`;
+                                document.getElementById('video-title').innerText = item.snippet.title;
+                                window.scrollTo({top: 0, behavior: 'smooth'});
+                            };
+                            grid.appendChild(card);
+                        });
+                    }
                 }
-            }
-        } catch (error) { console.error("Error loading data:", error); }
-    }
-    loadPlaylists();
-</script>
-
+            } catch (error) { console.error("Error loading data:", error); }
+        }
+        
+        loadPlaylists();
+    </script>
 </body>
 </html>
