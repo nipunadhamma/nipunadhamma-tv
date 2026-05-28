@@ -1,4 +1,18 @@
 [
-  {"title": "වීඩියෝ මාතෘකාව 1", "id": "VIDEO_ID_1"},
-  {"title": "වීඩියෝ මාතෘකාව 2", "id": "VIDEO_ID_2"}
+  {
+    "category": "දොලොස්වල උදිතධීර  හිමියන්ගේ ධර්ම දේශනා",
+    "playlistId": "PL1B3ka3zSe01MXcI6fCY8TdaH6BBDfkSR"
+  },
+  {
+    "category": "කලවානේ සංගාමජි  හිමියන්ගේ ධර්ම දේශනා",
+    "playlistId": "PLRqLoHU0LjhIix0C3QHAfXnt52xtum892"
+  },
+  {
+    "category": "මීපාගම සංඝරතන හිමියන්ගේ ධර්ම දේශනා",
+    "playlistId": "PL1B3ka3zSe01MXcI6fCY8TdaH6BBDfkSR"
+  },
+  {
+    "category": "භාවනා ක්‍රම",
+    "playlistId": "PLRqLoHU0LjhLC8iJesShebqAQNqOMgNdV"
+  }
 ]
