@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nipunadhamma</title>
+    <title>Nipunadhamma ධර්ම දේශනා එකතුව</title>
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f0f0f; color: white; }
         
@@ -24,12 +24,14 @@
 
         .container { padding: 20px; }
         .player-section { width: 100%; max-width: 900px; margin: auto; }
-        iframe { width: 100%; height: 500px; border-radius: 10px; }
+        iframe { width: 100%; height: 500px; border-radius: 10px; border: none; }
         
         .playlist-section { margin-top: 40px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
-        .card { background: #1a1a1a; padding: 8px; border-radius: 8px; cursor: pointer; }
+        .card { background: #1a1a1a; padding: 8px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .card:hover { background: #333; }
         .card img { width: 100%; border-radius: 5px; }
+        .card p { font-size: 14px; margin: 8px 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
 </head>
 <body>
@@ -38,7 +40,7 @@
     <div class="logo">▶ නිපුණධම්ම</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <div class="nav-links" id="navLinks">
-        <a href="index.html">හෝම්</a>
+        <a href="#">හෝම්</a>
         <a href="#">දේශනා</a>
         <a href="#">අප ගැන</a>
     </div>
@@ -54,36 +56,39 @@
 </div>
 
 <script>
-    const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; // ඔබේ API Key මෙතැනට දමන්න
+    const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; 
 
     function toggleMenu() { document.getElementById("navLinks").classList.toggle("show"); }
 
     async function loadPlaylists() {
-        const response = await fetch('data.json');
-        const playlists = await response.json();
+        try {
+            const response = await fetch('data.json');
+            const playlists = await response.json();
 
-        for (const list of playlists) {
-            const section = document.createElement('div');
-            section.className = 'playlist-section';
-            section.innerHTML = `<h3>${list.category}</h3><div class="video-grid" id="${list.playlistId}"></div>`;
-            document.getElementById('content').appendChild(section);
+            for (const list of playlists) {
+                const section = document.createElement('div');
+                section.className = 'playlist-section';
+                section.innerHTML = `<h3>${list.category}</h3><div class="video-grid" id="${list.playlistId}"></div>`;
+                document.getElementById('content').appendChild(section);
 
-            const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
-            const data = await res.json();
-            const grid = document.getElementById(list.playlistId);
+                const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
+                const data = await res.json();
+                const grid = document.getElementById(list.playlistId);
 
-            data.items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `<img src="${item.snippet.thumbnails.high.url}"><p>${item.snippet.title}</p>`;
-                card.onclick = () => {
-                    document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}`;
-                    document.getElementById('video-title').innerText = item.snippet.title;
-                    window.scrollTo(0,0);
-                };
-                grid.appendChild(card);
-            });
-        }
+                data.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
+                    card.onclick = () => {
+                        // මෙතනදී rel=0 සහ modestbranding=1 එකතු කර ඇත
+                        document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?modestbranding=1&rel=0`;
+                        document.getElementById('video-title').innerText = item.snippet.title;
+                        window.scrollTo({top: 0, behavior: 'smooth'});
+                    };
+                    grid.appendChild(card);
+                });
+            }
+        } catch (error) { console.error("Error loading data:", error); }
     }
     loadPlaylists();
 </script>
