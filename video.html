@@ -1,279 +1,121 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nipunadhamma TV</title>
-
-<style>
-
-body{
-margin:0;
-font-family:Arial;
-background:#0f0f0f;
-color:white;
-}
-
-/* NAV */
-.nav{
-padding:10px 15px;
-background:#111;
-font-weight:bold;
-color:#ff0000;
-position:sticky;
-top:0;
-}
-
-/* LAYOUT */
-.container{
-display:flex;
-gap:10px;
-padding:10px;
-}
-
-/* PLAYER */
-.player-area{
-flex:2;
-}
-
-.player{
-width:100%;
-height:60vh;
-border:none;
-background:black;
-}
-
-.title{
-padding:10px;
-font-size:18px;
-}
-
-/* QUEUE */
-.queue{
-flex:1;
-background:#181818;
-border-radius:10px;
-padding:10px;
-height:70vh;
-overflow-y:auto;
-}
-
-.queue-item{
-padding:8px;
-margin-bottom:5px;
-background:#222;
-border-radius:6px;
-cursor:pointer;
-font-size:13px;
-}
-
-.queue-item:hover{
-background:#333;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-gap:10px;
-padding:10px;
-}
-
-.card{
-background:#1f1f1f;
-border-radius:10px;
-overflow:hidden;
-cursor:pointer;
-transition:0.2s;
-}
-
-.card:hover{
-transform:scale(1.05);
-}
-
-.card img{
-width:100%;
-height:110px;
-object-fit:cover;
-}
-
-.card p{
-padding:8px;
-font-size:13px;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-.container{flex-direction:column;}
-.player{height:35vh;}
-.queue{height:auto;}
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nipunadhamma TV</title>
+    <style>
+        body { margin: 0; font-family: Arial; background: #0f0f0f; color: white; }
+        .nav { padding: 15px; background: #111; font-weight: bold; color: #ff0000; position: sticky; top: 0; z-index: 1000; }
+        .container { display: flex; gap: 10px; padding: 10px; flex-wrap: wrap; }
+        
+        .player-area { flex: 2; min-width: 300px; }
+        .player { width: 100%; height: 50vh; border: none; background: black; }
+        
+        .queue { flex: 1; background: #181818; border-radius: 10px; padding: 10px; height: 50vh; overflow-y: auto; }
+        .queue-item { padding: 8px; margin-bottom: 5px; background: #222; border-radius: 6px; cursor: pointer; font-size: 13px; }
+        
+        /* ස්වාමීන් වහන්සේලාගේ බටන් */
+        .monk-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; padding: 10px; }
+        .monk-btn { background: #333; padding: 15px; border: none; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .monk-btn:hover { background: #555; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding: 10px; }
+        .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; cursor: pointer; }
+        .card img { width: 100%; height: 110px; object-fit: cover; }
+        .card p { padding: 8px; font-size: 13px; }
+    </style>
 </head>
-
 <body>
 
 <div class="nav">▶ Nipunadhamma TV</div>
 
 <div class="container">
-
-<!-- PLAYER -->
-<div class="player-area">
-<iframe id="player" class="player"></iframe>
-<div class="title" id="title">Loading...</div>
+    <div class="player-area">
+        <iframe id="player" class="player"></iframe>
+        <div class="title" id="title" style="padding:10px;">Loading...</div>
+    </div>
+    <div class="queue">
+        <h3>▶ Up Next</h3>
+        <div id="queueList"></div>
+    </div>
 </div>
 
-<!-- QUEUE -->
-<div class="queue">
-<h3>▶ Up Next</h3>
-<div id="queueList"></div>
+<div class="monk-section" id="monkButtons">
+    <button class="monk-btn" onclick="playMonkVideo('wJPZmk1Xoxs', 'දොළොස්වල උදිතදීර ස්වාමීන් වහන්සේ')">දොළොස්වල උදිතදීර ස්වාමීන් වහන්සේ</button>
+    <button class="monk-btn" onclick="playMonkVideo('D6ONzhpvbD4', 'කලවානේ සංගාමජි හිමියන්')">කලවානේ සංගාමජි හිමියන්</button>
+    <button class="monk-btn" onclick="playMonkVideo('VIDEO_ID_3', 'මීපාගම සංඝරතන හිමියන්')">මීපාගම සංඝරතන හිමියන්</button>
 </div>
 
-</div>
-
-<!-- GRID -->
 <div class="grid" id="grid"></div>
 
 <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
+        authDomain: "nipunadhamma-video.firebaseapp.com",
+        databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "nipunadhamma-video",
+        storageBucket: "nipunadhamma-video.firebasestorage.app",
+        appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
+    };
 
-const firebaseConfig = {
-apiKey: "AIzaSyALHXrfoLleQtbOq6VcCeVzs1cEnmN2TD4",
-authDomain: "nipunadhamma-video.firebaseapp.com",
-databaseURL: "https://nipunadhamma-video-default-rtdb.asia-southeast1.firebasedatabase.app",
-projectId: "nipunadhamma-video",
-storageBucket: "nipunadhamma-video.firebasestorage.app",
-appId: "1:571055014816:web:301e15593a7ab7dd591ac5"
-};
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    let videos = [];
 
-let videos = [];
-let currentVideo = null;
+    // Monk වීඩියෝ ප්ලේ කරන Function එක
+    window.playMonkVideo = function(videoId, name) {
+        document.getElementById("player").src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        document.getElementById("title").innerText = name;
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
 
-/* LOAD */
-onValue(ref(db,"videos"),(snap)=>{
+    /* LOAD Firebase Data */
+    onValue(ref(db,"videos"),(snap)=>{
+        videos = [];
+        snap.forEach(v=>{ videos.push({id:v.key, ...v.val()}); });
+        videos.reverse();
+        if(videos.length>0) playVideo(videos[0]);
+        renderGrid();
+    });
 
-videos = [];
+    function playVideo(v){
+        const id = getId(v.youtube);
+        document.getElementById("player").src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+        document.getElementById("title").innerText = v.title || "Untitled";
+        renderQueue(v.playlist || "All");
+    }
 
-snap.forEach(v=>{
-videos.push({id:v.key, ...v.val()});
-});
+    function renderQueue(playlist){
+        let list = videos.filter(v=> (playlist==="All") ? true : v.playlist===playlist);
+        let html = "";
+        list.forEach(v=>{
+            html += `<div class="queue-item" onclick="window.playFromQueue('${v.id}')">▶ ${v.title}</div>`;
+        });
+        document.getElementById("queueList").innerHTML = html;
+    }
 
-videos.reverse();
+    function renderGrid(){
+        let html="";
+        videos.forEach(v=>{
+            const id = getId(v.youtube);
+            html += `<div class="card" onclick="window.playFromGrid('${v.id}')"><img src="https://img.youtube.com/vi/${id}/hqdefault.jpg"><p>${v.title}</p></div>`;
+        });
+        document.getElementById("grid").innerHTML = html;
+    }
 
-if(videos.length>0){
-playVideo(videos[0]);
-}
+    window.playFromGrid = (id) => playVideo(videos.find(x=>x.id===id));
+    window.playFromQueue = (id) => playVideo(videos.find(x=>x.id===id));
 
-renderGrid();
-
-});
-
-/* PLAY VIDEO */
-function playVideo(v){
-
-currentVideo = v;
-
-const id = getId(v.youtube);
-
-if(!id) return;
-
-const player = document.getElementById("player");
-player.src = "";
-
-setTimeout(()=>{
-player.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
-},100);
-
-document.getElementById("title").innerText = v.title || "Untitled";
-
-/* views safe */
-update(ref(db,"videos/"+v.id),{
-views:(v.views||0)+1
-});
-
-/* queue */
-renderQueue(v.playlist || "All");
-
-}
-
-/* QUEUE */
-function renderQueue(playlist){
-
-let list = videos.filter(v=>
-(playlist==="All") ? true : v.playlist===playlist
-);
-
-let html = "";
-
-list.forEach(v=>{
-html += `
-<div class="queue-item" onclick="window.playFromQueue('${v.id}')">
-▶ ${v.title || "No title"}
-</div>
-`;
-});
-
-document.getElementById("queueList").innerHTML = html;
-}
-
-/* GRID */
-function renderGrid(){
-
-videos = videos.sort((a,b)=>(b.views||0)-(a.views||0));
-
-let html="";
-
-videos.forEach(v=>{
-
-const id = getId(v.youtube);
-
-html += `
-<div class="card" onclick="window.playFromGrid('${v.id}')">
-<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
-<p>${v.title || ""}</p>
-</div>
-`;
-
-});
-
-document.getElementById("grid").innerHTML = html;
-
-}
-
-/* GLOBAL PLAY FUNCTIONS */
-window.playFromGrid = function(id){
-const v = videos.find(x=>x.id===id);
-if(v) playVideo(v);
-}
-
-window.playFromQueue = function(id){
-const v = videos.find(x=>x.id===id);
-if(v) playVideo(v);
-}
-
-/* YT ID SAFE */
-function getId(url){
-
-if(!url) return "";
-
-let m = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-if(m) return m[1];
-
-m = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-if(m) return m[1];
-
-m = url.match(/embed\/([a-zA-Z0-9_-]+)/);
-if(m) return m[1];
-
-return "";
-}
-
+    function getId(url){
+        if(!url) return "";
+        let m = url.match(/(youtu\.be\/|v=|\/embed\/)([a-zA-Z0-9_-]+)/);
+        return m ? m[2] : "";
+    }
 </script>
 
 </body>
