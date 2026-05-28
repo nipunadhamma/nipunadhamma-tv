@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma TV</title>
     <style>
+        body { padding-top: 70px; }
         body { margin: 0; font-family: Arial; background: #0f0f0f; color: white; }
         .nav { padding: 15px; background: #111; font-weight: bold; color: #ff0000; position: sticky; top: 0; z-index: 1000; }
         .container { display: flex; gap: 10px; padding: 10px; flex-wrap: wrap; }
@@ -27,7 +28,12 @@
     </style>
 </head>
 <body>
-
+<div id="navbar-placeholder"></div>
+<script>
+    fetch('navbar.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+</script>
 <div class="nav">▶ Nipunadhamma TV</div>
 
 <div class="container">
