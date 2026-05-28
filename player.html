@@ -7,13 +7,11 @@
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f0f0f; color: white; }
         
-        /* Navbar */
         .navbar { display: flex; align-items: center; padding: 15px; background: #111; position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 20px; font-weight: bold; color: #ff0000; margin-right: 20px; }
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; }
         
-        /* Mobile Menu */
         .menu-toggle { display: none; cursor: pointer; font-size: 24px; margin-left: auto; }
         
         @media (max-width: 768px) {
@@ -24,7 +22,6 @@
 
         .container { padding: 20px; }
         
-        /* Player Wrapper */
         .player-wrapper {
             position: relative;
             width: 100%;
@@ -47,7 +44,6 @@
             height: 11.5%;
             background: transparent;
             z-index: 10;
-            cursor: default;
         }
         
         .playlist-section { margin-top: 40px; }
@@ -74,8 +70,9 @@
     <div class="player-section">
         <div class="player-wrapper">
             <iframe id="main-player" src="" allowfullscreen></iframe>
-            <div class="overlay"></div> </div>
-        <h2 id="video-title">වීඩියෝවක් තෝරන්න</h2>
+            <div class="overlay"></div> 
+        </div>
+        <h2 id="video-title">සාදරයෙන් පිළිගනිමු</h2>
     </div>
 
     <div id="content"></div>
@@ -83,8 +80,12 @@
 
 <script>
     const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; 
+    const INTRO_VIDEO_ID = "YOUR_INTRO_VIDEO_ID"; // මෙතැනට ඔබේ හැඳින්වීමේ වීඩියෝ ID එක දමන්න
 
     function toggleMenu() { document.getElementById("navLinks").classList.toggle("show"); }
+
+    // පිටුව ලෝඩ් වූ විගස Intro වීඩියෝව ප්ලේ කිරීම
+    document.getElementById('main-player').src = `https://www.youtube.com/embed/${6OXIZOnmOeasC6IV}?autoplay=1&mute=1&modestbranding=1&rel=0`;
 
     async function loadPlaylists() {
         try {
@@ -106,7 +107,7 @@
                     card.className = 'card';
                     card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
                     card.onclick = () => {
-                        document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?modestbranding=1&rel=0`;
+                        document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1&modestbranding=1&rel=0`;
                         document.getElementById('video-title').innerText = item.snippet.title;
                         window.scrollTo({top: 0, behavior: 'smooth'});
                     };
