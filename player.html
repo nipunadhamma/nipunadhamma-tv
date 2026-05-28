@@ -90,7 +90,10 @@
     async function loadPlaylists() {
         try {
             const response = await fetch('data.json');
-            const playlists = await response.json();
+            const fullData = await response.json(); // මුළු දත්ත එකතුවම ගන්න
+
+            // දැන් මෙහි playlists වලට පමණක් ප්‍රවේශ වන්න
+            const playlists = fullData.playlists; 
 
             for (const list of playlists) {
                 const section = document.createElement('div');
@@ -100,19 +103,22 @@
 
                 const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
                 const data = await res.json();
-                const grid = document.getElementById(list.playlistId);
-
-                data.items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
-                    card.onclick = () => {
-                        document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1&modestbranding=1&rel=0`;
-                        document.getElementById('video-title').innerText = item.snippet.title;
-                        window.scrollTo({top: 0, behavior: 'smooth'});
-                    };
-                    grid.appendChild(card);
-                });
+                
+                // දත්ත නිවැරදි දැයි පරීක්ෂා කර පෙන්වීම
+                if (data.items) {
+                    const grid = document.getElementById(list.playlistId);
+                    data.items.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `<img src="${item.snippet.thumbnails.medium.url}"><p>${item.snippet.title}</p>`;
+                        card.onclick = () => {
+                            document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1&modestbranding=1&rel=0`;
+                            document.getElementById('video-title').innerText = item.snippet.title;
+                            window.scrollTo({top: 0, behavior: 'smooth'});
+                        };
+                        grid.appendChild(card);
+                    });
+                }
             }
         } catch (error) { console.error("Error loading data:", error); }
     }
