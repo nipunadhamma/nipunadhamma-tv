@@ -6,40 +6,11 @@
 <title>නිපුණධම්ම දහම් පොත්</title>
 
 <style>
-/* NAVBAR STYLES */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
+body {
+    padding-top: 60px; /* Navbar එකේ උස 60px නිසා, body එකට 60px ඉඩක් ඉහළින් වෙන් කරයි */
+    margin: 0;
 }
-.nav-left, .nav-right { display: flex; align-items: center; }
-.logo { width: 40px; height: 40px; margin-right: 10px; }
-.site-name { font-size: 20px; font-weight: bold; }
-.dropdown { position: relative; display: inline-block; }
-.dropbtn { background: none; border: none; color: white; cursor: pointer; padding: 10px; font-size: 16px; }
 
-/* Glassmorphism Dropdown */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-.dropdown-content a { color: white; padding: 12px 16px; display: block; text-decoration: none; transition: 0.3s; }
-.dropdown-content a:hover { background: rgba(255, 255, 255, 0.3); color: #ffcc00; }
-.dropdown:hover .dropdown-content { display: block; }
-
-/* Hamburger Menu Toggle */
-.menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
 
 /* BODY & OTHER STYLES */
 body{ margin:0; background:#111; color:white; font-family:sans-serif; }
@@ -85,23 +56,16 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
 
 <body>
 
-<nav class="navbar">
-    <div class="nav-left">
-        <img src="images/logo.png" alt="Logo" class="logo">
-        <span class="site-name">නිපුණධම්ම</span>
-    </div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="nav-right" id="navMenu">
-        <a href="index.html" style="color:white; text-decoration:none; padding:10px;">Home</a>
-        <div class="dropdown">
-            <button class="dropbtn">MENU ▼</button>
-            <div class="dropdown-content">
-                <a href="#">පොත් 01</a>
-                <a href="#">පොත් 02</a>
-            </div>
-        </div>
-    </div>
-</nav>
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+        });
+</script>
+
 
 <div class="page-header">
     <h2>📚 දහම් පොත් මැදුර</h2>
