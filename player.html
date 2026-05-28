@@ -57,14 +57,13 @@
 </head>
 <body>
 
-    /* new navbar add */
 <div id="navbar-placeholder"></div>
 <script>
     fetch('navbar.html')
         .then(res => res.text())
         .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
 </script>
-    /* ........................*/
+   
  <div class="navbar">
     <div class="logo">▶ නිපුණධම්ම</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
