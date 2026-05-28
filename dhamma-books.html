@@ -6,10 +6,6 @@
 <title>නිපුණධම්ම දහම් පොත්</title>
 
 <style>
-body {
-    padding-top: 60px; /* Navbar එකේ උස 60px නිසා, body එකට 60px ඉඩක් ඉහළින් වෙන් කරයි */
-    margin: 0;
-}
 
 
 /* BODY & OTHER STYLES */
@@ -35,36 +31,12 @@ body{ margin:0; background:#111; color:white; font-family:sans-serif; }
 .fullscreen{ position:fixed; top:0; left:0; width:100%; height:100%; z-index:99999; }
 #error{ padding:20px; color:red; }
 
-/* Responsive Media Query */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-    .nav-right {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: #222;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 10px 0;
-    }
-    .nav-right.active { display: flex; }
-    .nav-right a, .dropbtn { width: 100%; text-align: center; padding: 15px; }
-}
+
 </style>
 </head>
 
 <body>
 
-<div id="navbar-container"></div>
-
-<script>
-    fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-container').innerHTML = data;
-        });
-</script>
 
 
 <div class="page-header">
@@ -153,7 +125,10 @@ function filterAuthor(author){
 
 function openBook(url){
     document.getElementById("viewer").style.display = "flex";
-    document.getElementById("pdfFrame").src = url;
+    
+    // PDF එක සෘජුව නොගිහින් Google Viewer එක හරහා යවන්න
+    let viewerUrl = "https://docs.google.com/viewer?url=" + encodeURIComponent(url) + "&embedded=true";
+    document.getElementById("pdfFrame").src = viewerUrl;
 }
 
 function closeViewer(){
