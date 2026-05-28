@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma ධර්ම දේශනා එකතුව</title>
     <style>
+        body { padding-top: 70px; }
         body { margin: 0; font-family: sans-serif; background: #0f0f0f; color: white; }
         
         .navbar { display: flex; align-items: center; padding: 15px; background: #111; position: sticky; top: 0; z-index: 1000; }
@@ -56,7 +57,15 @@
 </head>
 <body>
 
-<div class="navbar">
+    /* new navbar add */
+<div id="navbar-placeholder"></div>
+<script>
+    fetch('navbar.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+</script>
+    /* ........................*/
+ <div class="navbar">
     <div class="logo">▶ නිපුණධම්ම</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <div class="nav-links" id="navLinks">
@@ -64,7 +73,7 @@
         <a href="#">දේශනා</a>
         <a href="#">අප ගැන</a>
     </div>
-</div>
+</div> 
 
 <div class="container">
     <div class="player-section">
