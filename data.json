@@ -1,4 +1,10 @@
-[
+{
+  "monks": [
+    { "name": "දොළොස්වල උදිතදීර ස්වාමීන් වහන්සේ", "videoId": "wJPZmk1Xoxs" },
+    { "name": "කලවානේ සංගාමජි හිමියන්", "videoId": "D6ONzhpvbD4 },
+    { "name": "මීපාගම සංඝරතන හිමියන්", "videoId": "UXAMQB_oDmo" }
+  ],
+  "playlists": [
   {
     "category": "දොලොස්වල උදිතධීර  හිමියන්ගේ ධර්ම දේශනා",
     "playlistId": "PL1B3ka3zSe01MXcI6fCY8TdaH6BBDfkSR"
@@ -16,3 +22,4 @@
     "playlistId": "PLRqLoHU0LjhLC8iJesShebqAQNqOMgNdV"
   }
 ]
+}
