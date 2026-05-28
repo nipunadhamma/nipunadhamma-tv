@@ -91,6 +91,8 @@
         try {
             const response = await fetch('data.json');
             const fullData = await response.json(); // මුළු දත්ත එකතුවම ගන්න
+            // මෙය loadPlaylists() ශ්‍රිතයට ඇතුළත, playlists ලෝඩ් කරන පේළියට උඩින් දාන්න
+            const monkContainer = document.getElementById('monkButtons'); // ඔබේ HTML එකේ ID එක සමානදැයි බලන්න
 
             // දැන් මෙහි playlists වලට පමණක් ප්‍රවේශ වන්න
             const playlists = fullData.playlists; 
