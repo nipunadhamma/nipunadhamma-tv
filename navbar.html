@@ -22,10 +22,45 @@
     .nav-item { position: relative; padding: 25px 15px; cursor: pointer; color: #333; font-weight: 500; transition: 0.3s; }
     .nav-item:hover { background-color: rgba(255, 255, 255, 0.4); }
 
-    .dropdown { display: none; position: absolute; top: 70px; left: 0; background-color: #f9f9f9; min-width: 150px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1000; }
+    
+    /* Dropdown මෙනුව සඳහා විනිවිද පෙනෙන පසුබිම */
+    .dropdown { 
+        display: none; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        
+        /* මෙතැනදී පසුබිම් වර්ණය විනිවිද පෙනෙන ලෙස සකසා ඇත (අවසාන අගය 0.8 මගින් විනිවිදභාවය පාලනය කරයි) */
+        background-color: rgba(255, 255, 255, 0.1); 
+        
+        /* තවත් අලංකාර කිරීමට Blur effect එකක් එකතු කළ හැක */
+        backdrop-filter: blur(5px); 
+        
+        min-width: 150px; 
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2); 
+        z-index: 1000; 
+        padding-top: 10px;
+    }
+    .nav-item { 
+        position: relative; 
+        padding: 25px 15px; 
+        cursor: pointer; 
+        color: #333; 
+        font-weight: 500; 
+        transition: 0.3s; 
+    }
     .nav-item:hover .dropdown { display: block; }
-    .dropdown a { display: block; padding: 12px; text-decoration: none; color: #333; }
-    .dropdown a:hover { background-color: #f0f0f0; }
+    .dropdown a { 
+        display: block; 
+        padding: 12px; 
+        text-decoration: none; 
+        color: #333; 
+    }
+
+    /* මවුස් එක ගෙන ගිය විට වර්ණය වෙනස් වීම */
+    .dropdown a:hover { 
+        background-color: rgba(255, 255, 255, 0.5); 
+    }
 
     .menu-toggle { display: none; font-size: 25px; cursor: pointer; color: #333; margin-left: auto; }
 
