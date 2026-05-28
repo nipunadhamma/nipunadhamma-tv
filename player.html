@@ -2,75 +2,90 @@
 <html lang="si">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma</title>
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f0f0f; color: white; }
         
         /* Navbar */
-        .navbar { display: flex; align-items: center; padding: 10px 20px; background: #111; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 20px; font-weight: bold; color: #ff0000; display: flex; align-items: center; gap: 10px; }
-        .dropdown { margin-left: auto; position: relative; }
-        .dropbtn { background: #333; color: white; padding: 8px 16px; border: none; cursor: pointer; }
-
-        /* Layout */
-        .main-container { display: flex; flex-direction: column; padding: 20px; gap: 20px; }
-        .player-section { width: 100%; max-width: 800px; margin: auto; }
-        iframe { width: 100%; height: 450px; border-radius: 12px; }
+        .navbar { display: flex; align-items: center; padding: 15px; background: #111; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 20px; font-weight: bold; color: #ff0000; margin-right: 20px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: white; text-decoration: none; }
         
-        /* Grid */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: #1a1a1a; padding: 10px; border-radius: 8px; cursor: pointer; }
-        .card img { width: 100%; border-radius: 8px; }
+        /* Mobile Menu */
+        .menu-toggle { display: none; cursor: pointer; font-size: 24px; margin-left: auto; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; background: #222; position: absolute; top: 60px; right: 0; width: 200px; padding: 20px; }
+            .menu-toggle { display: block; }
+            .show { display: flex; }
+        }
+
+        .container { padding: 20px; }
+        .player-section { width: 100%; max-width: 900px; margin: auto; }
+        iframe { width: 100%; height: 500px; border-radius: 10px; }
+        
+        .playlist-section { margin-top: 40px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
+        .card { background: #1a1a1a; padding: 8px; border-radius: 8px; cursor: pointer; }
+        .card img { width: 100%; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <div class="navbar">
     <div class="logo">▶ නිපුණධම්ම</div>
-    <div class="dropdown">
-        <button class="dropbtn">වෙනත් ▲</button>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">හෝම්</a>
+        <a href="#">දේශනා</a>
+        <a href="#">අප ගැන</a>
     </div>
 </div>
 
-<div class="main-container">
+<div class="container">
     <div class="player-section">
         <iframe id="main-player" src="" allowfullscreen></iframe>
-        <h2 id="video-title">Loading...</h2>
-        <a href="https://www.youtube.com/@nipunadhamma" style="color:red;">සියලු වීඩියෝ නරඹන්න</a>
+        <h2 id="video-title">වීඩියෝවක් තෝරන්න</h2>
     </div>
 
-    <h3>වීඩියෝ ලැයිස්තුව</h3>
-    <div class="video-grid" id="grid"></div>
+    <div id="content"></div>
 </div>
 
 <script>
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('grid');
-            const player = document.getElementById('main-player');
-            const title = document.getElementById('video-title');
+    const API_KEY = "AIzaSyAb2YXHiSam-qwgZNYumcmutKa3zarkd4E"; // ඔබේ API Key මෙතැනට දමන්න
 
-            // පළමු වීඩියෝව ප්ලේ කරන්න
-            player.src = `https://www.youtube.com/embed/${data[0].id}`;
-            title.innerText = data[0].title;
+    function toggleMenu() { document.getElementById("navLinks").classList.toggle("show"); }
 
-            // ග්‍රිඩ් එක ලෝඩ් කරන්න
-            data.forEach(video => {
+    async function loadPlaylists() {
+        const response = await fetch('data.json');
+        const playlists = await response.json();
+
+        for (const list of playlists) {
+            const section = document.createElement('div');
+            section.className = 'playlist-section';
+            section.innerHTML = `<h3>${list.category}</h3><div class="video-grid" id="${list.playlistId}"></div>`;
+            document.getElementById('content').appendChild(section);
+
+            const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list.playlistId}&maxResults=10&key=${API_KEY}`);
+            const data = await res.json();
+            const grid = document.getElementById(list.playlistId);
+
+            data.items.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `
-                    <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg">
-                    <p>${video.title}</p>
-                `;
+                card.innerHTML = `<img src="${item.snippet.thumbnails.high.url}"><p>${item.snippet.title}</p>`;
                 card.onclick = () => {
-                    player.src = `https://www.youtube.com/embed/${video.id}`;
-                    title.innerText = video.title;
+                    document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}`;
+                    document.getElementById('video-title').innerText = item.snippet.title;
                     window.scrollTo(0,0);
                 };
                 grid.appendChild(card);
             });
-        });
+        }
+    }
+    loadPlaylists();
 </script>
 
 </body>
