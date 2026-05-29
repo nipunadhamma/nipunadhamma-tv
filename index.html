@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma.org - මුල් පිටුව</title>
     <style>
+        body {
+    padding-top: 60px; /* Navbar එකේ උස 60px නිසා, body එකට 60px ඉඩක් ඉහළින් වෙන් කරයි */
+    margin: 0;
+}
+
         :root { --primary-color: #d4a017; --bg-color: #fcfaf0; --footer-color: #3b2a1a; }
         body { font-family: 'Arial', sans-serif; margin: 0; background-color: var(--bg-color); }
 
@@ -36,7 +41,15 @@
     </style>
 </head>
 <body>
+<div id="navbar-container"></div>
 
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+        });
+</script>
 <header>
     <div class="logo">☸ NIPUNADHAMMA.ORG</div>
 </header>
