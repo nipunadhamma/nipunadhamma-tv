@@ -30,7 +30,7 @@
         .dropdown a { display: block; padding: 12px; text-decoration: none; color: #3b2a1a; }
 
         /* Header හා Logo */
-        header { background-color: var(--primary-color); padding: 30px 20px; text-align: center; color: white; }
+        header { background-color: var(--primary-color); padding: 30px 20px; text-align: center; color: rgb(99, 6, 6); }
         .logo { font-size: 45px; font-weight: bold; letter-spacing: 2px; }
 
         /* Main Wrapper */
@@ -77,12 +77,18 @@
     <div class="logo-section"><span>nipunadhamma.org</span></div>
     <div class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</div>
     <div class="nav-links" id="navLinks">
-        <a href="#" class="nav-item">ආලින්දය</a>
+        <a href="index.html" class="nav-item">ආලින්දය</a>
         <div class="nav-item">ධම්ම වාහිණී ▼
-            <div class="dropdown"><a href="#">ධර්ම සාකච්ඡා</a><a href="#">ධර්ම දේශනා</a></div>
+            <div class="dropdown">
+                <a href="video.html">ධර්ම සාකච්ඡා</a>
+                <a href="player.html">ධර්ම දේශනා</a>
+            </div>
         </div>
         <div class="nav-item">පොත්ගුල ▼
-            <div class="dropdown"><a href="#">දහම් පොත්</a><a href="#">සඟරාව</a></div>
+            <div class="dropdown">
+                <a href="dhamma-book.html">දහම් පොත්</a>
+                <a href="blog.html">සඟරාව</a>
+            </div>
         </div>
     </div>
 </div>
@@ -99,8 +105,8 @@
 
     <main>
         <section class="hero">
-            <h1>දහම් නුවණින් දහම් මඟ සොයමු</h1>
-            <a href="#" class="btn">Learn More</a>
+            <h1>ධම්මෝ හවේ රක්ඛති ධම්මචාරී</h1>
+            <a href="#" class="btn">....</a>
         </section>
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
