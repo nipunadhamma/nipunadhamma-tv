@@ -1,133 +1,78 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>නිපුණධම්ම</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nipunadhamma.org - මුල් පිටුව</title>
+    <style>
+        :root { --primary-color: #d4a017; --bg-color: #fcfaf0; --footer-color: #3b2a1a; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background-color: var(--bg-color); }
 
-<style>
-/* NAVBAR STYLES */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #2d0303;
-    color: rgb(230, 183, 13);
+        /* මුළු පිරිසැලසුම */
+        .wrapper { display: grid; grid-template-columns: 250px 1fr 300px; gap: 20px; max-width: 1400px; margin: auto; padding: 10px; }
+        
+        /* Header */
+        header { grid-column: 1 / -1; text-align: center; padding: 20px; }
+        /* ලෝගෝ එකේ අකුරු විශාල කිරීමට සහ අලංකාර කිරීමට */
+.logo {
+    font-size: 40px;           /* මෙන්න මෙතැනින් අකුරු ප්‍රමාණය වැඩි කරන්න (40px වෙනුවට 50px වුණත් දාන්න පුළුවන්) */
+    font-weight: bold;         /* අකුරු තද (Bold) කිරීමට */
+    letter-spacing: 2px;       /* අකුරු අතර පරතරය */
+    padding: 10px 0;
 }
-.nav-left, .nav-right { display: flex; align-items: center; }
-.logo { width: 40px; height: 40px; margin-right: 10px; }
-.site-name { font-size: 20px; font-weight: bold; }
-.dropdown { position: relative; display: inline-block; }
-.dropbtn { background: none; border: none; color: rgb(230, 183, 13); cursor: pointer; padding: 10px; font-size: 16px; }
+        .nav-bar { background: var(--primary-color); color: white; padding: 10px; }
+        
+        /* Hero Section */
+        .hero { grid-column: 2; height: 350px; background: #bbb; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
+        
+        /* Cards */
+        .card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; text-align: center; }
+        .btn { display: inline-block; background: var(--primary-color); color: white; padding: 5px 15px; text-decoration: none; margin-top: 10px; }
 
-/* වීදුරු ආචරණය (Glassmorphism) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: rgba(45, 3, 3, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(230, 183, 13, 0.2);
-    border-radius: 10px;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-.dropdown-content a {
-    color: rgb(230, 183, 13);
-    padding: 12px 16px;
-    display: block;
-    text-decoration: none;
-    transition: 0.3s;
-}
-.dropdown-content a:hover {
-    background: rgba(230, 183, 13, 0.2);
-    color: #fff;
-}
-.dropdown:hover .dropdown-content { display: block; }
+        /* Footer */
+        footer { grid-column: 1 / -1; background: var(--footer-color); color: white; padding: 20px; display: flex; justify-content: space-around; }
 
-/* Hamburger Menu */
-.menu-toggle { display: none; font-size: 28px; cursor: pointer; color: rgb(230, 183, 13); }
-
-/* PAGE STYLES */
-body { margin: 0; background: #950404; color: rgb(217, 209, 184); font-family: sans-serif; }
-.hero { padding: 50px 20px; text-align: center; background: #480303; }
-.content-row { padding: 20px; }
-.card-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
-.video-card, .audio-card, .book-card { background: #1e1e1e; padding: 10px; border-radius: 8px; text-align: center; }
-.video-card img, .book-card img { width: 100%; height: auto; border-radius: 5px; }
-footer { text-align: center; padding: 20px; color: #777; }
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-    .nav-right {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: #2d0303;
-        position: absolute;
-        top: 60px;
-        left: 0;
-    }
-    .nav-right.active { display: flex; }
-    .nav-right a, .dropbtn { width: 100%; text-align: center; }
-}
-</style>
+        @media (max-width: 900px) { .wrapper { grid-template-columns: 1fr; } .hero { grid-column: 1; } }
+    </style>
 </head>
-
 <body>
 
-<nav class="navbar">
-    <div class="nav-left">
-        <img src="images/logo.png" alt="Logo" class="logo">
-        <span class="site-name">නිපුණධම්ම</span>
-    </div>
-    
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<header>
+    <div class="logo">☸ NIPUNADHAMMA.ORG</div>
+</header>
 
-    <div class="nav-right" id="navMenu">
-        <a href="index.html" style="color:rgb(230, 183, 13); padding: 10px; text-decoration:none;">ආලින්දය</a>
+<div class="wrapper">
+    <aside>
+        <div class="card"><h3>Pali Studies</h3><p>විස්තරය...</p><a href="#" class="btn">Read More</a></div>
+        <div class="card"><h3>Articles</h3><p>විස්තරය...</p><a href="#" class="btn">Read More</a></div>
+        <div class="card"><h3>දහම් මග</h3><p>විස්තරය...</p><a href="#" class="btn">Continue Reading</a></div>
+        <div class="card"><h3>බෞද්ධ ධර්මය</h3><p>විස්තරය...</p><a href="#" class="btn">Continue Reading</a></div>
+    </aside>
+
+    <main>
+        <div class="nav-bar">මුල් පිටුව | පාලි අධ්‍යයනය | දහම් ලිපි | වීඩියෝ | Contact</div>
+        <section class="hero">
+            <h1>දහම් නුවණින් දහම් මඟ සොයමු</h1>
+            <a href="#" class="btn">Learn More</a>
+        </section>
         
-        <div class="dropdown">
-            <button class="dropbtn">පොත් ▼</button>
-            <div class="dropdown-content">
-                <a href="dhamma-books.html">ධර්ම පොත්</a>
-                <a href="blog.html">සඟරාව</a>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+            <div class="card">පින්තූරය 1<p>විස්තරය</p><a href="#" class="btn">Read More</a></div>
+            <div class="card">පින්තූරය 2<p>විස්තරය</p><a href="#" class="btn">Read More</a></div>
             </div>
-        </div>
+    </main>
 
-        <div class="dropdown">
-            <button class="dropbtn">ධම්මවාහිණී ▼</button>
-            <div class="dropdown-content">
-                <a href="video.html">වීඩියෝ</a>
-                <a href="player.html">player</a>
-                <a href="studeo.html">admin</a>
-            </div>
-        </div>
-    </div>
-</nav>
+    <aside>
+        <div class="card"><h3>Search</h3><input type="text"></div>
+        <div class="card"><h3>Follow Us</h3><p>FB | TW | YT</p></div>
+        <div class="card"><h3>Latest Articles</h3><p>ආටිකල් 1</p><p>ආටිකල් 2</p><a href="#" class="btn">Read More</a></div>
+    </aside>
+</div>
 
-<section class="hero">
-    <h2>නිපුණධම්ම</h2>
-    <p>බුදු දහම • භාවනා • ධර්ම දේශනා • පින්කම්</p>
-    <a href="video.html"><button>Watch Now</button></a>
-</section>
-
-<section class="content-row">
-    <h2>Latest Sermons</h2>
-    <div class="card-row">
-        <div class="video-card"><img src="images/thumb1.webp" alt="ධර්ම දේශනාව"><h3>ධර්ම දේශනාව 01</h3></div>
-        <div class="video-card"><img src="images/thumb2.webp" alt="භාවනා"><h3>භාවනා වැඩසටහන</h3></div>
-    </div>
-</section>
-
-<script>
-function toggleMenu() {
-    document.getElementById("navMenu").classList.toggle("active");
-}
-</script>
+<footer>
+    <div><h3>Site Map</h3><p>Home... About...</p></div>
+    <div><h3>Contact</h3><p>විස්තර...</p></div>
+</footer>
 
 </body>
 </html>
