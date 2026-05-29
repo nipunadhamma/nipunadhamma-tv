@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nipunadhamma.org - මුල් පිටුව</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* මූලික සැකසුම */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-        :root { --primary-color: #d4a017; --bg-color: #fcfaf0; --footer-color: #3b2a1a; --parchment: #e4dcc8; }
+        :root { --primary-color: #d4a017; --bg-color: #fcfaf0; --footer-color: #1a1a1a; --parchment: #e4dcc8; }
         body { background-color: var(--bg-color); padding-top: 80px; }
 
         /* Navbar Style */
@@ -23,7 +24,7 @@
         .nav-item { padding: 25px 15px; cursor: pointer; color: #3b2a1a; font-weight: bold; position: relative; }
         .dropdown { 
             display: none; position: absolute; top: 100%; left: 0; 
-            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
             border-radius: 0 0 10px 10px; min-width: 180px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
         }
         .nav-item:hover .dropdown { display: block; }
@@ -58,7 +59,15 @@
         }
 
         .btn { display: inline-block; background: var(--primary-color); color: white; padding: 8px 15px; text-decoration: none; margin-top: 10px; border-radius: 4px; }
-        footer { grid-column: 1 / -1; background: var(--footer-color); color: white; padding: 20px; display: flex; justify-content: space-around; text-align: center; }
+
+        /* Footer Styles */
+        .nipun-footer { background-color: var(--footer-color); color: #ffffff; padding: 50px 5% 20px; margin-top: 40px; border-top: 3px solid #d4a017; }
+        .footer-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding-bottom: 30px; }
+        .footer-section h4 { color: #d4a017; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .footer-section p, .footer-section a { font-size: 0.9rem; color: #ddd; text-decoration: none; margin-bottom: 12px; display: block; transition: 0.3s; }
+        .footer-section a:hover { color: #d4a017; padding-left: 5px; }
+        .social-links a { color: #d4a017; font-size: 1.5rem; margin-right: 15px; }
+        .footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 0.85rem; color: #999; }
 
         /* Mobile Responsive */
         .menu-toggle { display: none; font-size: 25px; cursor: pointer; margin-left: auto; }
@@ -68,6 +77,8 @@
             .menu-toggle { display: block; }
             .nav-links { display: none; flex-direction: column; width: 100%; background: var(--parchment); position: absolute; top: 70px; left: 0; }
             .nav-links.active { display: flex; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-section h4 { justify-content: center; }
         }
     </style>
 </head>
@@ -122,9 +133,44 @@
     </aside>
 </div>
 
-<footer>
-    <div><h3>Site Map</h3><p>Home... About...</p></div>
-    <div><h3>Contact</h3><p>විස්තර...</p></div>
+<footer class="nipun-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 style="color:#d4a017;">නිපුණ ධම්ම</h3>
+            <p>Providing free Dhamma books, teachings, and educational resources to help people understand and practice the Buddha's teachings.</p>
+        </div>
+        <div class="footer-section">
+            <h4><i class="fa-solid fa-link"></i> QUICK LINKS</h4>
+            <a href="index.html">> Home</a>
+            <a href="dhamma-book.html">> Dhamma Books</a>
+            <a href="#">> Articles</a>
+            <a href="#">> Videos</a>
+            <a href="#">> Contact Us</a>
+        </div>
+        <div class="footer-section">
+            <h4><i class="fa-solid fa-book"></i> DHAMMA RESOURCES</h4>
+            <a href="#">> Tipitaka</a>
+            <a href="#">> Sutta Collection</a>
+            <a href="#">> Meditation Resources</a>
+            <a href="#">> Buddhist Education</a>
+            <a href="#">> Free PDF Downloads</a>
+        </div>
+        <div class="footer-section">
+            <h4><i class="fa-solid fa-user"></i> CONTACT US</h4>
+            <p><i class="fa-solid fa-envelope"></i> info@nipunadhamma.org</p>
+            <p><i class="fa-solid fa-globe"></i> https://nipunadhamma.org</p>
+            <h4 style="margin-top: 20px;">FOLLOW US</h4>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Nipunadhamma. All Rights Reserved.</p>
+        <p style="font-style: italic;">"Sabbe Satta Bhavantu Sukhitatta" — May All Beings Be Happy.</p>
+    </div>
 </footer>
 
 </body>
