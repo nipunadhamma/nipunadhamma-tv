@@ -55,7 +55,17 @@
     }
     .card:hover { transform: scale(1.02); }
     .cover { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
-    .title { color: #5c4a2a; font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+    .title {
+    color: #5c4a2a;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+    
+    /* නව එකතු කිරීම් */
+    word-wrap: break-word;     /* දිගු වචන කඩා ඊළඟ පේළියට ගෙන යාමට */
+    overflow-wrap: break-word; /* බ්‍රවුසරයේ පෙළ නිසි ලෙස පාලනයට */
+    white-space: normal;       /* පෙළ එක පේළියකට සීමා නොකර අවශ්‍ය පරිදි කඩා දැමීමට */
+}
     .author { font-size: 14px; color: #7a633a; margin-bottom: 10px; }
     
     /* Buttons */
