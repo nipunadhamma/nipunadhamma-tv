@@ -20,145 +20,75 @@
 
         /* Navbar Style */
         .navbar { background: var(--parchment); border-bottom: 2px solid #c5b358; height: 70px; display: flex; align-items: center; padding: 0 20px; position: fixed; top: 0; width: 100%; z-index: 1000; }
-        .logo-section {
-    display: flex;
-    align-items: center; /* රූපය සහ පෙළ මැදින් පෙළගස්වයි */
-}
+        .logo-section { display: flex; align-items: center; }
 
-/* Header සහ Logo සැකසුම */
-header { 
-    background-color: #EDE0A6; 
-    padding: 10px 0; 
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    color: rgb(99, 6, 6);
-    position: relative; /* Dropdown එක header එකට සාපේක්ෂව පිහිටීමට */
-    z-index: 10;
-}
+        /* Header සහ Logo සැකසුම */
+        header { 
+            background-color: #fcfaf0; 
+            padding: 10px 0; 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            color: rgb(99, 6, 6);
+            position: relative; 
+            z-index: 10;
+        }
 
-.nav-logo {
-    height: 50px;
-    width: auto;
-    margin-right: 12px;
-}
+        .nav-logo { height: 50px; width: auto; margin-right: 12px; }
+        .logo-section span { font-weight: bold; font-size: 22px; color: #3b2a1a; margin-left: 10px; }
+        .nav-links { display: flex; margin-left: auto; padding-right: 40px; flex-wrap: wrap; }
+        .nav-item { padding: 25px 15px; cursor: pointer; color: #3b2a1a; font-weight: bold; position: relative; }
 
-.logo-section span { 
-    font-weight: bold; 
-    font-size: 22px; 
-    color: #3b2a1a; 
-    margin-left: 10px; 
-}
+        /* Dropdown මෙනුව */
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #ffffff; border-radius: 0 0 10px 10px; min-width: 180px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 1000; }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { display: block; padding: 12px; text-decoration: none; color: #3b2a1a; background: #ffffff; }
+        .dropdown a:hover { background-color: #f0f0f0; }
 
-.nav-links { 
-    display: flex; 
-    margin-left: auto; 
-    padding-right: 40px; 
-    flex-wrap: wrap; 
-}
+        .logo { font-size: 45px; font-weight: bold; letter-spacing: 2px; display: flex; align-items: center; gap: 15px; }
+        .logo img { display: block; margin-left: auto; margin-right: auto; }
 
-.nav-item { 
-    padding: 25px 15px; 
-    cursor: pointer; 
-    color: #3b2a1a; 
-    font-weight: bold; 
-    position: relative; /* Dropdown එක මීට සාපේක්ෂව පිහිටීමට */
-}
-
-/* Dropdown මෙනුව */
-.dropdown { 
-    display: none; 
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    background: #ffffff; /* පසුබිම සුදු පැහැයෙන් ඝන කර ඇත */
-    border-radius: 0 0 10px 10px; 
-    min-width: 180px; 
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    z-index: 1000; /* මෙනුව අන් සියල්ලටම ඉහළින් පෙන්වීමට */
-}
-
-.nav-item:hover .dropdown { 
-    display: block; 
-}
-
-.dropdown a { 
-    display: block; 
-    padding: 12px; 
-    text-decoration: none; 
-    color: #3b2a1a; 
-    background: #ffffff; /* පසුබිම පැහැදිලි කිරීමට */
-}
-
-.dropdown a:hover {
-    background-color: #f0f0f0; /* මවුස් එක ගෙන යන විට වෙනස් වීමට */
-}
-
-.logo { 
-    font-size: 45px; 
-    font-weight: bold; 
-    letter-spacing: 2px; 
-    display: flex;
-    align-items: center;       /* ලෝගෝ එක සහ නම එකම රේඛාවක තබයි */
-    gap: 15px;                 /* ලෝගෝ එක සහ නම අතර පරතරය */
-}
-
-.logo img {
-    margin: -10px;
-     /* ලෝගෝ එක වටා ඇති අමතර හිඩැස් ඉවත් කරයි */
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Wrapper සැකසුම */
-.wrapper { 
-    display: grid; 
-    grid-template-columns: 250px 1fr 300px; 
-    gap: 20px; 
-    max-width: 1400px; 
-    margin: auto; 
-    padding: 20px; 
-}
-
-.hero { 
-    grid-column: 2; 
-    height: 350px; 
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/597zSGmq/nipunadhammaorg.webp'); 
-    background-size: cover; 
-    background-position: center; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    color: white; 
-}
-
-.card { 
-    background: var(--parchment); 
-    border: 1px solid #c5b358; 
-    padding: 20px; 
-    margin-bottom: 20px; 
+        /* Wrapper සැකසුම */
+        .wrapper { display: grid; grid-template-columns: 250px 1fr 300px; gap: 20px; max-width: 1400px; margin: auto; padding: 20px; }
+        
+        /* Card Style */
+       .card { 
+    position: relative; /* අකුරු පින්තූරයට උඩින් තැබීමට මෙය අත්‍යවශ්‍යයි */
+    background: #FFFFC2;   /* අකුරු හොඳින් පෙනීමට පසුබිම කළු පැහැයෙන් */
+    border: 1px solid #d8d199; 
     border-radius: 10px; 
-    text-align: center; 
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.3); 
-    background-image: linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px); 
-    background-size: 10px 100%; 
+    overflow: hidden;   /* පින්තූරය කාඩ්පතෙන් පිටතට යාම වළක්වයි */
+    height: 150px;      /* ඔබට අවශ්‍ය උස මෙතැනින් තීරණය කරන්න */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* අකුරු බොක්ස් එකේ පහළට ගනී */
+    padding: 20px;
+    margin-bottom: 30px; /* මෙන්න මෙතැනින් තමයි කාඩ්පත් අතර ඉඩ ලබා දෙන්නේ (අවශ්‍ය පරිදි 20px, 30px හෝ 40px ලෙස වෙනස් කරන්න) */
 }
 
-.btn { 
-    display: inline-block; 
-    background: var(--primary-color); 
-    color: white; 
-    padding: 8px 15px; 
-    text-decoration: none; 
-    margin-top: 10px; 
-    border-radius: 4px; 
+.card img {
+    position: absolute; /* කාඩ්පතේ සම්පූර්ණ පසුබිම පුරා පින්තූරය දිග හැරේ */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* පින්තූරය පිටුපසින් තබයි */
 }
-.gsc-control-cse { border-radius: 25px !important; padding: 10px !important; background: #fdfaf0 !important; border: 2px solid #d4a017 !important; }
-.gsc-input-box { border-radius: 20px !important; }
-.gsc-search-button-v2 { border-radius: 20px !important; background-color: #d4a017 !important; }
 
+/* අකුරු සහ බොත්තම පින්තූරයට උඩින් තැබීමට */
+.card h3, .card p, .card .btn {
+    position: relative;
+    z-index: 2; /* අකුරු පින්තූරයට ඉදිරියෙන් තබයි */
+    
+    font-weight: bold;
+    color: rgb(124, 16, 16); /* පින්තූරය මත අකුරු පෙනෙන පරිදි වර්ණය සුදු කරන්න */
+}
+        .btn { display: inline-block; background: var(--primary-color); color: white; padding: 8px 15px; text-decoration: none; margin-top: 10px; border-radius: 4px; }
+        
+        .hero { grid-column: 2; height: 350px; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/597zSGmq/nipunadhammaorg.webp'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
+
+        .gsc-control-cse { border-radius: 25px !important; padding: 10px !important; background: #fdfaf0 !important; border: 2px solid #d4a017 !important; }
 
         /* Footer Styles */
         .nipun-footer { background-color: var(--footer-color); color: #ffffff; padding: 50px 5% 20px; margin-top: 40px; border-top: 3px solid #d4a017; }
@@ -193,9 +123,9 @@ header {
 
 <div class="navbar">
     <div class="logo-section">
-    <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="nav-logo">
-    <span>nipunadhamma.org</span>
-</div>
+        <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="nav-logo">
+        <span>nipunadhamma.org</span>
+    </div>
     <div class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</div>
     <div class="nav-links" id="navLinks">
         <a href="index.html" class="nav-item">ආලින්දය</a>
@@ -215,62 +145,71 @@ header {
 </div>
 
 <header>
-   <header>
     <div class="logo">
         <img src="https://i.postimg.cc/V6SZ0JRY/logo2.png" alt="Logo" style="height: 50px;">
     </div>
 </header>
-</header>
 
 <div class="wrapper">
     <aside>
-        <div class="card"><h3>Buddhidt book pdf</h3><p>Download and viw 👇 </p><a href="dhamma-books.html" class="btn">Read More</a></div>
-        <div class="card"><h3>Video</h3><p>Viw 👇</p><a href="player.html" class="btn">Read More</a></div>
-        <div class="card"><h3>Articles</h3><p>Viw 👇</p><a href="#" class="btn">Read More</a></div>
+        <div class="card">
+            <img src="https://i.postimg.cc/DwyNRdWd/New-Project-(2).png" alt="Books">
+            <h3>book</h3><p>.. 👇 </p><a href="dhamma-books.html" class="btn">Read More</a>
+        </div>
+        <div class="card">
+            <img src="https://i.postimg.cc/XJ8dMFB8/New-Project-(3).png" alt="Video">
+            <h3>Video</h3><p>Viw 👇</p><a href="player.html" class="btn">Read More</a>
+        </div>
+        <div class="card">
+            <img src="https://i.postimg.cc/Bn6FrXJk/New-Project-(1).png" alt="Articles">
+            <h3>Articles</h3><p>Viw 👇</p><a href="#" class="btn">Read More</a>
+        </div>
     </aside>
 
     <main>
         <section class="hero">
             <h1>ධම්මෝ හවේ රක්ඛති ධම්මචාරී</h1>
-           
         </section>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-            <div class="card">පින්තූරය 1<p>විස්තරය</p><a href="#" class="btn">Read More</a></div>
-            <div class="card">පින්තූරය 2<p>විස්තරය</p><a href="#" class="btn">Read More</a></div>
+            <div class="card">
+                <img src="URL_එක_මෙහි_දමන්න" alt="Pic1">
+                පින්තූරය 1<p>විස්තරය</p><a href="#" class="btn">Read More</a>
+            </div>
+            <div class="card">
+                <img src="URL_එක_මෙහි_දමන්න" alt="Pic2">
+                පින්තූරය 2<p>විස්තරය</p><a href="#" class="btn">Read More</a>
+            </div>
         </div>
     </main>
 
     <aside>
-    <div class="card">
-        <h3>Search</h3>
-        <script async src="https://cse.google.com/cse.js?cx=82acab09a96c845af"></script>
-        <div class="gcse-search"></div>
-    </div>
-    
-    <div class="card">
-        <h3>Follow Us</h3>
-        <p>
-            <a href="https://facebook.com/63bj0nhtnh" target="_blank"><i class="fab fa-facebook" style="font-size:24px; color:#1877f2;"></i></a>
-            <a href="https://t.me/nipunadhamma" target="_blank"><i class="fab fa-telegram" style="font-size:24px; color:#0088cc;"></i></a>
-            <a href="https://youtube.com/@nipunadhamma" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
-            <a href="https://youtube.com/@udithadeera" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
-        </p>
-    </div>
-    
-    <div class="card">
-        <h3>Latest Articles</h3>
-        <p>ආටිකල් 1</p>
-        <a href="#" class="btn">Read More</a>
-    </div>
-</aside>
+        <div class="card">
+            <h3>Search</h3>
+            <script async src="https://cse.google.com/cse.js?cx=82acab09a96c845af"></script>
+            <div class="gcse-search"></div>
+        </div>
+        <div class="card">
+            <h3>Follow Us</h3>
+            <p>
+                <a href="https://facebook.com/63bj0nhtnh" target="_blank"><i class="fab fa-facebook" style="font-size:24px; color:#1877f2;"></i></a>
+                <a href="https://t.me/nipunadhamma" target="_blank"><i class="fab fa-telegram" style="font-size:24px; color:#0088cc;"></i></a>
+                <a href="https://youtube.com/@nipunadhamma" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
+                <a href="https://youtube.com/@udithadeera" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
+            </p>
+        </div>
+        <div class="card">
+            <h3>Latest Articles</h3>
+            <img src="URL_එක_මෙහි_දමන්න" alt="Latest">
+            <p>ආටිකල් 1</p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </aside>
 </div>
 
 <footer class="nipun-footer">
     <div class="footer-content">
         <div class="footer-section">
-            <a href="index.html">
-                <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="footer-logo">
-            </a>
+            <a href="index.html"><img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="footer-logo"></a>
             <h3 style="color:#d4a017; margin-top: 0;">නිපුණධම්ම</h3>
             <p>Providing free Dhamma books, teachings, and educational resources to help people understand and practice the Buddha's teachings.</p>
         </div>
@@ -288,11 +227,10 @@ header {
             <a href="#">> Sutta Collection</a>
             <a href="#">> Meditation Resources</a>
             <a href="#">> Buddhist Education</a>
-            <a href="#">> Free PDF Downloads</a>
         </div>
         <div class="footer-section">
             <h4><i class="fa-solid fa-user"></i> CONTACT US</h4>
-            <p><i class="fa-solid fa-envelope"></i> nipunadhammachannel@gmail.comg</p>
+            <p><i class="fa-solid fa-envelope"></i> nipunadhammachannel@gmail.com</p>
             <p><i class="fa-solid fa-globe"></i> https://nipunadhamma.org</p>
             <h4 style="margin-top: 20px;">FOLLOW US</h4>
             <div class="social-links">
@@ -304,7 +242,6 @@ header {
     </div>
     <div class="footer-bottom">
         <p>© 2026 Nipunadhamma. All Rights Reserved.</p>
-        <p style="font-style: italic;">"Sabbe Satta Bhavantu Sukhitatta" — May All Beings Be Happy.</p>
     </div>
 </footer>
 
