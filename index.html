@@ -25,26 +25,73 @@
     align-items: center; /* රූපය සහ පෙළ මැදින් පෙළගස්වයි */
 }
 
-.nav-logo {
-    height: 50px;        /* ලෝගෝ එකේ උස ඔබට අවශ්‍ය පරිදි අඩු වැඩි කළ හැක */
-    width: auto;         /* රූපයේ සමානුපාතය ආරක්ෂා කරයි */
-    margin-right: 12px;  /* ලෝගෝ එක සහ නම අතර පරතරය */
-}
-        .logo-section span { font-weight: bold; font-size: 22px; color: #3b2a1a; margin-left: 10px; }
-        .nav-links { display: flex; margin-left: auto; padding-right: 40px; flex-wrap: wrap; }
-        .nav-item { padding: 25px 15px; cursor: pointer; color: #3b2a1a; font-weight: bold; position: relative; }
-        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 0 0 10px 10px; min-width: 180px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px; text-decoration: none; color: #3b2a1a; }
-
-       /* Header සහ Logo සැකසුම */
+/* Header සහ Logo සැකසුම */
 header { 
     background-color: #EDE0A6; 
     padding: 10px 0; 
-    display: flex;             /* flex මගින් පහසුවෙන් මැදට ගත හැක */
-    justify-content: center;   /* අන්තර්ගතය මැදට ගනී */
-    align-items: center;       /* සිරස් අතට මැදට ගනී */
-    color: rgb(99, 6, 6); 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    color: rgb(99, 6, 6);
+    position: relative; /* Dropdown එක header එකට සාපේක්ෂව පිහිටීමට */
+    z-index: 10;
+}
+
+.nav-logo {
+    height: 50px;
+    width: auto;
+    margin-right: 12px;
+}
+
+.logo-section span { 
+    font-weight: bold; 
+    font-size: 22px; 
+    color: #3b2a1a; 
+    margin-left: 10px; 
+}
+
+.nav-links { 
+    display: flex; 
+    margin-left: auto; 
+    padding-right: 40px; 
+    flex-wrap: wrap; 
+}
+
+.nav-item { 
+    padding: 25px 15px; 
+    cursor: pointer; 
+    color: #3b2a1a; 
+    font-weight: bold; 
+    position: relative; /* Dropdown එක මීට සාපේක්ෂව පිහිටීමට */
+}
+
+/* Dropdown මෙනුව */
+.dropdown { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background: #ffffff; /* පසුබිම සුදු පැහැයෙන් ඝන කර ඇත */
+    border-radius: 0 0 10px 10px; 
+    min-width: 180px; 
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 1000; /* මෙනුව අන් සියල්ලටම ඉහළින් පෙන්වීමට */
+}
+
+.nav-item:hover .dropdown { 
+    display: block; 
+}
+
+.dropdown a { 
+    display: block; 
+    padding: 12px; 
+    text-decoration: none; 
+    color: #3b2a1a; 
+    background: #ffffff; /* පසුබිම පැහැදිලි කිරීමට */
+}
+
+.dropdown a:hover {
+    background-color: #f0f0f0; /* මවුස් එක ගෙන යන විට වෙනස් වීමට */
 }
 
 .logo { 
