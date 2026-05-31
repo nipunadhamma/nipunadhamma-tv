@@ -26,7 +26,7 @@
 }
 
 .nav-logo {
-    height: 40px;        /* ලෝගෝ එකේ උස ඔබට අවශ්‍ය පරිදි අඩු වැඩි කළ හැක */
+    height: 50px;        /* ලෝගෝ එකේ උස ඔබට අවශ්‍ය පරිදි අඩු වැඩි කළ හැක */
     width: auto;         /* රූපයේ සමානුපාතය ආරක්ෂා කරයි */
     margin-right: 12px;  /* ලෝගෝ එක සහ නම අතර පරතරය */
 }
@@ -57,7 +57,8 @@ header {
 }
 
 .logo img {
-    margin: 0; /* ලෝගෝ එක වටා ඇති අමතර හිඩැස් ඉවත් කරයි */
+    margin: -10px;
+     /* ලෝගෝ එක වටා ඇති අමතර හිඩැස් ඉවත් කරයි */
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -107,9 +108,14 @@ header {
     margin-top: 10px; 
     border-radius: 4px; 
 }
+.gsc-control-cse { border-radius: 25px !important; padding: 10px !important; background: #fdfaf0 !important; border: 2px solid #d4a017 !important; }
+.gsc-input-box { border-radius: 20px !important; }
+.gsc-search-button-v2 { border-radius: 20px !important; background-color: #d4a017 !important; }
+
 
         /* Footer Styles */
         .nipun-footer { background-color: var(--footer-color); color: #ffffff; padding: 50px 5% 20px; margin-top: 40px; border-top: 3px solid #d4a017; }
+       
         .footer-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding-bottom: 30px; }
         .footer-section h4 { color: #d4a017; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .footer-section p, .footer-section a { font-size: 0.9rem; color: #ddd; text-decoration: none; margin-bottom: 12px; display: block; transition: 0.3s; }
@@ -179,7 +185,7 @@ header {
     <main>
         <section class="hero">
             <h1>ධම්මෝ හවේ රක්ඛති ධම්මචාරී</h1>
-            <a href="#" class="btn">....</a>
+           
         </section>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
             <div class="card">පින්තූරය 1<p>විස්තරය</p><a href="#" class="btn">Read More</a></div>
@@ -188,18 +194,28 @@ header {
     </main>
 
     <aside>
-        <div class="card"><h3>Search</h3><input type="text" style="width: 80%;"></div>
-        <div class="card">
-            <h3>Follow Us</h3>
-            <p>
-                <a href="https://facebook.com/63bj0nhtnh" target="_blank"><i class="fab fa-facebook" style="font-size:24px; color:#1877f2;"></i></a>
-                <a href="https://t.me/nipunadhamma" target="_blank"><i class="fab fa-telegram" style="font-size:24px; color:#0088cc;"></i></a>
-                <a href="https://youtube.com/@nipunadhamma" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
-                <a href="https://youtube.com/@udithadeera" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
-            </p>
-        </div>
-        <div class="card"><h3>Latest Articles</h3><p>ආටිකල් 1</p><a href="#" class="btn">Read More</a></div>
-    </aside>
+    <div class="card">
+        <h3>Search</h3>
+        <script async src="https://cse.google.com/cse.js?cx=82acab09a96c845af"></script>
+        <div class="gcse-search"></div>
+    </div>
+    
+    <div class="card">
+        <h3>Follow Us</h3>
+        <p>
+            <a href="https://facebook.com/63bj0nhtnh" target="_blank"><i class="fab fa-facebook" style="font-size:24px; color:#1877f2;"></i></a>
+            <a href="https://t.me/nipunadhamma" target="_blank"><i class="fab fa-telegram" style="font-size:24px; color:#0088cc;"></i></a>
+            <a href="https://youtube.com/@nipunadhamma" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
+            <a href="https://youtube.com/@udithadeera" target="_blank"><i class="fab fa-youtube" style="font-size:24px; color:#ff0000;"></i></a>
+        </p>
+    </div>
+    
+    <div class="card">
+        <h3>Latest Articles</h3>
+        <p>ආටිකල් 1</p>
+        <a href="#" class="btn">Read More</a>
+    </div>
+</aside>
 </div>
 
 <footer class="nipun-footer">
