@@ -1,74 +1,242 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>නිපුණධම්ම - පුස්කොළ පොත්ගුල</title>
-    <style>
-        :root {
-            --parchment: #e3c79a;
-            --dark-text: #2c1e0f;
-            --gold: #c5b358;
-        }
-        body { margin: 0; padding-top: 80px; background: #2c2416; color: var(--dark-text); font-family: 'Serif', Georgia, serif; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>නිපුණධම්ම - පුස්කොළ පොත්ගුල</title>
 
-        /* Navbar Style */
-        .navbar { background: var(--parchment); border-bottom: 2px solid #c5b358; height: 70px; display: flex; align-items: center; padding: 0 20px; position: fixed; top: 0; width: 100%; z-index: 1000; }
-        .logo-section { display: flex; align-items: center; }
-        .nav-logo { height: 50px; width: auto; margin-right: 12px; }
-        .logo-section span { font-weight: bold; font-size: 22px; color: #3b2a1a; margin-left: 10px; }
-        
-        .nav-links { display: flex; margin-left: auto; padding-right: 40px; }
-        .nav-item { padding: 25px 15px; cursor: pointer; color: #3b2a1a; font-weight: bold; position: relative; }
-        
-        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #ffffff; border-radius: 0 0 10px 10px; min-width: 180px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 1000; }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px; text-decoration: none; color: #3b2a1a; }
-        .dropdown a:hover { background-color: #f0f0f0; }
+<style>
+:root {
+    --parchment: #e3c79a;
+    --dark-text: #2c1e0f;
+    --gold: #c5b358;
+}
 
-        /* Menu Toggle */
-        .menu-toggle { display: none; font-size: 25px; cursor: pointer; margin-left: auto; }
+body{
+    margin:0;
+    padding-top:80px;
+    background:#2c2416;
+    font-family: Georgia, serif;
+    color:var(--dark-text);
+}
 
-        /* Page Content */
-        .page-container { max-width: 900px; margin: 20px auto; background: #f4e4bc; padding: 40px; border-radius: 5px; border: 5px double #8b4513; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: #e6d2a0; padding: 15px; border-radius: 8px; border: 1px solid #d4c598; transition: transform 0.2s; }
-        .cover { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
-        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn { padding: 8px 12px; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 4px; border: 1px solid #8b4513; }
-        .btn-view { background: #8b4513; color: white; }
-        .btn-down { background: #d4c598; color: #2c1e0f; }
+/* NAVBAR */
+.navbar{
+    background:var(--parchment);
+    height:70px;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+    position:fixed;
+    top:0;
+    width:100%;
+    box-sizing:border-box;
+    z-index:1000;
+    border-bottom:2px solid var(--gold);
+}
 
-        #authorButtons { margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; }
-        #authorButtons button { margin: 5px; background: #8b4513; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; }
+.logo-section{
+    display:flex;
+    align-items:center;
+}
 
-        #viewer { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); display:none; flex-direction:column; z-index:9999; }
-        
-        @media (max-width: 900px) {
-            .menu-toggle { display: block; }
-            .nav-links { display: none; flex-direction: column; width: 100%; height: auto; background: #2b2520; position: absolute; top: 70px; left: 0; padding: 20px 0; }
-            .nav-links.active { display: flex; }
-            .nav-item { color: white; }
-        }
-    </style>
+.nav-logo{
+    height:50px;
+    margin-right:10px;
+}
+
+.logo-section span{
+    font-weight:bold;
+    font-size:20px;
+}
+
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    margin-left:auto;
+    cursor:pointer;
+}
+
+.nav-links{
+    display:flex;
+    margin-left:auto;
+    gap:10px;
+}
+
+.nav-item{
+    position:relative;
+    padding:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* DROPDOWN */
+.dropdown{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:white;
+    min-width:180px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.nav-item:hover .dropdown{
+    display:block;
+}
+
+.dropdown a{
+    display:block;
+    padding:10px;
+    text-decoration:none;
+    color:#333;
+}
+
+.dropdown a:hover{
+    background:#eee;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+.menu-toggle{display:block;}
+
+.nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+    background:#2b2520;
+}
+
+.nav-links.active{
+    display:flex;
+}
+
+.nav-item{
+    color:white;
+}
+
+.dropdown{
+    position:static;
+    background:#3a3128;
+}
+}
+.page-container{
+    max-width:900px;
+    margin:20px auto;
+    background:#f4e4bc;
+    padding:30px;
+    border-radius:6px;
+    border:5px double #8b4513;
+}
+
+#searchBox{
+    width:100%;
+    padding:10px;
+    border:1px solid #8b4513;
+    border-radius:5px;
+    margin-bottom:10px;
+    position:sticky;
+    top:80px;
+    z-index:10;
+}
+
+#authorButtons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin:10px 0;
+}
+
+#authorButtons button{
+    background:#8b4513;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:#e6d2a0;
+    padding:10px;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.cover{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:5px;
+}
+
+.btn-group{
+    display:flex;
+    gap:5px;
+    margin-top:8px;
+}
+
+.btn{
+    padding:6px;
+    font-size:12px;
+    border-radius:4px;
+    text-decoration:none;
+}
+
+.btn-view{
+    background:#8b4513;
+    color:white;
+}
+
+.btn-down{
+    background:#d4c598;
+}
+
+/* LOADING */
+#loading{
+    text-align:center;
+    padding:20px;
+}
+</style>
 </head>
+
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
     <div class="logo-section">
-        <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="nav-logo">
+        <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" class="nav-logo">
         <span>nipunadhamma.org</span>
     </div>
+
     <div class="menu-toggle" id="menuToggle">☰</div>
+
     <div class="nav-links" id="navLinks">
-        <a href="index.html" class="nav-item">ආලින්දය</a>
-        <div class="nav-item">ධම්ම වාහිණී ▼
+        <div class="nav-item">ආලින්දය</div>
+
+        <div class="nav-item">ධම්ම වාහිණී
             <div class="dropdown">
                 <a href="video.html">ධර්ම සාකච්ඡා</a>
                 <a href="player.html">ධර්ම දේශනා</a>
             </div>
         </div>
-        <div class="nav-item">පොත්ගුල ▼
+
+        <div class="nav-item">පොත්ගුල
             <div class="dropdown">
                 <a href="dhamma-books.html">දහම් පොත්</a>
                 <a href="blog.html">සඟරාව</a>
@@ -77,80 +245,109 @@
     </div>
 </div>
 
+<!-- CONTENT -->
 <div class="page-container">
-    <h2 style="text-align:center;">📜 නිපුණධම්ම පොත් මැදුර</h2>
-    <input type="text" id="searchBox" placeholder="පොත් නම හෝ කතුවරයා සොයන්න..." onkeyup="filterBooks()" style="width:100%; padding:10px; border:1px solid #8b4513; border-radius:5px;">
-    <div id="authorButtons"></div>
-    <div class="grid" id="grid"></div>
+
+<h2 style="text-align:center;">📜 නිපුණධම්ම පොත් මැදුර</h2>
+
+<input id="searchBox" placeholder="පොත් හොයන්න..." onkeyup="filterBooks()">
+
+<div id="authorButtons"></div>
+
+<div id="loading">📚 පොත් load වෙමින්...</div>
+
+<div class="grid" id="grid"></div>
+
 </div>
 
-<div id="viewer">
-    <div style="padding:15px; background:#e3c79a; display:flex; justify-content:space-between; align-items:center;">
-        <span>PDF කියවනය</span>
-        <span onclick="closeViewer()" style="cursor:pointer; font-weight:bold; color:red;">✖ වසා දමන්න</span>
-    </div>
-    <iframe id="pdfFrame" style="flex:1; width:100%; border:none;"></iframe>
+<!-- PDF VIEWER -->
+<div id="viewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:black;flex-direction:column;">
+    
+<div style="background:#e3c79a;padding:10px;display:flex;justify-content:space-between;">
+    <span>PDF Viewer</span>
+    <button onclick="closeViewer()">❌</button>
+</div>
+
+<iframe id="pdfFrame" style="flex:1;width:100%;border:none;"></iframe>
+
 </div>
 
 <script>
-    // මෙනු ටොගල් කිරීමේ නිවැරදි කෝඩ් එක
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+// MENU
+document.getElementById("menuToggle").onclick = function(){
+    document.getElementById("navLinks").classList.toggle("active");
+};
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
+// API
+const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
 
-    const API = "https://script.google.com/macros/s/AKfycbxDDoeicOBIO1wG_StcDBq2I_DOB8In3nbnbMAZRQR3YDCe0pktYAas9ezxtpyAYhBEwg/exec";
-    let allBooks = [];
+let allBooks = [];
 
-    fetch(API).then(res => res.json()).then(data => {
-        allBooks = data;
-        renderBooks(allBooks);
-        loadAuthors();
-    });
+fetch(API)
+.then(res=>res.json())
+.then(data=>{
+    allBooks = data;
+    document.getElementById("loading").style.display="none";
+    renderBooks(allBooks);
+    loadAuthors();
+});
 
-    function renderBooks(data){
-        let grid = document.getElementById("grid");
-        grid.innerHTML = data.map(book => `
-            <div class="card">
-                <img src="${book.cover}" class="cover">
-                <div class="title">${book.title}</div>
-                <div class="author">✍ ${book.author}</div>
-                <div class="btn-group">
-                    <a href="javascript:void(0)" class="btn btn-view" onclick="openBook('${book.link}')">📖 බැලීමට</a>
-                    <a href="${book.link}" target="_blank" class="btn btn-down">📥 බාගත</a>
-                </div>
+// RENDER
+function renderBooks(data){
+    let grid = document.getElementById("grid");
+
+    grid.innerHTML = data.map(b=>`
+        <div class="card">
+            <img src="${b.cover}" class="cover" onerror="this.src='https://via.placeholder.com/200x300'">
+            <h4>${b.title}</h4>
+            <small>${b.author}</small>
+
+            <div class="btn-group">
+                <a class="btn btn-view" onclick="openBook('${b.link}')">View</a>
+                <a class="btn btn-down" href="${b.link}" target="_blank">Download</a>
             </div>
-        `).join('');
-    }
+        </div>
+    `).join('');
+}
 
-    function loadAuthors(){
-        let authors = [...new Set(allBooks.map(b => b.author))];
-        let container = document.getElementById("authorButtons");
-        container.innerHTML = '<button onclick="renderBooks(allBooks)">සියලුම කතුවරු</button>';
-        authors.forEach(a => {
-            container.innerHTML += `<button onclick="filterAuthor('${a}')">${a}</button>`;
-        });
-    }
+// AUTHORS
+function loadAuthors(){
+    let authors = [...new Set(allBooks.map(b=>b.author))];
+    let box = document.getElementById("authorButtons");
 
-    function filterAuthor(name){
-        renderBooks(allBooks.filter(b => b.author === name));
-    }
+    box.innerHTML = `<button onclick="renderBooks(allBooks)">All</button>`;
 
-    function filterBooks(){
-        let val = document.getElementById("searchBox").value.toLowerCase();
-        renderBooks(allBooks.filter(b => b.title.toLowerCase().includes(val) || b.author.toLowerCase().includes(val)));
-    }
+    authors.forEach(a=>{
+        box.innerHTML += `<button onclick="filterAuthor('${a}')">${a}</button>`;
+    });
+}
 
-    function openBook(url){
-        document.getElementById("viewer").style.display = "flex";
-        document.getElementById("pdfFrame").src = "https://docs.google.com/viewer?url=" + encodeURIComponent(url) + "&embedded=true";
-    }
+function filterAuthor(a){
+    renderBooks(allBooks.filter(b=>b.author===a));
+}
 
-    function closeViewer(){ 
-        document.getElementById("viewer").style.display = "none";
-    }
+// SEARCH
+function filterBooks(){
+    let val = document.getElementById("searchBox").value.toLowerCase();
+
+    renderBooks(allBooks.filter(b=>
+        b.title.toLowerCase().includes(val) ||
+        b.author.toLowerCase().includes(val)
+    ));
+}
+
+// VIEW PDF
+function openBook(url){
+    document.getElementById("viewer").style.display="flex";
+    document.getElementById("pdfFrame").src =
+    "https://docs.google.com/viewer?url="+encodeURIComponent(url)+"&embedded=true";
+}
+
+// CLOSE FIXED
+function closeViewer(){
+    document.getElementById("viewer").style.display="none";
+    document.getElementById("pdfFrame").src="";
+}
 </script>
 
 </body>
