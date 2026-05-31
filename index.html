@@ -20,7 +20,16 @@
 
         /* Navbar Style */
         .navbar { background: var(--parchment); border-bottom: 2px solid #c5b358; height: 70px; display: flex; align-items: center; padding: 0 20px; position: fixed; top: 0; width: 100%; z-index: 1000; }
-        .logo-section { display: flex; align-items: center; }
+        .logo-section {
+    display: flex;
+    align-items: center; /* රූපය සහ පෙළ මැදින් පෙළගස්වයි */
+}
+
+.nav-logo {
+    height: 40px;        /* ලෝගෝ එකේ උස ඔබට අවශ්‍ය පරිදි අඩු වැඩි කළ හැක */
+    width: auto;         /* රූපයේ සමානුපාතය ආරක්ෂා කරයි */
+    margin-right: 12px;  /* ලෝගෝ එක සහ නම අතර පරතරය */
+}
         .logo-section span { font-weight: bold; font-size: 22px; color: #3b2a1a; margin-left: 10px; }
         .nav-links { display: flex; margin-left: auto; padding-right: 40px; flex-wrap: wrap; }
         .nav-item { padding: 25px 15px; cursor: pointer; color: #3b2a1a; font-weight: bold; position: relative; }
@@ -67,7 +76,10 @@
 <body>
 
 <div class="navbar">
-    <div class="logo-section"><span>nipunadhamma.org</span></div>
+    <div class="logo-section">
+    <img src="https://i.postimg.cc/Vvq8M0k2/logo1.png" alt="Logo" class="nav-logo">
+    <span>nipunadhamma.org</span>
+</div>
     <div class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">☰</div>
     <div class="nav-links" id="navLinks">
         <a href="index.html" class="nav-item">ආලින්දය</a>
